@@ -6,7 +6,7 @@ type U = { id: string; name: string; email: string; role: string; is_active: boo
 
 export default function UsersPage() {
   const [users, setUsers] = useState<U[]>([]);
-  const [form, setForm] = useState({ name: '', email: '', phone: '', role: 'student' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', role: 'teacher' });
   const [msg, setMsg] = useState<string | null>(null);
 
   const load = () => api.get('/users').then(r => setUsers(r.data));
@@ -18,7 +18,7 @@ export default function UsersPage() {
     try {
       const { data } = await api.post('/users', form);
       setMsg(`Created ${data.user.email}. Temp password: ${data.tempPassword}`);
-      setForm({ name: '', email: '', phone: '', role: 'student' });
+      setForm({ name: '', email: '', phone: '', role: 'teacher' });
       load();
     } catch (e: any) { setMsg(e?.response?.data?.error || 'Failed'); }
   };
@@ -42,7 +42,6 @@ export default function UsersPage() {
           <input className="input" placeholder="Email" type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
           <input className="input" placeholder="Phone" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
           <select className="input" value={form.role} onChange={e => setForm({ ...form, role: e.target.value })}>
-            <option value="student">Student</option>
             <option value="teacher">Teacher</option>
             <option value="admin">Admin</option>
           </select>

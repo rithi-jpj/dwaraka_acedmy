@@ -9,11 +9,13 @@ function sign(user) {
 }
 
 exports.login = async (req, res) => {
-  const { email, password } = z.object({
-    email: z.string().email(), password: z.string().min(1),
-  }).parse(req.body);
+  const { identifier, password } = z.object({
+    identifier: z.string().min(1), password: z.string().min(1),
+  }).parse({ identifier: req.body.identifier || req.body.email, password: req.body.password });
 
-  const user = await User.findOne({ where: { email: email.toLowerCase() } });
+  const { Op } = require('sequelize');
+  const value = identifier.toLowerCase();
+  const user = await User.findOne({ where: { [Op.or]: [{ email: value }, { username: value }] } });
   if (!user || !user.is_active) return res.status(401).json({ error: 'Invalid credentials' });
   const ok = await compare(password, user.password_hash);
   if (!ok) return res.status(401).json({ error: 'Invalid credentials' });

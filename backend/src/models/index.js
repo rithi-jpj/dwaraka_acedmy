@@ -7,6 +7,7 @@ const Attendance = require('./Attendance')(sequelize);
 const Mark = require('./Mark')(sequelize);
 const Note = require('./Note')(sequelize);
 const Announcement = require('./Announcement')(sequelize);
+const Student = require('./Student')(sequelize);
 
 // Associations
 Batch.belongsTo(Subject, { foreignKey: 'subject_id' });
@@ -31,7 +32,12 @@ Note.belongsTo(User, { as: 'uploader', foreignKey: 'uploaded_by' });
 
 Announcement.belongsTo(User, { as: 'author', foreignKey: 'author_id' });
 
+Student.belongsTo(User, { as: 'user', foreignKey: 'user_id' });
+User.hasOne(Student, { as: 'student_profile', foreignKey: 'user_id' });
+Student.belongsTo(Batch, { as: 'batch', foreignKey: 'batch_id' });
+Batch.hasMany(Student, { as: 'student_profiles', foreignKey: 'batch_id' });
+
 module.exports = {
   sequelize,
-  User, Subject, Batch, Enrollment, Attendance, Mark, Note, Announcement,
+  User, Subject, Batch, Enrollment, Attendance, Mark, Note, Announcement, Student,
 };

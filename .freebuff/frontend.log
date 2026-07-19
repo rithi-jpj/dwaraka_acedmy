@@ -1,0 +1,168 @@
+   ▲ Next.js 15.0.3
+   - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 6.7s
+ ○ Compiling /login ...
+ ✓ Compiled /login in 3.4s (828 modules)
+ GET /login 200 in 4434ms
+ ○ Compiling / ...
+ ✓ Compiled / in 870ms (835 modules)
+ GET / 200 in 1219ms
+ GET / 200 in 38ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 887ms (899 modules)
+ GET /dashboard 200 in 1216ms
+ ○ Compiling /dashboard/users ...
+ ✓ Compiled /dashboard/users in 618ms (906 modules)
+ GET /dashboard/users 200 in 785ms
+ GET /login 200 in 58ms
+ GET /login 200 in 44ms
+ GET /dashboard 200 in 35ms
+ GET /dashboard/users 200 in 29ms
+ GET /login 200 in 27ms
+ GET /login 200 in 21ms
+ ○ Compiling /change-password ...
+ ✓ Compiled /change-password in 7.9s (922 modules)
+ GET /change-password 200 in 8171ms
+ GET /change-password 200 in 30ms
+ GET /change-password 200 in 25ms
+ GET /change-password 200 in 23ms
+ GET /change-password 200 in 23ms
+ GET /dashboard 200 in 54ms
+ ○ Compiling /dashboard/my ...
+ ✓ Compiled /dashboard/my in 1934ms (929 modules)
+ GET /dashboard/my 200 in 2080ms
+ GET /dashboard/my 200 in 48ms
+ GET /dashboard/my 200 in 29ms
+ GET /dashboard 200 in 59ms
+ ○ Compiling /dashboard/request-parent ...
+ ✓ Compiled /dashboard/request-parent in 693ms (922 modules)
+ GET /dashboard/request-parent 200 in 788ms
+ ○ Compiling /dashboard/announcements ...
+ ✓ Compiled /dashboard/announcements in 796ms (929 modules)
+ GET /dashboard/announcements 200 in 878ms
+ GET /dashboard 200 in 27ms
+ GET /login 200 in 53ms
+ GET /login 200 in 34ms
+ GET /dashboard 200 in 30ms
+ GET /dashboard/users 200 in 162ms
+ GET /dashboard/users 200 in 35ms
+ GET /dashboard/users 200 in 35ms
+ GET /dashboard/users 200 in 36ms
+ GET /dashboard/users 200 in 36ms
+ GET /dashboard/users 200 in 26ms
+ GET /dashboard/users 200 in 36ms
+ GET /dashboard/users 200 in 30ms
+ GET /dashboard/users 200 in 34ms
+ GET /dashboard/users 200 in 36ms
+ GET /dashboard/users 200 in 38ms
+ GET /dashboard/users 200 in 33ms
+ GET /dashboard 200 in 30ms
+ GET /dashboard/users 200 in 34ms
+ GET /login 200 in 46ms
+ GET /login 200 in 26ms
+ GET /change-password 200 in 149ms
+ GET /dashboard 200 in 134ms
+ ○ Compiling /dashboard/attendance ...
+ ✓ Compiled /dashboard/attendance in 1370ms (940 modules)
+ GET /dashboard/attendance 200 in 1537ms
+ GET /dashboard/attendance 200 in 24ms
+ GET /dashboard/attendance 200 in 24ms
+ ○ Compiling /dashboard/batches ...
+ ✓ Compiled /dashboard/batches in 632ms (933 modules)
+ GET /dashboard/batches 200 in 728ms
+ GET /dashboard/batches 200 in 38ms
+ GET /dashboard 200 in 66ms
+ GET /dashboard 200 in 35ms
+ GET /dashboard 200 in 35ms
+ GET /dashboard 200 in 34ms
+ ✓ Compiled /dashboard/announcements in 301ms (533 modules)
+ GET /dashboard/announcements 200 in 678ms
+ GET /dashboard/announcements 200 in 35ms
+ ○ Compiling /dashboard/assignments ...
+ ✓ Compiled /dashboard/assignments in 734ms (935 modules)
+ GET /dashboard/assignments 200 in 907ms
+ ✓ Compiled /login in 288ms (543 modules)
+ GET /login 200 in 372ms
+ GET /login 200 in 17ms
+ GET /dashboard 200 in 34ms
+ GET /dashboard/batches 200 in 47ms
+ ○ Compiling /dashboard/users ...
+ ✓ Compiled /dashboard/users in 1747ms (947 modules)
+ ✓ Compiled in 1ms (534 modules)
+ ✓ Compiled in 1457ms (947 modules)
+ GET /dashboard/users 200 in 4964ms
+ GET /_next/static/webpack/855b6429f798df5e.webpack.hot-update.json 404 in 4966ms
+ GET /dashboard/batches 200 in 3052ms
+ GET /dashboard/users 200 in 115ms
+ GET /dashboard/users 200 in 123ms
+ GET /dashboard/batches 200 in 138ms
+ ✓ Compiled in 4.7s (939 modules)
+ ✓ Compiled in 181ms (411 modules)
+ GET /dashboard/batches 200 in 535ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /dashboard/batches 200 in 80ms
+ GET /dashboard/batches 200 in 176ms
+ ✓ Compiled in 302ms (411 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /dashboard/batches 200 in 37ms
+ ✓ Compiled in 281ms (411 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /dashboard/batches 200 in 30ms
+ ✓ Compiled in 174ms (411 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /dashboard/batches 200 in 41ms
+ ✓ Compiled in 3.4s (939 modules)
+ GET /dashboard/batches 200 in 293ms
+ GET /dashboard 200 in 21ms
+ GET /dashboard/batches 200 in 44ms
+ GET /dashboard/users 200 in 53ms
+ GET /dashboard/users 200 in 30ms
+ GET /dashboard/users 200 in 13ms
+ GET /dashboard/users 200 in 21ms
+ ○ Compiling /dashboard/teachers ...
+ ✓ Compiled /dashboard/teachers in 883ms (932 modules)
+ GET /dashboard/teachers 200 in 970ms
+ ○ Compiling /dashboard/students ...
+ ✓ Compiled /dashboard/students in 655ms (939 modules)
+ GET /dashboard/students 200 in 700ms
+ GET /dashboard/teachers 200 in 26ms
+ GET /dashboard/students 200 in 16ms
+ GET /dashboard 200 in 28ms
+ GET /dashboard/students 200 in 14ms
+ ○ Compiling /dashboard/marks ...
+ ✓ Compiled /dashboard/marks in 619ms (941 modules)
+ GET /dashboard/marks 200 in 699ms
+ GET /dashboard/marks 200 in 29ms
+ GET /dashboard/students 200 in 18ms
+ ✓ Compiled /dashboard/batches in 215ms (538 modules)
+ GET /dashboard/batches 200 in 350ms
+ GET /dashboard 200 in 19ms
+ GET /dashboard/users 200 in 18ms
+ GET /dashboard/users 200 in 233ms
+ GET /dashboard 200 in 24ms
+ ○ Compiling /dashboard/subjects ...
+ ✓ Compiled /dashboard/subjects in 1109ms (952 modules)
+ GET /dashboard/subjects 200 in 1189ms
+ GET /dashboard/subjects 200 in 16ms
+ GET /dashboard 200 in 42ms
+ ✓ Compiled /login in 164ms (538 modules)
+ GET /login 200 in 235ms
+ GET /login 200 in 14ms
+ GET /dashboard 200 in 21ms
+ GET /dashboard 200 in 15ms
+ GET /dashboard/users 200 in 48ms
+ GET /dashboard/users 200 in 14ms
+ GET /dashboard/batches 200 in 33ms
+ GET /dashboard/subjects 200 in 16ms
+ GET /dashboard/batches 200 in 25ms
+ GET /dashboard 200 in 28ms
+ GET /dashboard 200 in 37ms
+ ○ Compiling /dashboard/parents ...
+ ✓ Compiled /dashboard/parents in 1447ms (954 modules)
+ GET /dashboard/parents 200 in 1633ms
+ GET /dashboard/parents 200 in 33ms
+ GET /dashboard/parents 200 in 30ms
+ GET /dashboard/parents 200 in 33ms
+ GET /dashboard 200 in 45ms

@@ -6,11 +6,17 @@ const users = require('../controllers/userController');
 const ac = require('../controllers/academicController');
 const notes = require('../controllers/noteController');
 const ann = require('../controllers/announcementController');
+const students = require('../controllers/studentController');
+const studentRoutes = require('./studentRoutes');
 
 // Auth
 router.post('/auth/login', auth.login);
 router.get('/auth/me', authRequired, auth.me);
 router.post('/auth/change-password', authRequired, auth.changePassword);
+
+router.use('/students', studentRoutes);
+router.get('/student-profile/me', authRequired, requireRole('student'), students.me);
+router.get('/student-profile/me/photo', authRequired, requireRole('student'), students.myPhoto);
 
 // Users (admin)
 router.get('/users', authRequired, requireRole('admin'), users.list);
