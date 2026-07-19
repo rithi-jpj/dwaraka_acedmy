@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.production
+
+# FreeBuff local files
+.freebuff/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build output
+.next/
+dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code (optional)
+.vscode/
