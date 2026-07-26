@@ -2,16 +2,150 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
-import StudentForm from '@/components/StudentForm';
 
-export default function StudentDetailPage() {
-  const { id } = useParams<{ id: string }>(); const router = useRouter(); const [student, setStudent] = useState<any>(null); const [batches, setBatches] = useState<any[]>([]); const [editing, setEditing] = useState(false); const [confirmingDelete, setConfirmingDelete] = useState(false); const [message, setMessage] = useState('');
-  const load = () => api.get(`/students/${id}`).then(r => setStudent(r.data));
-  useEffect(() => { load(); api.get('/batches').then(r => setBatches(r.data)); }, [id]);
-  if (!student) return <div className="p-6 text-slate-500">Loading student…</div>;
-  const action = async (url: string, body?: any) => { const r = await api.post(url, body); if (r.data.student) setStudent(r.data.student); return r.data; };
-  return <div className="space-y-6"><div className="flex flex-wrap items-start justify-between gap-3"><div><h1 className="text-2xl font-bold">{student.first_name} {student.last_name}</h1><p className="text-sm text-slate-500">Admission no. {student.admission_number} · {student.status}</p></div><div className="flex gap-2"><button className="btn-outline" onClick={() => setEditing(!editing)}>{editing ? 'Cancel edit' : 'Edit student'}</button><button className="btn-outline" onClick={async () => { const r = await action(`/students/${id}/reset-password`); setMessage(`New temporary password: ${r.temporaryPassword}`); }}>Reset password</button><button className="btn-outline" onClick={() => action(`/students/${id}/status`, { status: student.status === 'active' ? 'inactive' : 'active' })}>{student.status === 'active' ? 'Deactivate' : 'Activate'}</button><button className="btn-outline text-red-700" onClick={() => setConfirmingDelete(true)}>Delete</button></div></div>{message && <div className="card text-green-700">{message}</div>}
-    {confirmingDelete && <div className="fixed inset-0 z-20 flex items-center justify-center bg-slate-900/40 p-4"><div className="card max-w-md"><h2 className="font-semibold">Delete student?</h2><p className="mt-2 text-sm text-slate-600">This will deactivate the login and soft-delete the student profile. The record can still be retained for audit purposes.</p><div className="mt-5 flex justify-end gap-2"><button className="btn-outline" onClick={() => setConfirmingDelete(false)}>Cancel</button><button className="btn bg-red-700 hover:bg-red-800" onClick={async () => { await api.delete(`/students/${id}`); router.push('/dashboard/students'); }}>Delete student</button></div></div></div>}
-    {editing ? <StudentForm student={student} batches={batches} onSaved={saved => { setStudent(saved); setEditing(false); setMessage('Student details updated.'); }} /> : <div className="grid grid-cols-1 lg:grid-cols-2 gap-6"><section className="card"><h2 className="font-semibold mb-4">Personal details</h2><dl className="space-y-2 text-sm"><div><dt className="text-slate-500">Date of birth</dt><dd>{student.dob}</dd></div><div><dt className="text-slate-500">Gender</dt><dd>{student.gender}</dd></div><div><dt className="text-slate-500">Blood group</dt><dd>{student.blood_group || '—'}</dd></div></dl></section><section className="card"><h2 className="font-semibold mb-4">Academic details</h2><dl className="space-y-2 text-sm"><div><dt className="text-slate-500">Class</dt><dd>{student.class_id}</dd></div><div><dt className="text-slate-500">Batch</dt><dd>{student.batch?.name || 'Not assigned'}</dd></div><div><dt className="text-slate-500">Roll number</dt><dd>{student.roll_number || '—'}</dd></div></dl></section><section className="card"><h2 className="font-semibold mb-4">Contact and parent details</h2><dl className="space-y-2 text-sm"><div><dt className="text-slate-500">Email</dt><dd>{student.email}</dd></div><div><dt className="text-slate-500">Phone</dt><dd>{student.phone}</dd></div><div><dt className="text-slate-500">Parent phone</dt><dd>{student.parent_phone || '—'}</dd></div></dl></section><section className="card"><h2 className="font-semibold mb-4">Address</h2><p className="text-sm whitespace-pre-wrap">{[student.address, student.city, student.state, student.country, student.pincode].filter(Boolean).join(', ') || '—'}</p></section></div>}
-  </div>;
+export default function StudentProfilePage() {
+  const params = useParams<{ id: string }>();
+  const router = useRouter();
+  const [student, setStudent] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    api.get(`/students/${params.id}`).then(r => {
+      setStudent(r.data);
+      setLoading(false);
+    }).catch(() => setLoading(false));
+  }, [params.id]);
+
+  if (loading) return (
+    <div className="p-10 text-center">
+      <div className="animate-spin w-8 h-8 border-4 border-brand border-t-transparent rounded-full mx-auto" />
+      <p className="text-sm text-slate-500 mt-3">Loading profile…</p>
+    </div>
+  );
+
+  if (!student) return (
+    <div className="p-10 text-center">
+      <p className="text-slate-500">Student not found</p>
+      <button onClick={() => router.back()} className="btn-outline mt-4">Go back</button>
+    </div>
+  );
+
+  return (
+    <div className="max-w-4xl mx-auto space-y-6">
+      {/* Profile header */}
+      <div className="card">
+        <div className="flex items-start justify-between">
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 rounded-full bg-brand/10 flex items-center justify-center">
+              <span className="text-2xl font-bold text-brand">{student.name.charAt(0)}</span>
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold">{student.name}</h1>
+              <p className="text-sm text-slate-500">{student.admission_no || 'No admission no'} · {student.email}</p>
+            </div>
+          </div>
+          <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+            student.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+          }`}>{student.is_active ? 'Active' : 'Inactive'}</span>
+        </div>
+      </div>
+
+      {/* Info */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="card">
+          <h2 className="font-semibold mb-4">Personal Information</h2>
+          <dl className="space-y-3">
+            <div className="flex justify-between"><dt className="text-sm text-slate-500">Roll No</dt><dd className="text-sm font-medium">{student.roll_no || '—'}</dd></div>
+            <div className="flex justify-between"><dt className="text-sm text-slate-500">Class</dt><dd className="text-sm font-medium">{student.current_class ? `Class ${student.current_class}${student.section ? `-${student.section}` : ''}` : '—'}</dd></div>
+            <div className="flex justify-between"><dt className="text-sm text-slate-500">Date of Birth</dt><dd className="text-sm font-medium">{student.date_of_birth || '—'}</dd></div>
+            <div className="flex justify-between"><dt className="text-sm text-slate-500">Phone</dt><dd className="text-sm font-medium">{student.phone || '—'}</dd></div>
+            <div className="flex justify-between"><dt className="text-sm text-slate-500">Address</dt><dd className="text-sm font-medium">{student.address || '—'}</dd></div>
+          </dl>
+        </div>
+        <div className="card">
+          <h2 className="font-semibold mb-4">Guardian Information</h2>
+          <dl className="space-y-3">
+            <div className="flex justify-between"><dt className="text-sm text-slate-500">Guardian Name</dt><dd className="text-sm font-medium">{student.guardian_name || '—'}</dd></div>
+            <div className="flex justify-between"><dt className="text-sm text-slate-500">Guardian Phone</dt><dd className="text-sm font-medium">{student.guardian_phone || '—'}</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      {/* Attendance Summary */}
+      {student.attendance_stats && (
+        <div className="card">
+          <h2 className="font-semibold mb-4">Attendance Summary</h2>
+          <div className="grid grid-cols-3 gap-4">
+            {[
+              { label: 'Present', count: student.attendance_stats.present || 0, color: 'bg-green-50 text-green-700 border-green-200' },
+              { label: 'Absent', count: student.attendance_stats.absent || 0, color: 'bg-red-50 text-red-700 border-red-200' },
+              { label: 'Late', count: student.attendance_stats.late || 0, color: 'bg-amber-50 text-amber-700 border-amber-200' },
+            ].map(s => (
+              <div key={s.label} className={`border rounded-lg p-4 text-center ${s.color}`}>
+                <div className="text-2xl font-bold">{s.count}</div>
+                <div className="text-sm">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Enrolled Batches */}
+      {student.enrollments?.length > 0 && (
+        <div className="card">
+          <h2 className="font-semibold mb-4">Enrolled Batches ({student.enrollments.length})</h2>
+          <div className="space-y-3">
+            {student.enrollments.map((e: any) => (
+              <div key={e.id} className="flex items-center justify-between bg-slate-50 rounded-lg p-3">
+                <div>
+                  <div className="font-medium text-sm">{e.Batch?.name}</div>
+                  <div className="text-xs text-slate-500">{e.Batch?.Subject?.name}</div>
+                </div>
+                <span className="text-xs text-slate-400">{e.Batch?.schedule || ''}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Recent Marks */}
+      {student.recent_marks?.length > 0 && (
+        <div className="card">
+          <h2 className="font-semibold mb-4">Recent Marks</h2>
+          <table className="table">
+            <thead><tr><th>Exam</th><th>Score</th><th>Percentage</th><th>Batch</th><th>Date</th></tr></thead>
+            <tbody>
+              {student.recent_marks.map((m: any) => (
+                <tr key={m.id}>
+                  <td className="font-medium">{m.exam_name}</td>
+                  <td>{m.score} / {m.max_score}</td>
+                  <td>{((m.score / m.max_score) * 100).toFixed(1)}%</td>
+                  <td className="text-slate-500">{m.Batch?.name}</td>
+                  <td className="text-slate-500">{m.exam_date || '—'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* Linked Parents */}
+      {student.linked_parents?.length > 0 && (
+        <div className="card">
+          <h2 className="font-semibold mb-4">Linked Parents</h2>
+          {student.linked_parents.map((p: any) => (
+            <div key={p.id} className="flex items-center gap-3 bg-blue-50 rounded-lg p-3">
+              <div className="w-10 h-10 rounded-full bg-blue-200 flex items-center justify-center">
+                <span className="text-sm font-bold text-blue-700">{p.parent?.name?.charAt(0)}</span>
+              </div>
+              <div>
+                <div className="font-medium text-sm">{p.parent?.name}</div>
+                <div className="text-xs text-slate-500">{p.parent?.email} · {p.parent?.phone || ''}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }

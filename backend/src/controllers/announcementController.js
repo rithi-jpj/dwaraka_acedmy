@@ -14,10 +14,13 @@ exports.create = async (req, res) => {
   const d = z.object({
     title: z.string().min(1),
     body: z.string().min(1),
-    audience: z.enum(['all', 'teachers', 'students']).default('all'),
+    audience: z.enum(['all', 'teachers', 'students', 'parents', 'morning_batch', 'evening_batch']).default('all'),
+    batch_id: z.string().uuid().optional().nullable(),
+    batch_name: z.string().optional().nullable(),
   }).parse(req.body);
   const row = await Announcement.create({ ...d, author_id: req.user.id });
   const io = req.app.get('io');
   io.emit('announcement:new', { id: row.id, title: row.title, audience: row.audience });
+  if (io.refreshAnalytics) io.refreshAnalytics();
   res.status(201).json(row);
 };

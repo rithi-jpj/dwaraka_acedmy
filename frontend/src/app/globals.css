@@ -1,13 +1,330 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body { @apply bg-slate-50 text-slate-900; }
-.btn { @apply inline-flex items-center justify-center rounded-md bg-brand text-white px-4 py-2 text-sm font-medium hover:bg-brand-dark disabled:opacity-50; }
-.btn-outline { @apply inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm hover:bg-slate-100; }
-.input { @apply block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-brand focus:outline-none; }
-.card { @apply bg-white rounded-lg shadow-sm border border-slate-200 p-6; }
-.label { @apply block text-sm font-medium text-slate-700 mb-1; }
-.table { @apply w-full text-sm; }
-.table th { @apply text-left font-semibold py-2 border-b border-slate-200; }
-.table td { @apply py-2 border-b border-slate-100; }
+/* ── Premium Base ── */
+body {
+  @apply bg-surface text-slate-900 antialiased;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+::selection {
+  @apply bg-purple-200 text-purple-900;
+}
+
+/* ── Glass Effect ── */
+.glass {
+  @apply bg-white/80 backdrop-blur-xl border border-white/20;
+}
+
+.glass-card {
+  @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-glass;
+}
+
+/* ── Cards ── */
+.card {
+  @apply bg-white rounded-2xl shadow-card border border-slate-100/80 p-6 transition-all duration-300;
+}
+
+.card:hover {
+  @apply shadow-card-hover;
+}
+
+.card-premium {
+  @apply bg-white rounded-2xl shadow-elevated border border-slate-100/80 p-6;
+}
+
+/* ── Buttons ── */
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-brand to-brand-dark
+         text-white px-5 py-2.5 text-sm font-semibold
+         transition-all duration-200 ease-out
+         hover:from-brand-light hover:to-brand hover:shadow-lg hover:shadow-brand/25 hover:-translate-y-0.5
+         active:translate-y-0 active:shadow-sm
+         disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none;
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200
+         bg-white px-5 py-2.5 text-sm font-medium text-slate-700
+         transition-all duration-200 ease-out
+         hover:bg-slate-50 hover:border-slate-300 hover:shadow-sm hover:-translate-y-0.5
+         active:translate-y-0;
+}
+
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium
+         text-slate-600 transition-all duration-200
+         hover:bg-slate-100 hover:text-slate-900;
+}
+
+.btn-danger {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-red-500 to-red-600
+         text-white px-5 py-2.5 text-sm font-semibold
+         transition-all duration-200 ease-out
+         hover:from-red-600 hover:to-red-700 hover:shadow-lg hover:shadow-red-500/25 hover:-translate-y-0.5
+         active:translate-y-0;
+}
+
+.btn-success {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600
+         text-white px-5 py-2.5 text-sm font-semibold
+         transition-all duration-200 ease-out
+         hover:from-emerald-600 hover:to-emerald-700 hover:shadow-lg hover:shadow-emerald-500/25 hover:-translate-y-0.5
+         active:translate-y-0;
+}
+
+/* ── Inputs ── */
+.input {
+  @apply block w-full rounded-xl border border-slate-200 bg-white/80 px-4 py-2.5 text-sm
+         text-slate-900 placeholder-slate-400
+         transition-all duration-200 ease-out
+         focus:border-brand/40 focus:ring-2 focus:ring-brand/10 focus:bg-white focus:outline-none
+         hover:border-slate-300;
+}
+
+.input:disabled {
+  @apply bg-slate-50 text-slate-400 cursor-not-allowed;
+}
+
+select.input {
+  @apply appearance-none bg-white/80;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+textarea.input {
+  @apply resize-none;
+}
+
+/* ── Labels ── */
+.label {
+  @apply block text-sm font-medium text-slate-700 mb-1.5;
+}
+
+/* ── Tables ── */
+.table {
+  @apply w-full text-sm;
+}
+
+.table th {
+  @apply text-left font-semibold text-slate-500 text-xs uppercase tracking-wider py-3 px-4
+         border-b border-slate-100 bg-slate-50/50;
+}
+
+.table td {
+  @apply py-3 px-4 border-b border-slate-50 text-slate-700;
+}
+
+.table tbody tr {
+  @apply transition-colors duration-150;
+}
+
+.table tbody tr:hover {
+  @apply bg-brand-50/30;
+}
+
+.table tbody tr:last-child td {
+  @apply border-b-0;
+}
+
+/* ── Sidebar ── */
+.sidebar-link {
+  @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
+         text-slate-600 transition-all duration-200 ease-out
+         hover:bg-brand-50 hover:text-brand-700 hover:translate-x-0.5;
+}
+
+.sidebar-link-active {
+  @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold
+         bg-gradient-to-r from-brand-50 to-white text-brand-700 shadow-sm border border-brand-100;
+}
+
+.sidebar-link-icon {
+  @apply w-5 h-5 flex-shrink-0 transition-all duration-200;
+}
+
+.sidebar-link-active .sidebar-link-icon {
+  @apply text-brand-600;
+}
+
+/* ── Stat Cards ── */
+.stat-card {
+  @apply bg-white rounded-2xl shadow-card border border-slate-100/80 p-5
+         transition-all duration-300 ease-out
+         hover:shadow-elevated hover:-translate-y-1;
+}
+
+.stat-card-value {
+  @apply text-3xl font-extrabold tracking-tight;
+}
+
+.stat-card-label {
+  @apply text-sm text-slate-500 mt-1 font-medium;
+}
+
+/* ── Badges ── */
+.badge {
+  @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold;
+}
+
+.badge-green {
+  @apply badge bg-emerald-50 text-emerald-700 border border-emerald-200/50;
+}
+
+.badge-red {
+  @apply badge bg-red-50 text-red-700 border border-red-200/50;
+}
+
+.badge-amber {
+  @apply badge bg-amber-50 text-amber-700 border border-amber-200/50;
+}
+
+.badge-blue {
+  @apply badge bg-blue-50 text-blue-700 border border-blue-200/50;
+}
+
+.badge-purple {
+  @apply badge bg-purple-50 text-purple-700 border border-purple-200/50;
+}
+
+.badge-slate {
+  @apply badge bg-slate-100 text-slate-600 border border-slate-200/50;
+}
+
+/* ── Toast ── */
+.toast {
+  @apply fixed top-4 right-4 z-[100] px-5 py-3.5 rounded-2xl shadow-lg text-sm font-semibold
+         animate-fade-in backdrop-blur-xl;
+}
+
+.toast-success {
+  @apply toast bg-emerald-600/95 text-white;
+}
+
+.toast-error {
+  @apply toast bg-red-600/95 text-white;
+}
+
+/* ── Modal ── */
+.modal-overlay {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm;
+}
+
+.modal-content {
+  @apply bg-white rounded-3xl shadow-modal max-w-lg w-full mx-4 animate-scale-in border border-slate-100;
+}
+
+/* ── Misc ── */
+.section-title {
+  @apply text-lg font-bold text-slate-800;
+}
+
+.text-muted {
+  @apply text-sm text-slate-500;
+}
+
+.divider {
+  @apply border-t border-slate-100;
+}
+
+/* ── Shimmer Animation ── */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
+  background-size: 200% auto;
+}
+
+/* ── Loading Skeleton ── */
+.skeleton {
+  @apply bg-gradient-to-r from-slate-100 via-slate-200/50 to-slate-100 rounded-xl animate-pulse bg-[length:200%_100%];
+}
+
+/* ── Page Transition Animation ── */
+@keyframes page-enter {
+  0% { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-page-enter {
+  animation: page-enter 0.25s ease-out;
+}
+
+/* ── Premium Loading Animations ── */
+
+/* Slow spin for the premium loader ring */
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 1.8s linear infinite;
+}
+
+/* Soft ping for the center dot */
+@keyframes ping-soft {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(2); opacity: 0; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+.animate-ping-soft {
+  animation: ping-soft 2s ease-in-out infinite;
+}
+
+/* Bouncing loader dots */
+@keyframes bounce-dot {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+.animate-bounce-dot {
+  animation: bounce-dot 1.4s ease-in-out infinite;
+}
+
+/* Scale pulse for skeleton entrance */
+@keyframes scale-pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.02); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.reduce-motion .animate-spin-slow,
+.reduce-motion .animate-ping-soft,
+.reduce-motion .animate-bounce-dot,
+.reduce-motion .skeleton,
+.reduce-motion .animate-shimmer {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin-slow,
+  .animate-ping-soft,
+  .animate-bounce-dot,
+  .skeleton,
+  .animate-shimmer {
+    animation: none !important;
+  }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400;
+}

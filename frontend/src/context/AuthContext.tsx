@@ -6,7 +6,7 @@ import { disconnectSocket } from '@/lib/socket';
 
 export type User = {
   id: string; name: string; email: string; phone?: string;
-  role: 'admin' | 'teacher' | 'student';
+  role: 'admin' | 'teacher' | 'student' | 'parent';
   must_change_password: boolean; is_active: boolean;
 };
 
