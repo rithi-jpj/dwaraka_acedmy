@@ -6,19 +6,24 @@ const { hash, randomPassword } = require('../utils/password');
   await sequelize.sync({ alter: true });
 
   // Admin
-  const adminEmail = 'admin@dwaraka.local';
-  let admin = await User.findOne({ where: { email: adminEmail } });
-  if (!admin) {
+  const adminEmail = 'rustlessirongolem';
+  let admin = await User.findOne({ where: { role: 'admin' } });
+  if (admin) {
+    // Update existing admin credentials
+    admin.email = adminEmail;
+    admin.password_hash = await hash('Rithish@9030');
+    await admin.save({ validate: false });
+    console.log(`Admin updated: ${adminEmail} / Rithish@9030 (change on first login)`);
+  } else {
+    // Create new admin
     admin = await User.create({
       name: 'Administrator',
       email: adminEmail,
       role: 'admin',
-      password_hash: await hash('Admin@12345'),
+      password_hash: await hash('Rithish@9030'),
       must_change_password: true,
-    });
-    console.log(`Admin created: ${adminEmail} / Admin@12345 (change on first login)`);
-  } else {
-    console.log('Admin already exists.');
+    }, { validate: false });
+    console.log(`Admin created: ${adminEmail} / Rithish@9030 (change on first login)`);
   }
 
   // 4 teachers

@@ -21,7 +21,7 @@ function secLog(event, detail = {}) {
 
 exports.login = async (req, res) => {
   const parsed = z.object({
-    email: z.string().email(),
+    email: z.string().min(1).max(255),
     password: z.string().min(1),
   }).strip().safeParse(req.body);
 
@@ -132,7 +132,7 @@ exports.changePassword = async (req, res) => {
 };
 
 exports.forgotPassword = async (req, res) => {
-  const parsed = z.object({ email: z.string().email() }).strip().safeParse(req.body);
+  const parsed = z.object({ email: z.string().min(1).max(255) }).strip().safeParse(req.body);
   if (!parsed.success) {
     return res.status(400).json({ error: 'Invalid email address' });
   }
