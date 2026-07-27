@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 500" fill="none">
+  <defs>
+    <linearGradient id="aboutGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#4C1D95"/>
+    </linearGradient>
+    <linearGradient id="goldGrad2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="600" height="500" fill="#FAF5FF" rx="24"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="50" cy="50" r="120" fill="#7C3AED" opacity="0.05"/>
+  <circle cx="550" cy="450" r="100" fill="#A855F7" opacity="0.05"/>
+  
+  <!-- Building illustration -->
+  <g transform="translate(150, 80)">
+    <!-- Main building -->
+    <rect x="0" y="60" width="300" height="200" rx="12" fill="#7C3AED" opacity="0.12"/>
+    <rect x="10" y="70" width="280" height="180" rx="8" fill="#7C3AED" opacity="0.08"/>
+    
+    <!-- Windows row 1 -->
+    <rect x="30" y="85" width="50" height="40" rx="4" fill="#7C3AED" opacity="0.15"/>
+    <rect x="95" y="85" width="50" height="40" rx="4" fill="#A855F7" opacity="0.15"/>
+    <rect x="160" y="85" width="50" height="40" rx="4" fill="#7C3AED" opacity="0.15"/>
+    <rect x="225" y="85" width="50" height="40" rx="4" fill="#A855F7" opacity="0.15"/>
+    
+    <!-- Windows row 2 -->
+    <rect x="30" y="140" width="50" height="40" rx="4" fill="#A855F7" opacity="0.15"/>
+    <rect x="95" y="140" width="50" height="40" rx="4" fill="#7C3AED" opacity="0.15"/>
+    <rect x="160" y="140" width="50" height="40" rx="4" fill="#A855F7" opacity="0.15"/>
+    <rect x="225" y="140" width="50" height="40" rx="4" fill="#7C3AED" opacity="0.15"/>
+    
+    <!-- Entrance -->
+    <rect x="110" y="195" width="80" height="55" rx="6" fill="#F59E0B" opacity="0.2"/>
+    <rect x="140" y="215" width="20" height="35" rx="4" fill="#F59E0B" opacity="0.3"/>
+    
+    <!-- Roof -->
+    <rect x="0" y="50" width="300" height="14" rx="4" fill="#7C3AED" opacity="0.2"/>
+  </g>
+
+  <!-- Left decorative book -->
+  <g transform="translate(40, 200)">
+    <rect x="0" y="0" width="40" height="55" rx="3" fill="#8B5CF6" opacity="0.15"/>
+    <rect x="5" y="0" width="40" height="55" rx="3" fill="#A855F7" opacity="0.12"/>
+    <rect x="10" y="8" width="28" height="3" rx="1.5" fill="#7C3AED" opacity="0.2"/>
+    <rect x="10" y="16" width="22" height="3" rx="1.5" fill="#7C3AED" opacity="0.2"/>
+    <rect x="10" y="24" width="25" height="3" rx="1.5" fill="#7C3AED" opacity="0.2"/>
+  </g>
+
+  <!-- Right decorative graduate cap -->
+  <g transform="translate(480, 80)" opacity="0.6">
+    <polygon points="30,0 0,25 60,25" fill="#F59E0B" opacity="0.2"/>
+    <rect x="22" y="25" width="16" height="20" rx="3" fill="#F59E0B" opacity="0.15"/>
+    <line x1="30" y1="0" x2="55" y2="-25" stroke="#F59E0B" stroke-width="1.5" opacity="0.15"/>
+  </g>
+
+  <!-- Stars -->
+  <g fill="#F59E0B" opacity="0.4">
+    <circle cx="100" cy="60" r="3"/>
+    <circle cx="500" cy="120" r="2"/>
+    <circle cx="450" cy="400" r="2.5"/>
+    <circle cx="80" cy="380" r="2"/>
+  </g>
+
+  <!-- Bottom accent wave -->
+  <path d="M0 460 Q150 440 300 460 Q450 480 600 460 L600 500 L0 500Z" fill="#7C3AED" opacity="0.04"/>
+</svg>

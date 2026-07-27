@@ -10,7 +10,8 @@ const morgan = require('morgan');
 const { Server } = require('socket.io');
 
 const env = require('./config/env');
-const { sequelize } = require('./models');
+const { sequelize, User } = require('./models');
+const { hash } = require('./utils/password');
 const routes = require('./routes');
 const errorHandler = require('./middleware/error');
 const initSockets = require('./sockets');
