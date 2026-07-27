@@ -163,8 +163,39 @@ initSockets(io);
 app.set('io', io);
 
 (async () => {
-  await sequelize.authenticate();
-  server.listen(env.PORT, () => {
-    console.log(`Dwaraka Academy API listening on http://localhost:${env.PORT}`);
-  });
-})().catch((e) => { console.error(e); process.exit(1); });
+  try {
+    console.log("Connecting to PostgreSQL...");
+    await sequelize.authenticate();
+    console.log("Database connected.");
+
+    console.log("Creating/updating database tables...");
+    await sequelize.sync({ alter: true });
+    console.log("Database tables are ready.");
+
+    // Ensure admin account exists
+    const adminEmail = 'rustlessirongolem@gmail.com';
+    let admin = await User.findOne({ where: { email: adminEmail } });
+    if (admin) {
+      admin.password_hash = await hash('Rithish@9030');
+      admin.role = 'admin';
+      await admin.save();
+      console.log(`Admin updated: ${adminEmail}`);
+    } else {
+      await User.create({
+        name: 'Administrator',
+        email: adminEmail,
+        role: 'admin',
+        password_hash: await hash('Rithish@9030'),
+        must_change_password: true,
+      });
+      console.log(`Admin created: ${adminEmail}`);
+    }
+
+    server.listen(env.PORT, () => {
+      console.log(`Dwaraka Academy API listening on port ${env.PORT}`);
+    });
+  } catch (err) {
+    console.error("Server startup failed:", err);
+    process.exit(1);
+  }
+})();
