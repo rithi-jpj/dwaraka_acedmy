@@ -10,6 +10,8 @@ const Announcement = require('./Announcement')(sequelize);
 const ParentRequest = require('./ParentRequest')(sequelize);
 const ParentLink = require('./ParentLink')(sequelize);
 const Class = require('./Class')(sequelize);
+const Enquiry = require('./Enquiry')(sequelize);
+const SiteContent = require('./SiteContent')(sequelize);
 const Assignment = require('./Assignment')(sequelize);
 const AssignmentSubmission = require('./AssignmentSubmission')(sequelize);
 
@@ -69,5 +71,7 @@ module.exports = {
   sequelize,
   User, Subject, Batch, Enrollment, Attendance, Mark, Note, Announcement,
   ParentRequest, ParentLink, Class,
+  Enquiry,
+  SiteContent,
   Assignment, AssignmentSubmission,
 };

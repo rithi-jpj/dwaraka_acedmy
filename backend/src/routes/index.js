@@ -26,6 +26,8 @@ const batchCtrl = require('../controllers/batchController');
 const marksCtrl = require('../controllers/marksController');
 const analytics = require('../controllers/analyticsController');
 const assignments = require('../controllers/assignmentController');
+const enquiries = require('../controllers/enquiryController');
+const content = require('../controllers/contentController');
 
 // Auth
 router.post('/auth/login', auth.login);
@@ -169,5 +171,20 @@ router.get('/submissions/:submission_id/download', authRequired, assignments.dow
 // Announcements
 router.get('/announcements', authRequired, ann.list);
 router.post('/announcements', authRequired, requireRole('admin', 'teacher'), ann.create);
+
+// Enquiries (public submit, admin manage)
+router.post('/enquiries', enquiries.submit);
+router.get('/enquiries', authRequired, requireRole('admin'), enquiries.list);
+router.patch('/enquiries/:id/status', authRequired, requireRole('admin'), enquiries.updateStatus);
+
+// Website Content Management (admin only)
+router.get('/content', authRequired, requireRole('admin'), content.list);
+router.get('/content/:id', authRequired, requireRole('admin'), content.getById);
+router.get('/content/section/:section', content.getBySection);
+router.post('/content', authRequired, requireRole('admin'), content.create);
+router.post('/content/bulk', authRequired, requireRole('admin'), content.bulkSave);
+router.patch('/content/:id', authRequired, requireRole('admin'), content.update);
+router.patch('/content/:id/toggle', authRequired, requireRole('admin'), content.toggleActive);
+router.delete('/content/:id', authRequired, requireRole('admin'), content.remove);
 
 module.exports = router;

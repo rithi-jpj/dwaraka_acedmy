@@ -8,7 +8,7 @@ import {
   LayoutDashboard, Users, GraduationCap, BookOpen, BookMarked,
   ClipboardCheck, CalendarCheck, Layers, UserPlus, UserCheck,
   FileText, Bell, User, LogOut, ChevronLeft, ChevronRight,
-  Menu, X, Home, Sun, Moon,
+  Menu, X, Home, Sun, Moon, Globe,
 } from 'lucide-react';
 
 const navItems = [
@@ -25,6 +25,7 @@ const navItems = [
   { href: '/dashboard/parents', label: 'Parents', icon: UserCheck, roles: ['admin'] },
   { href: '/dashboard/request-parent', label: 'Request Parent', icon: UserPlus, roles: ['student'] },
   { href: '/dashboard/assignments', label: 'Assignments', icon: FileText, roles: ['admin', 'teacher', 'student'] },
+  { href: '/dashboard/website', label: 'Website', icon: Globe, roles: ['admin'] },
   { href: '/dashboard/announcements', label: 'Announcements', icon: Bell, roles: ['admin', 'teacher', 'student', 'parent'] },
   { href: '/dashboard/my', label: 'My Records', icon: User, roles: ['student', 'parent'] },
 ];

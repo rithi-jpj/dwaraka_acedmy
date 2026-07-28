@@ -160,9 +160,7 @@ app.use(errorHandler);
 const server = http.createServer(app);
 const io = new Server(server, { cors: corsOptions });
 initSockets(io);
-app.set('io', io);
-
-(async () => {
+app.set('io', io);  (async () => {
   try {
     console.log("Connecting to PostgreSQL...");
     await sequelize.authenticate();
@@ -171,6 +169,23 @@ app.set('io', io);
     console.log("Creating/updating database tables...");
     await sequelize.sync({ alter: true });
     console.log("Database tables are ready.");
+
+    // Seed site content (non-blocking — updates existing, creates missing)
+    try {
+      const { SiteContent } = require('./models');
+      const seedData = [
+        { section: 'hero', key: 'main', sort_order: 0, data: { title: 'Dwaraka Academy', subtitle: 'Excellence in Education Since 2020', headline: 'Admissions Open', description: 'Empowering students with quality education through expert faculty, personalized attention, and proven results.', tags: ['CBSE', 'JEE', 'NEET'], highlights: ['Quality Education', 'Experienced Faculty', 'Excellent Results', 'Individual Attention'] } },
+        { section: 'contact', key: 'main', sort_order: 0, data: { address: '12-2-711/A/75, Site 2, LIC Colony, Mehdipatnam, Hyderabad - 500028', phone: '+91 9030698785', email: 'info@dwarakaacademy.com', workingHours: 'Mon–Sat: 6:00 AM – 8:00 PM', whatsapp: '+919030698785' } },
+        { section: 'settings', key: 'general', sort_order: 0, data: { academyName: 'Dwaraka Academy', tagline: 'Excellence in Education', foundedYear: 2020 } },
+      ];
+      for (const item of seedData) {
+        const existing = await SiteContent.findOne({ where: { section: item.section, key: item.key } });
+        if (!existing) await SiteContent.create(item);
+      }
+      console.log('[seed] Site content seeded.');
+    } catch (seedErr) {
+      console.log('[seed] Site content seed skipped (table may not exist yet):', seedErr.message);
+    }
 
     // Ensure admin account exists
     const adminEmail = 'rustlessirongolem@gmail.com';
