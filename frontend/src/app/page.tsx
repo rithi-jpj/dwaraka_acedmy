@@ -414,7 +414,7 @@ function HeroSection() {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="flex flex-wrap justify-center gap-3 mt-6"
         >
-          {heroTags.map((tag) => (
+          {heroTags.map((tag: string) => (
             <span key={tag} className="px-4 py-1.5 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-white/80 text-sm font-medium">
               {tag} Coaching
             </span>
@@ -439,7 +439,7 @@ function HeroSection() {
           transition={{ duration: 0.6, delay: 0.7 }}
           className="flex flex-wrap justify-center gap-3 mt-6"
         >
-          {heroHighlights.map((h) => (
+          {heroHighlights.map((h: string) => (
             <span key={h} className="inline-flex items-center gap-1.5 text-xs text-purple-300/70 font-medium">
               <CheckCircle className="w-3 h-3 text-emerald-400" />
               {h}
@@ -485,7 +485,7 @@ function HeroSection() {
           transition={{ duration: 0.6, delay: 1.0 }}
           className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto"
         >
-          {heroStats.map((stat, i) => (
+          {heroStats.map((stat: { label: string; end: number; suffix: string; icon: React.ReactNode }, i: number) => (
             <div key={i} className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-5 hover:bg-white/10 transition-all duration-300">
               <AnimatedCounter {...stat} />
             </div>
@@ -727,7 +727,7 @@ function CoursesSection() {
               <div className="border-t border-slate-100 pt-4 mb-4">
                 <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Subjects</p>
                 <div className="flex flex-wrap gap-1.5">
-                  {course.subjects.map((sub, j) => (
+                  {course.subjects.map((sub: string, j: number) => (
                     <span key={j} className={`px-2 py-0.5 rounded-md text-xs font-medium ${i === 0 ? 'bg-purple-50 text-purple-700' : i === 1 ? 'bg-amber-50 text-amber-700' : 'bg-emerald-50 text-emerald-700'}`}>
                       {sub}
                     </span>
@@ -747,7 +747,7 @@ function CoursesSection() {
               </div>
 
               <ul className="space-y-2 mb-6">
-                {course.features.map((f, j) => (
+                {course.features.map((f: string, j: number) => (
                   <li key={j} className="flex items-center gap-3 text-sm text-slate-600">
                     <CheckCircle className={`w-4 h-4 flex-shrink-0 ${i === 0 ? 'text-purple-500' : i === 1 ? 'text-amber-500' : 'text-emerald-500'}`} />
                     {f}
@@ -888,7 +888,7 @@ function ResultsSection() {
         {/* Student Result Cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {shown.map((student, i) => {
-            const initials = student.name.split(' ').map(n => n[0]).join('');
+            const initials = student.name.split(' ').map((n: string) => n[0]).join('');
             const colorMap: Record<string, string> = { CBSE: 'from-purple-500 to-purple-700', JEE: 'from-amber-500 to-orange-600', NEET: 'from-emerald-500 to-emerald-700' };
             const badgeMap: Record<string, string> = { CBSE: 'bg-purple-500/20 text-purple-200 border-purple-400/30', JEE: 'bg-amber-500/20 text-amber-200 border-amber-400/30', NEET: 'bg-emerald-500/20 text-emerald-200 border-emerald-400/30' };
             return (
@@ -1040,7 +1040,7 @@ function TestimonialsSection() {
 
                 <div className="flex items-center gap-4">
                   <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center text-white font-bold text-lg flex-shrink-0 shadow-lg">
-                    {testimonialsData[current].name.split(' ').map(n => n[0]).join('')}
+                    {testimonialsData[current].name.split(' ').map((n: string) => n[0]).join('')}
                   </div>
                   <div>
                     <div className="font-bold text-slate-900">{testimonialsData[current].name}</div>
