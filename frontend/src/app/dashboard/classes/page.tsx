@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState, useCallback } from 'react';
 import { api } from '@/lib/api';
-import { BookMarked, Edit3, Trash2, Search } from 'lucide-react';
+import { BookMarked, Edit3, Trash2, Search, Plus, ChevronLeft, ChevronRight } from 'lucide-react';
 
 type ClassItem = {
   id: string; name: string; section: string | null; room: string | null;
@@ -149,14 +149,17 @@ export default function ClassesPage() {
       )}
 
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Class Management</h1>
-          <p className="text-sm text-slate-500 mt-1">Create and manage classes with teachers and subjects</p>
+          <h1 className="text-2xl font-extrabold text-navy-900 tracking-tight flex items-center gap-2">
+            <BookMarked className="w-6 h-6 text-brand" />
+            Class Management
+          </h1>
+          <p className="text-sm text-navy-500 mt-1">Create and manage classes with teachers and subjects</p>
         </div>
         <button onClick={() => { resetForm(); setShowForm(!showForm); }}
-          className="px-4 py-2 bg-brand text-white rounded-lg hover:bg-brand-dark transition text-sm font-medium">
-          {showForm ? '✕ Close' : '+ Add Class'}
+          className="btn">
+          {showForm ? '✕ Close' : <><Plus className="w-4 h-4" /> Add Class</>}
         </button>
       </div>
 

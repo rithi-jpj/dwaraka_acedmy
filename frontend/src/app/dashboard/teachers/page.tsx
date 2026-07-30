@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState, useCallback } from 'react';
 import { api } from '@/lib/api';
-import { GraduationCap, Eye, Edit3, Trash2, Search } from 'lucide-react';
+import { GraduationCap, Eye, Edit3, Trash2, Search, ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react';
 
 type Teacher = {
   id: string;
@@ -193,7 +193,7 @@ export default function TeachersPage() {
   };
 
   const SortIcon = ({ field }: { field: string }) => {
-    if (sortBy !== field) return <span className="text-slate-300 ml-1">↕</span>;
+    if (sortBy !== field) return <span className="text-navy-300 ml-1">↕</span>;
     return <span className="text-brand ml-1">{sortOrder === 'ASC' ? '↑' : '↓'}</span>;
   };
 
@@ -227,15 +227,15 @@ export default function TeachersPage() {
 
       {/* Confirm delete dialog */}
       {confirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40" onClick={() => setConfirm(null)}>
-          <div className="card max-w-sm w-full mx-4 space-y-4" onClick={e => e.stopPropagation()}>
-            <h3 className="font-semibold text-lg">Confirm Delete</h3>
-            <p className="text-sm text-slate-600">
+        <div className="modal-overlay" onClick={() => setConfirm(null)}>
+          <div className="modal-content p-6" onClick={e => e.stopPropagation()}>
+            <h3 className="font-bold text-navy-900 text-lg mb-2">Confirm Delete</h3>
+            <p className="text-sm text-navy-600 mb-5">
               Are you sure you want to delete teacher <strong>{confirm.name}</strong>? This action cannot be undone.
             </p>
-            <div className="flex gap-3 justify-end">
-              <button className="btn-outline" onClick={() => setConfirm(null)}>Cancel</button>
-              <button className="btn bg-red-600 hover:bg-red-700" onClick={confirmDelete}>Delete</button>
+            <div className="flex gap-3">
+              <button className="btn-danger flex-1" onClick={confirmDelete}>Delete Teacher</button>
+              <button className="btn-outline flex-1" onClick={() => setConfirm(null)}>Cancel</button>
             </div>
           </div>
         </div>
@@ -243,83 +243,93 @@ export default function TeachersPage() {
 
       {/* Detail modal */}
       {detailTeacher && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40" onClick={() => setDetailTeacher(null)}>
-          <div className="card max-w-lg w-full mx-4 space-y-4 max-h-[80vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-            <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-lg">Teacher Details</h3>
-              <button className="text-slate-400 hover:text-slate-600" onClick={() => setDetailTeacher(null)}>✕</button>
+        <div className="modal-overlay" onClick={() => setDetailTeacher(null)}>
+          <div className="modal-content p-6 max-h-[80vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-bold text-navy-900 text-lg">Teacher Details</h3>
+              <button className="p-2 rounded-xl hover:bg-navy-100 transition-colors text-navy-400 hover:text-navy-600" onClick={() => setDetailTeacher(null)}>
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
             </div>
             {detailLoading ? (
-              <div className="flex justify-center py-6">
+              <div className="flex justify-center py-8">
                 <div className="animate-spin rounded-full h-8 w-8 border-2 border-brand border-t-transparent" />
               </div>
             ) : (
-              <>
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <span className="text-slate-500">Name</span>
-                    <p className="font-medium">{detailTeacher.teacher.name}</p>
+              <div className="space-y-5">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-4 rounded-xl bg-navy-50/80 border border-navy-100/50">
+                    <p className="text-[10px] font-semibold text-navy-500 uppercase tracking-wider">Name</p>
+                    <p className="text-sm font-semibold text-navy-900 mt-0.5">{detailTeacher.teacher.name}</p>
                   </div>
-                  <div>
-                    <span className="text-slate-500">Email</span>
-                    <p className="font-medium">{detailTeacher.teacher.email}</p>
+                  <div className="p-4 rounded-xl bg-navy-50/80 border border-navy-100/50">
+                    <p className="text-[10px] font-semibold text-navy-500 uppercase tracking-wider">Email</p>
+                    <p className="text-sm font-medium text-navy-900 mt-0.5">{detailTeacher.teacher.email}</p>
                   </div>
-                  <div>
-                    <span className="text-slate-500">Phone</span>
-                    <p className="font-medium">{detailTeacher.teacher.phone || '—'}</p>
+                  <div className="p-4 rounded-xl bg-navy-50/80 border border-navy-100/50">
+                    <p className="text-[10px] font-semibold text-navy-500 uppercase tracking-wider">Phone</p>
+                    <p className="text-sm font-medium text-navy-900 mt-0.5">{detailTeacher.teacher.phone || '—'}</p>
                   </div>
-                  <div>
-                    <span className="text-slate-500">Status</span>
-                    <p className={`font-medium ${detailTeacher.teacher.is_active ? 'text-green-600' : 'text-red-600'}`}>
+                  <div className="p-4 rounded-xl bg-navy-50/80 border border-navy-100/50">
+                    <p className="text-[10px] font-semibold text-navy-500 uppercase tracking-wider">Status</p>
+                    <span className={`badge mt-1 ${detailTeacher.teacher.is_active ? 'badge-green' : 'badge-red'}`}>
                       {detailTeacher.teacher.is_active ? 'Active' : 'Inactive'}
-                    </p>
+                    </span>
                   </div>
-                  <div>
-                    <span className="text-slate-500">Joined</span>
-                    <p className="font-medium">{new Date(detailTeacher.teacher.created_at).toLocaleDateString()}</p>
+                  <div className="p-4 rounded-xl bg-navy-50/80 border border-navy-100/50">
+                    <p className="text-[10px] font-semibold text-navy-500 uppercase tracking-wider">Joined</p>
+                    <p className="text-sm font-medium text-navy-900 mt-0.5">{new Date(detailTeacher.teacher.created_at).toLocaleDateString()}</p>
                   </div>
                 </div>
                 <div>
-                  <h4 className="font-medium text-sm text-slate-700 mb-2">Assigned Batches ({detailTeacher.batches.length})</h4>
+                  <h4 className="font-semibold text-sm text-navy-800 mb-3 flex items-center gap-2">
+                    <GraduationCap className="w-4 h-4 text-brand" />
+                    Assigned Batches ({detailTeacher.batches.length})
+                  </h4>
                   {detailTeacher.batches.length === 0 ? (
-                    <p className="text-sm text-slate-500">No batches assigned yet.</p>
+                    <p className="text-sm text-navy-400 text-center py-4">No batches assigned yet.</p>
                   ) : (
                     <div className="space-y-2">
                       {detailTeacher.batches.map((b: any) => (
-                        <div key={b.id} className="flex items-center justify-between bg-slate-50 rounded p-2 text-sm">
+                        <div key={b.id} className="flex items-center justify-between bg-navy-50/80 rounded-xl p-3 border border-navy-100/50 text-sm">
                           <div>
-                            <span className="font-medium">{b.name}</span>
-                            <span className="text-slate-500 ml-2">· {b.subject}</span>
+                            <span className="font-semibold text-navy-900">{b.name}</span>
+                            <span className="text-navy-400 ml-2">· {b.subject}</span>
                           </div>
-                          <span className="text-xs text-slate-400">{b.schedule || 'No schedule'}</span>
+                          <span className="text-xs text-navy-400 bg-white px-2 py-1 rounded-lg border border-navy-100">{b.schedule || 'No schedule'}</span>
                         </div>
                       ))}
                     </div>
                   )}
                 </div>
-              </>
+              </div>
             )}
           </div>
         </div>
       )}
 
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold">Teacher Management</h1>
-          <p className="text-sm text-slate-500 mt-1">Manage all teachers in the academy</p>
+          <h1 className="text-2xl font-extrabold text-navy-900 tracking-tight">Teacher Management</h1>
+          <p className="text-sm text-navy-500 mt-1">Manage all teachers, their batches, and assignments</p>
         </div>
-        <button className="btn" onClick={() => { resetForm(); setShowForm(true); }}>
-          + Add Teacher
-        </button>
+        <div className="flex items-center gap-2">
+          <button className="btn" onClick={() => { resetForm(); setShowForm(true); }}>
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
+            Add Teacher
+          </button>
+        </div>
       </div>
 
       {/* Create / Edit Form */}
       {showForm && (
-        <div className="card">
+        <div className="card border border-brand-200/50">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold">{editingId ? 'Edit Teacher' : 'Add New Teacher'}</h2>
-            <button className="text-slate-400 hover:text-slate-600" onClick={resetForm}>✕</button>
+            <h2 className="font-semibold text-navy-900">{editingId ? 'Edit Teacher' : 'Add New Teacher'}</h2>
+            <button className="p-2 rounded-xl hover:bg-navy-100 transition-colors text-navy-400" onClick={resetForm}>
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
           </div>
           <form onSubmit={submitForm} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -332,7 +342,7 @@ export default function TeachersPage() {
                 <label className="label">Email *</label>
                 <input className="input" type="email" placeholder="teacher@example.com" value={form.email}
                   onChange={e => setForm({ ...form, email: e.target.value })} required disabled={formLoading || !!editingId} />
-                {editingId && <p className="text-xs text-slate-400 mt-1">Email cannot be changed after creation</p>}
+                {editingId && <p className="text-xs text-navy-400 mt-1">Email cannot be changed after creation</p>}
               </div>
               <div>
                 <label className="label">Phone</label>
@@ -352,41 +362,37 @@ export default function TeachersPage() {
       )}
 
       {/* Search & Filters */}
-      <div className="card">
-        <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-          <input
-              className="input pl-9"
-              placeholder="Search teachers by name, email, or phone…"
-              value={searchInput}
-              onChange={e => { setSearchInput(e.target.value); setPage(1); }}
-            />
-          </div>
-          <select className="input max-w-[160px]" value={filterActive} onChange={e => { setFilterActive(e.target.value); setPage(1); }}>
-            <option value="">All Status</option>
-            <option value="true">Active</option>
-            <option value="false">Inactive</option>
-          </select>
-          <div className="text-sm text-slate-500">
-            {pagination.total} teacher{pagination.total !== 1 ? 's' : ''}
-          </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="relative flex-1 min-w-[200px] max-w-md">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-400" />
+          <input className="input pl-10 w-full" placeholder="Search teachers by name, email, or phone…"
+            value={searchInput}
+            onChange={e => { setSearchInput(e.target.value); setPage(1); }}
+          />
         </div>
+        <select className="input max-w-[160px]" value={filterActive} onChange={e => { setFilterActive(e.target.value); setPage(1); }}>
+          <option value="">All Status</option>
+          <option value="true">Active</option>
+          <option value="false">Inactive</option>
+        </select>
+        <span className="text-sm text-navy-500 font-medium">
+          {pagination.total} teacher{pagination.total !== 1 ? 's' : ''}
+        </span>
       </div>
 
       {/* Teachers Table */}
-      <div className="card overflow-hidden p-0">
+      <div className="card p-0 overflow-hidden">
         {loading ? (
           <div className="flex justify-center py-12">
             <div className="animate-spin rounded-full h-10 w-10 border-2 border-brand border-t-transparent" />
           </div>
         ) : teachers.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto mb-4">
-              <GraduationCap className="w-8 h-8 text-slate-400" />
+          <div className="text-center py-16">
+            <div className="w-16 h-16 rounded-2xl bg-navy-50 flex items-center justify-center mx-auto mb-4 border border-navy-100/50">
+              <GraduationCap className="w-8 h-8 text-navy-300" />
             </div>
-            <p className="mt-4 text-slate-500 font-medium">No teachers found</p>
-            <p className="text-sm text-slate-400 mt-1">
+            <p className="text-navy-500 font-medium">No teachers found</p>
+            <p className="text-sm text-navy-400 mt-1">
               {search || filterActive ? 'Try different search terms or filters' : 'Click "Add Teacher" to get started'}
             </p>
           </div>
@@ -395,54 +401,59 @@ export default function TeachersPage() {
             <div className="overflow-x-auto">
               <table className="table">
                 <thead>
-                  <tr className="bg-slate-50">
-                    <th className="px-4 cursor-pointer select-none" onClick={() => handleSort('name')}>
+                  <tr>
+                    <th className="cursor-pointer select-none" onClick={() => handleSort('name')}>
                       Name <SortIcon field="name" />
                     </th>
-                    <th className="px-4 cursor-pointer select-none" onClick={() => handleSort('email')}>
+                    <th className="cursor-pointer select-none" onClick={() => handleSort('email')}>
                       Email <SortIcon field="email" />
                     </th>
-                    <th className="px-4">Phone</th>
-                    <th className="px-4 text-center">Batches</th>
-                    <th className="px-4 text-center">Students</th>
-                    <th className="px-4 text-center">Status</th>
-                    <th className="px-4 text-right">Actions</th>
+                    <th>Phone</th>
+                    <th className="text-center">Batches</th>
+                    <th className="text-center">Students</th>
+                    <th className="text-center">Status</th>
+                    <th className="text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {teachers.map(t => (
-                    <tr key={t.id} className="hover:bg-slate-50 transition-colors">
-                      <td className="px-4">
-                        <button className="font-medium text-brand hover:underline" onClick={() => viewDetail(t.id)}>
-                          {t.name}
-                        </button>
+                    <tr key={t.id} className="hover:bg-brand-50/30 transition-colors cursor-pointer" onClick={() => viewDetail(t.id)}>
+                      <td className="min-w-0">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 shadow-sm">
+                            {t.name.charAt(0).toUpperCase()}
+                          </div>
+                          <div>
+                            <div className="font-semibold text-navy-900 text-sm">{t.name}</div>
+                          </div>
+                        </div>
                       </td>
-                      <td className="px-4 text-slate-600">{t.email}</td>
-                      <td className="px-4 text-slate-500">{t.phone || '—'}</td>
-                      <td className="px-4 text-center">
-                        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-blue-50 text-blue-700 text-xs font-medium">
+                      <td className="text-sm text-navy-600">{t.email}</td>
+                      <td className="text-sm text-navy-500">{t.phone || '—'}</td>
+                      <td className="text-center">
+                        <span className="inline-flex items-center justify-center min-w-[28px] h-7 px-2 rounded-xl bg-brand-50 text-brand-700 text-xs font-semibold">
                           {t.batch_count}
                         </span>
                       </td>
-                      <td className="px-4 text-center">
-                        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-green-50 text-green-700 text-xs font-medium">
+                      <td className="text-center">
+                        <span className="inline-flex items-center justify-center min-w-[28px] h-7 px-2 rounded-xl bg-emerald-50 text-emerald-700 text-xs font-semibold">
                           {t.student_count}
                         </span>
                       </td>
-                      <td className="px-4 text-center">
+                      <td className="text-center">
                         <span className={`badge ${t.is_active ? 'badge-green' : 'badge-red'}`}>{t.is_active ? 'Active' : 'Inactive'}</span>
                       </td>
-                      <td className="px-4 text-right">
+                      <td className="text-right" onClick={e => e.stopPropagation()}>
                         <div className="flex items-center justify-end gap-1">
-                          <button className="p-2 rounded-lg text-slate-400 hover:text-brand hover:bg-brand-50 transition-all" title="View details"
+                          <button className="p-2 rounded-xl text-navy-400 hover:text-brand hover:bg-brand-50 transition-all" title="View details"
                             onClick={() => viewDetail(t.id)}>
                             <Eye className="w-4 h-4" />
                           </button>
-                          <button className="p-2 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 transition-all" title="Edit"
+                          <button className="p-2 rounded-xl text-navy-400 hover:text-amber-600 hover:bg-amber-50 transition-all" title="Edit"
                             onClick={() => openEdit(t)}>
                             <Edit3 className="w-4 h-4" />
                           </button>
-                          <button className="p-2 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-all" title="Delete"
+                          <button className="p-2 rounded-xl text-navy-400 hover:text-red-600 hover:bg-red-50 transition-all" title="Delete"
                             onClick={() => setConfirm({ id: t.id, name: t.name })}>
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -455,13 +466,13 @@ export default function TeachersPage() {
             </div>
 
             {/* Pagination */}
-            <div className="flex items-center justify-between px-4 py-3 border-t border-slate-200 bg-slate-50">
-              <div className="text-sm text-slate-500">
+            <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3.5 border-t border-navy-100 bg-navy-50/30">
+              <span className="text-xs text-navy-500">
                 Showing {((pagination.page - 1) * pagination.limit) + 1}–{Math.min(pagination.page * pagination.limit, pagination.total)} of {pagination.total}
-              </div>
-              <div className="flex items-center gap-2">
+              </span>
+              <div className="flex items-center gap-1">
                 <button
-                  className="btn-outline px-3 py-1.5 text-xs disabled:opacity-40"
+                  className="px-2.5 py-1.5 text-xs rounded-lg hover:bg-navy-200/50 disabled:opacity-30 transition-colors"
                   disabled={pagination.page <= 1}
                   onClick={() => setPage(1)}
                   title="First page"
@@ -469,24 +480,24 @@ export default function TeachersPage() {
                   ««
                 </button>
                 <button
-                  className="btn-outline px-3 py-1.5 text-xs disabled:opacity-40"
+                  className="px-2.5 py-1.5 text-xs rounded-lg hover:bg-navy-200/50 disabled:opacity-30 transition-colors flex items-center gap-1"
                   disabled={pagination.page <= 1}
                   onClick={() => setPage(p => p - 1)}
                 >
-                  « Prev
+                  <ChevronLeft className="w-3 h-3" /> Prev
                 </button>
-                <span className="text-sm text-slate-600 px-2">
+                <span className="px-3 py-1.5 text-xs font-medium text-navy-700">
                   Page {pagination.page} of {pagination.total_pages || 1}
                 </span>
                 <button
-                  className="btn-outline px-3 py-1.5 text-xs disabled:opacity-40"
+                  className="px-2.5 py-1.5 text-xs rounded-lg hover:bg-navy-200/50 disabled:opacity-30 transition-colors flex items-center gap-1"
                   disabled={pagination.page >= pagination.total_pages}
                   onClick={() => setPage(p => p + 1)}
                 >
-                  Next »
+                  Next <ChevronRight className="w-3 h-3" />
                 </button>
                 <button
-                  className="btn-outline px-3 py-1.5 text-xs disabled:opacity-40"
+                  className="px-2.5 py-1.5 text-xs rounded-lg hover:bg-navy-200/50 disabled:opacity-30 transition-colors"
                   disabled={pagination.page >= pagination.total_pages}
                   onClick={() => setPage(pagination.total_pages)}
                   title="Last page"
@@ -494,13 +505,13 @@ export default function TeachersPage() {
                   »»
                 </button>
               </div>
-              <span className="text-xs text-slate-400">{pagination.limit} per page</span>
             </div>
 
-            {/* Bulk actions bar */}
-            <div className="flex items-center gap-2 px-4 py-2 border-t border-slate-100 bg-slate-50/50">
-              <button className="btn-outline text-xs px-3 py-1" onClick={() => load()}>
-                ↻ Refresh
+            {/* Refresh bar */}
+            <div className="flex items-center gap-2 px-5 py-3 border-t border-navy-100 bg-navy-50/30">
+              <button className="btn-ghost text-xs" onClick={() => load()}>
+                <RefreshCw className="w-3.5 h-3.5" />
+                Refresh
               </button>
             </div>
           </>
