@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://dwarakaacademy.com/sitemap.xml

@@ -6,7 +6,7 @@ const { hash, randomPassword } = require('../utils/password');
   await sequelize.sync({ alter: true });
 
   // Admin
-  const adminEmail = 'rustlessirongolem';
+  const adminEmail = 'rustlessirongole@gmail.com';
   let admin = await User.findOne({ where: { role: 'admin' } });
   if (admin) {
     // Update existing admin credentials

@@ -13,6 +13,9 @@ import {
   ScrollText, Send, MessageCircle, Heart, Eye, Globe, Hash, Video, Camera
 } from 'lucide-react';
 import { SiteDataProvider, useSiteData } from './SiteDataContext';
+import Navbar from '@/components/Navbar';
+import HeroSection from '@/components/Hero';
+import Footer from '@/components/Footer';
 
 // ─── Types ───
 interface CounterProps {
@@ -210,307 +213,11 @@ function SectionTitle({ title, subtitle, light = false }: { title: string; subti
   );
 }
 
-// ─── Navbar ───
-function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+// ─── Navbar (imported from @/components/Navbar) ───
+// Previously inline — now extracted to frontend/src/components/Navbar.tsx
 
-  useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handler, { passive: true });
-    return () => window.removeEventListener('scroll', handler);
-  }, []);
-
-  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    setMobileOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, []);
-
-  return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'bg-white/90 backdrop-blur-xl shadow-lg border-b border-brand-100/50'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
-              scrolled ? 'bg-gradient-to-br from-brand-600 to-brand-800' : 'bg-white/20 backdrop-blur-sm'
-            }`}>
-              <GraduationCap className={`w-5 h-5 ${scrolled ? 'text-white' : 'text-white'}`} />
-            </div>
-            <span className={`text-xl font-extrabold tracking-tight transition-colors duration-300 ${
-              scrolled ? 'text-navy-900' : 'text-white'
-            }`}>
-              Dwaraka <span className={scrolled ? 'text-brand-600' : 'text-accent-400'}>Academy</span>
-            </span>
-          </Link>
-
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-1">
-            {NAV_ITEMS.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
-                className={`px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200 ${
-                  scrolled
-                    ? 'text-navy-600 hover:text-brand-700 hover:bg-brand-50'
-                    : 'text-white/80 hover:text-white hover:bg-white/10'
-                }`}
-              >
-                {item.label}
-              </a>
-            ))}
-            <Link
-              href="/login"
-              className="ml-3 px-5 py-2.5 text-sm font-bold rounded-xl bg-gradient-to-r from-accent-600 to-accent-800 text-white shadow-lg shadow-accent-500/25 hover:shadow-xl hover:shadow-accent-500/30 hover:-translate-y-0.5 transition-all duration-200"
-            >
-              Student Login
-            </Link>
-          </div>
-
-          {/* Mobile toggle */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className={`lg:hidden p-2.5 rounded-xl transition-all duration-200 ${
-              scrolled ? 'text-navy-700 hover:bg-navy-100' : 'text-white hover:bg-white/10'
-            }`}
-          >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white/95 backdrop-blur-xl border-t border-brand-100 overflow-hidden"
-          >
-            <div className="px-4 py-4 space-y-1">
-              {NAV_ITEMS.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  className="block px-4 py-3 text-sm font-medium text-navy-700 hover:text-brand-700 hover:bg-brand-50 rounded-xl transition-all"
-                >
-                  {item.label}
-                </a>
-              ))}
-              <Link
-                href="/login"
-                onClick={() => setMobileOpen(false)}
-                className="block px-4 py-3 text-sm font-bold text-white bg-gradient-to-r from-accent-600 to-accent-800 rounded-xl text-center mt-3"
-              >
-                Student Login
-              </Link>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
-  );
-}
-
-// ─── Hero Section ───
-function HeroSection() {
-  const { data } = useSiteData();
-  const hero = data.hero || {};
-  const heroSubtitle = hero.subtitle || 'Excellence in Education Since 2020';
-  const heroHeadline = hero.headline || 'Admissions Open';
-  const heroTags = hero.tags || ['CBSE', 'JEE', 'NEET'];
-  const heroDescription = hero.description || 'Empowering students with quality education through expert faculty, personalized attention, and proven results. Your journey to academic excellence begins here.';
-  const heroHighlights = hero.highlights || ['Quality Education', 'Experienced Faculty', 'Excellent Results', 'Individual Attention'];
-  const heroStats = (hero.stats || [
-    { label: 'Students Taught', end: 2000, suffix: '+', icon: <Users className="w-5 h-5" /> },
-    { label: 'Expert Faculty', end: 25, suffix: '+', icon: <GraduationCap className="w-5 h-5" /> },
-    { label: 'Years of Excellence', end: 14, suffix: '+', icon: <Award className="w-5 h-5" /> },
-    { label: 'Success Rate', end: 98, suffix: '%', icon: <Target className="w-5 h-5" /> },
-  ]).map((s: any) => ({ ...s, end: s.end ?? s.value, icon: s.icon || <Users className="w-5 h-5" /> }));
-  return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Aurora Background */}
-      <div className="absolute inset-0 aurora-bg" />
-      <div
-        className="absolute inset-0 bg-cover bg-center opacity-20"
-        style={{ backgroundImage: 'url(/images/academy/hero-academy.svg)' }}
-      />
-
-      {/* Animated orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{ x: [0, 30, 0], y: [0, -30, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-brand-500/20 blur-3xl"
-        />
-        <motion.div
-          animate={{ x: [0, -20, 0], y: [0, 20, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -bottom-40 -left-40 w-[30rem] h-[30rem] rounded-full bg-accent-500/15 blur-3xl"
-        />
-        <motion.div
-          animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] rounded-full bg-brand-400/5 blur-3xl"
-        />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-white/70 text-xs font-medium mb-8"
-        >
-          <Sparkles className="w-3.5 h-3.5 text-accent-400" />
-          {heroSubtitle}
-        </motion.div>
-
-        {/* Main Heading */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-white tracking-tight leading-tight"
-        >
-          Dwaraka{' '}
-          <span className="bg-gradient-to-r from-accent-400 to-accent-600 bg-clip-text text-transparent">
-            Academy
-          </span>
-        </motion.h1>
-
-        {/* Sub heading */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent-400/90 mt-4"
-        >
-          {heroHeadline}
-        </motion.p>
-
-        {/* Tags */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="flex flex-wrap justify-center gap-3 mt-6"
-        >
-          {heroTags.map((tag: string) => (
-            <span key={tag} className="px-4 py-1.5 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-white/80 text-sm font-medium">
-              {tag} Coaching
-            </span>
-          ))}
-        </motion.div>
-
-        {/* Description */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="text-base sm:text-lg text-brand-200/60 max-w-2xl mx-auto mt-6 leading-relaxed"
-        >
-          {heroDescription}
-        </motion.p>
-
-        {/* Highlight tags */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          className="flex flex-wrap justify-center gap-3 mt-6"
-        >
-          {heroHighlights.map((h: string) => (
-            <span key={h} className="inline-flex items-center gap-1.5 text-xs text-brand-300/70 font-medium">
-              <CheckCircle className="w-3 h-3 text-emerald-400" />
-              {h}
-            </span>
-          ))}
-        </motion.div>
-
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="flex flex-wrap justify-center gap-4 mt-10"
-        >
-          <a
-            href="#enquiry"
-            onClick={(e) => { e.preventDefault(); document.querySelector('#enquiry')?.scrollIntoView({ behavior: 'smooth' }); }}
-            className="group px-8 py-4 rounded-2xl bg-gradient-to-r from-accent-600 to-accent-800 text-white font-bold text-base shadow-2xl shadow-accent-500/25 hover:shadow-accent-500/40 hover:-translate-y-1 transition-all duration-200 inline-flex items-center gap-2"
-          >
-            Enroll Now
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </a>
-          <a
-            href="#enquiry"
-            onClick={(e) => { e.preventDefault(); document.querySelector('#enquiry')?.scrollIntoView({ behavior: 'smooth' }); }}
-            className="group px-8 py-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold text-base hover:bg-white/15 hover:-translate-y-1 transition-all duration-200 inline-flex items-center gap-2"
-          >
-            Book Free Demo Class
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </a>
-          <Link
-            href="/login"
-            className="px-8 py-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold text-base hover:bg-white/15 hover:-translate-y-1 transition-all duration-200 inline-flex items-center gap-2"
-          >
-            <ExternalLink className="w-4 h-4" />
-            Student Login
-          </Link>
-        </motion.div>
-
-        {/* Animated Counters */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.0 }}
-          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto"
-        >
-          {heroStats.map((stat: { label: string; end: number; suffix: string; icon: React.ReactNode }, i: number) => (
-            <div key={i} className="stat-card-glass">
-              <AnimatedCounter {...stat} />
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="mt-12"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-6 h-10 rounded-full border-2 border-white/20 mx-auto flex items-start justify-center pt-2"
-          >
-            <motion.div className="w-1.5 h-1.5 rounded-full bg-accent-400" />
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
+// ─── Hero Section (imported from @/components/Hero) ───
+// Previously inline — now extracted to frontend/src/components/Hero.tsx
 
 // ─── About Section ───
 function AboutSection() {
@@ -525,9 +232,9 @@ function AboutSection() {
     { year: '2025', description: 'Recognized as top coaching institute in the region' },
   ];
   return (
-    <section id="about" className="py-24 relative overflow-hidden bg-white">
-      <div className="absolute top-0 right-0 -mt-40 -mr-40 w-80 h-80 rounded-full bg-brand-100/50 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 -mb-40 -ml-40 w-80 h-80 rounded-full bg-accent-100/30 blur-3xl pointer-events-none" />
+    <section id="about" className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-brand-50/30 to-white">
+      <div className="absolute top-0 right-0 -mt-40 -mr-40 w-80 h-80 rounded-full bg-gradient-to-br from-brand-500/20 to-accent-500/10 blur-3xl pointer-events-none animate-levitate" />
+      <div className="absolute bottom-0 left-0 -mb-40 -ml-40 w-80 h-80 rounded-full bg-gradient-to-br from-accent-500/20 to-purple-500/10 blur-3xl pointer-events-none animate-levitate" style={{ animationDelay: '-2.5s' }} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle title={about.title || 'About Dwaraka Academy'} subtitle={about.subtitle || 'Our Story'} />
@@ -541,16 +248,16 @@ function AboutSection() {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+            <div className="relative rounded-3xl overflow-hidden shadow-glow-blue">
               <Image
                 src="/images/academy/about-academy.svg"
-                alt="Dwaraka Academy"
+                alt="Dwaraka Academy campus and academic environment"
                 width={600}
                 height={450}
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="w-full h-auto object-cover"
-                unoptimized
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-900/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-900/40 to-transparent" />
             </div>
             {/* Floating card */}
             <motion.div
@@ -558,10 +265,10 @@ function AboutSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-xl border border-navy-100 p-5 max-w-[200px]"
+              className="absolute -bottom-6 -right-6 card-glass rounded-2xl p-5 max-w-[200px]"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-500 to-accent-700 flex items-center justify-center text-white">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-500 to-accent-700 flex items-center justify-center text-white shadow-glow-gold">
                   <Award className="w-5 h-5" />
                 </div>
                 <div>
@@ -588,9 +295,9 @@ function AboutSection() {
             </p>
 
             {/* Director's Message */}
-            <div className="bg-gradient-to-br from-brand-50 to-white rounded-2xl p-6 border border-brand-100/50">
+            <div className="card-glass rounded-2xl p-6">
               <div className="flex items-center gap-4 mb-3">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent-500 to-accent-700 flex items-center justify-center text-white font-bold text-lg flex-shrink-0 shadow-lg">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent-500 to-accent-700 flex items-center justify-center text-white font-bold text-lg flex-shrink-0 shadow-glow-gold">
                   DK
                 </div>
                 <div>
@@ -604,7 +311,7 @@ function AboutSection() {
             </div>
 
             {/* Timeline */}
-            <div className="card">
+            <div className="card-glass">
               <h3 className="font-bold text-navy-900 text-sm mb-4 flex items-center gap-2">
                 <Award className="w-4 h-4 text-accent-500" />
                 Our Journey \u2014 6 Years of Excellence
@@ -631,8 +338,8 @@ function AboutSection() {
                 { icon: <Eye className="w-5 h-5" />, title: 'Our Vision', desc: 'To be the most trusted and transformative educational academy in the region.' },
                 { icon: <Heart className="w-5 h-5" />, title: 'Our Values', desc: 'Integrity, innovation, inclusivity, and unwavering commitment to student success.' },
               ].map((item, i) => (
-                <div key={i} className="bg-gradient-to-br from-brand-50 to-white rounded-2xl p-5 border border-brand-100/50 hover:shadow-lg transition-all duration-300">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-600/10 border border-brand-400/20 flex items-center justify-center text-brand-600 mb-3">
+                <div key={i} className="card-premium rounded-2xl p-5 group hover:shadow-glow-blue transition-all duration-300">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-600/10 border border-brand-400/20 flex items-center justify-center text-brand-600 mb-3 group-hover:scale-110 transition-transform duration-300">
                     {item.icon}
                   </div>
                   <h3 className="font-bold text-navy-900 text-sm mb-1">{item.title}</h3>
@@ -662,7 +369,9 @@ function WhyChooseUsSection() {
     Target: <Target className="w-6 h-6" />,
   };
   return (
-    <section id="why-us" className="py-24 relative overflow-hidden bg-gradient-to-br from-brand-50 via-white to-brand-50/50">
+    <section id="why-us" className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-accent-50/20 to-white">
+      <div className="absolute top-0 left-0 w-96 h-96 rounded-full bg-gradient-to-br from-accent-500/10 to-brand-500/5 blur-3xl pointer-events-none animate-levitate" />
+      <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-gradient-to-br from-brand-500/10 to-accent-500/5 blur-3xl pointer-events-none animate-levitate" style={{ animationDelay: '-3s' }} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle title="Why Choose Us" subtitle="Our Strengths" />
 
@@ -675,9 +384,9 @@ function WhyChooseUsSection() {
               viewport={{ once: true, margin: '-30px' }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
               whileHover={{ y: -6, scale: 1.02 }}
-              className="card group"
+              className="card-glass group"
             >
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-500/20 to-brand-600/10 border border-brand-400/20 flex items-center justify-center text-brand-600 mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-500/20 to-brand-600/10 border border-brand-400/20 flex items-center justify-center text-brand-600 mb-4 group-hover:scale-110 group-hover:shadow-glow-blue transition-transform duration-300">
                 {typeof item.icon === 'string' ? (iconMap[item.icon] || <Award className="w-6 h-6" />) : item.icon}
               </div>
               <h3 className="font-bold text-navy-900 text-lg mb-2">{item.title}</h3>
@@ -695,8 +404,9 @@ function CoursesSection() {
   const { data } = useSiteData();
   const courses = data.courses && data.courses.length > 0 ? data.courses : COURSES;
   return (
-    <section id="courses" className="py-24 relative overflow-hidden bg-white">
-      <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-brand-50/50 to-transparent pointer-events-none" />
+    <section id="courses" className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-brand-50/20 to-white">
+      <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-gradient-to-br from-brand-500/15 to-purple-500/10 blur-3xl pointer-events-none animate-levitate" />
+      <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full bg-gradient-to-br from-accent-500/10 to-brand-500/5 blur-3xl pointer-events-none animate-levitate" style={{ animationDelay: '-2s' }} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle title="Our Courses" subtitle="Programs" />
@@ -783,10 +493,10 @@ function FacultyCard({ faculty, index }: { faculty: typeof FACULTY[0]; index: nu
       viewport={{ once: true, margin: '-30px' }}
       transition={{ duration: 0.4, delay: index * 0.08 }}
       whileHover={{ y: -6 }}
-      className="card text-center group"
+      className="card-glass text-center group"
     >
       {/* Avatar */}
-      <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center text-white text-xl font-bold mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-brand-500/20">
+      <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center text-white text-xl font-bold mb-4 group-hover:scale-110 transition-transform duration-300 shadow-glow-blue">
         {initials}
       </div>
 
@@ -1008,7 +718,9 @@ function TestimonialsSection() {
   };
 
   return (
-    <section id="testimonials" className="py-24 relative overflow-hidden bg-white">
+    <section id="testimonials" className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-brand-50/20 to-white">
+      <div className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-gradient-to-br from-accent-500/10 to-brand-500/5 blur-3xl pointer-events-none animate-levitate" />
+      <div className="absolute -bottom-40 -right-40 w-80 h-80 rounded-full bg-gradient-to-br from-brand-500/10 to-purple-500/5 blur-3xl pointer-events-none animate-levitate" style={{ animationDelay: '-2.5s' }} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle title="What People Say" subtitle="Testimonials" />
 
@@ -1096,7 +808,9 @@ function GallerySection() {
   const filtered = filter === 'All' ? galleryImages : galleryImages.filter((img: any) => img.category === filter);
 
   return (
-    <section id="gallery" className="py-24 relative overflow-hidden bg-gradient-to-br from-brand-50 via-white to-brand-50/50">
+    <section id="gallery" className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-accent-50/20 to-white">
+      <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-gradient-to-br from-brand-500/10 to-accent-500/5 blur-3xl pointer-events-none animate-levitate" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-gradient-to-br from-accent-500/10 to-purple-500/5 blur-3xl pointer-events-none animate-levitate" style={{ animationDelay: '-2s' }} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle title="Our Gallery" subtitle="Moments" />
 
@@ -1141,8 +855,8 @@ function GallerySection() {
                 alt={img.alt}
                 width={400}
                 height={300}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500"
-                unoptimized
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
@@ -1182,8 +896,8 @@ function GallerySection() {
                 alt={filtered[lightboxIndex].alt}
                 width={1200}
                 height={800}
+                sizes="(max-width: 768px) 90vw, 80vw"
                 className="w-full h-auto rounded-2xl shadow-2xl"
-                unoptimized
               />
               <div className="flex items-center justify-between mt-4">
                 <div>
@@ -1439,7 +1153,9 @@ function ContactSection() {
   const { data } = useSiteData();
   const contact = data.contact || {};
   return (
-    <section id="contact" className="py-24 relative overflow-hidden bg-white">
+    <section id="contact" className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-brand-50/20 to-white">
+      <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-gradient-to-br from-brand-500/10 to-accent-500/5 blur-3xl pointer-events-none animate-levitate" />
+      <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full bg-gradient-to-br from-accent-500/10 to-purple-500/5 blur-3xl pointer-events-none animate-levitate" style={{ animationDelay: '-2s' }} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle title="Get In Touch" subtitle="Contact" />
 
@@ -1460,7 +1176,7 @@ function ContactSection() {
                 { icon: <Clock className="w-5 h-5" />, title: 'Working Hours', content: contact.workingHours || 'Mon \u2013 Sat: 7:00 AM \u2013 7:00 PM\nSunday: 9:00 AM \u2013 1:00 PM' },
               ].map((item, i) => (
                 <div key={i} className="flex gap-4 group">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-50 to-brand-100 border border-brand-200/50 flex items-center justify-center text-brand-600 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center text-white shadow-glow-blue group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300 flex-shrink-0">
                     {item.icon}
                   </div>
                   <div>
@@ -1480,7 +1196,7 @@ function ContactSection() {
             transition={{ duration: 0.6 }}
             className="w-full"
           >
-            <div className="rounded-2xl overflow-hidden shadow-xl border border-navy-100 h-[300px] w-full">
+            <div className="rounded-2xl overflow-hidden card-glass h-[300px] w-full">
               <iframe
                 src={contact.googleMapsEmbed || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.5!2d77.5!3d13.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDAwJzAwLjAiTiA3N8KwMzAnMDAuMCJF!5e0!3m2!1sen!2sin!4v1'}
                 width="100%"
@@ -1496,7 +1212,7 @@ function ContactSection() {
         </div>
 
         {/* Social */}
-        <div className="pt-6 border-t border-navy-100 mt-12">
+        <div className="pt-6 border-t border-navy-200/50 mt-12">
           <p className="text-sm font-semibold text-navy-700 mb-4">Follow Us</p>
           <div className="flex gap-3">
             {[
@@ -1528,8 +1244,9 @@ function DownloadCenterSection() {
   const { data } = useSiteData();
   const downloads = data.downloads && data.downloads.length > 0 ? data.downloads : DOWNLOADS_DATA;
   return (
-    <section id="downloads" className="py-24 relative overflow-hidden bg-white">
-      <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-brand-50/50 to-transparent pointer-events-none" />
+    <section id="downloads" className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-brand-50/20 to-white">
+      <div className="absolute -top-40 -left-40 w-80 h-80 rounded-full bg-gradient-to-br from-brand-500/10 to-accent-500/5 blur-3xl pointer-events-none animate-levitate" />
+      <div className="absolute -bottom-40 -right-40 w-72 h-72 rounded-full bg-gradient-to-br from-accent-500/10 to-purple-500/5 blur-3xl pointer-events-none animate-levitate" style={{ animationDelay: '-2.5s' }} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle title="Download Center" subtitle="Resources" />
@@ -1543,9 +1260,9 @@ function DownloadCenterSection() {
               viewport={{ once: true, margin: '-30px' }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
               whileHover={{ y: -6 }}
-              className="card"
+              className="card-glass group"
             >
-              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center text-white shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300`}>
+              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center text-white shadow-lg mb-4 group-hover:scale-110 group-hover:shadow-glow-blue transition-all duration-300`}>
                 {item.icon}
               </div>
               <h3 className="font-bold text-navy-900 text-lg mb-2">{item.title}</h3>
@@ -1570,106 +1287,8 @@ function DownloadCenterSection() {
   );
 }
 
-// ─── Footer ───
-function FooterSection() {
-  const { data } = useSiteData();
-  const contact = data.contact || {};
-  const settings = data.settings || {};
-  const academyName = settings.academyName || 'Dwaraka';
-  const tagline = settings.tagline || 'Excellence in Education';
-  const foundedYear = settings.foundedYear || 2020;
-  return (
-    <footer className="bg-navy-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          {/* Brand */}
-          <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center">
-                <GraduationCap className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-extrabold">
-                {academyName} <span className="text-accent-400">Academy</span>
-              </span>
-            </Link>
-            <p className="text-sm text-navy-400 leading-relaxed max-w-xs">
-              Empowering students with quality education since {foundedYear}. Your journey to academic excellence starts here.
-            </p>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-sm font-bold text-white mb-4 uppercase tracking-wider">Quick Links</h3>
-            <ul className="space-y-3">
-              {['Home', 'About', 'Courses', 'Faculty', 'Gallery', 'Contact'].map((link) => (
-                <li key={link}>
-                  <a
-                    href={`#${link.toLowerCase()}`}
-                    className="text-sm text-navy-400 hover:text-accent-400 transition-colors duration-200"
-                  >
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Courses */}
-          <div>
-            <h3 className="text-sm font-bold text-white mb-4 uppercase tracking-wider">Courses</h3>
-            <ul className="space-y-3">
-              {['CBSE Coaching', 'JEE Coaching', 'NEET Coaching'].map((course) => (
-                <li key={course}>
-                  <a href="#courses" className="text-sm text-navy-400 hover:text-accent-400 transition-colors duration-200">
-                    {course}
-                  </a>
-                </li>
-              ))}
-              <li>
-                <Link href="/login" className="text-sm text-accent-400 hover:text-accent-300 font-semibold transition-colors duration-200">
-                  Student Login →
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h3 className="text-sm font-bold text-white mb-4 uppercase tracking-wider">Contact</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3 text-sm text-navy-400">
-                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-accent-400" />
-                <span>{contact.address ? contact.address.split(',')[0] : '123, Academic Block'}</span>
-              </li>
-              <li className="flex items-center gap-3 text-sm text-navy-400">
-                <Phone className="w-4 h-4 flex-shrink-0 text-accent-400" />
-                <span>{contact.phone ? contact.phone.split('\n')[0] : '+91 98765 43210'}</span>
-              </li>
-              <li className="flex items-center gap-3 text-sm text-navy-400">
-                <Mail className="w-4 h-4 flex-shrink-0 text-accent-400" />
-                <span>{contact.email ? contact.email.split('\n')[0] : 'info@dwarakaacademy.com'}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Bottom */}
-        <div className="mt-12 pt-8 border-t border-navy-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-navy-500">
-            &copy; {new Date().getFullYear()} Dwaraka Academy. All rights reserved.
-          </p>
-          <div className="flex gap-4">
-            {['Privacy Policy', 'Terms of Service', 'Sitemap'].map((item) => (
-              <a key={item} href="#" className="text-xs text-navy-500 hover:text-accent-400 transition-colors">
-                {item}
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}
+// ─── Footer (imported from @/components/Footer) ───
+// Previously inline — now extracted to frontend/src/components/Footer.tsx
 
 // ─── Floating Buttons ───
 function FloatingButtons() {
@@ -1747,7 +1366,7 @@ export default function HomePage() {
         <EnquirySection />
         <ContactSection />
         <DownloadCenterSection />
-        <FooterSection />
+        <Footer />
         <FloatingButtons />
       </main>
     </SiteDataProvider>

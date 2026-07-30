@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { api, API_URL } from '@/lib/api';
-import { Download, X, Search, ClipboardCheck, FileText, BarChart3, Award, Printer, Trash2, RefreshCw, ChevronLeft, ChevronRight, Users } from 'lucide-react';
+import { Download, X, Search, ClipboardCheck, FileText, BarChart3, Award, Printer, Trash2, RefreshCw, ChevronLeft, ChevronRight, Users, AlertCircle } from 'lucide-react';
 
 export default function MarksPage() {
   const [loading, setLoading] = useState(true);
@@ -581,83 +581,79 @@ export default function MarksPage() {
             <button onClick={loadReport} disabled={!reportStudentId || reportLoading}
               className="btn">{reportLoading ? 'Loading…' : 'Generate Report'}</button>
             {report && (
-              <button onClick={printReport} className="btn-outline flex items-center gap-2">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-                </svg>
-                Print Report
+              <button onClick={printReport} className="btn-outline">
+                <Printer className="w-4 h-4" /> Print Report
               </button>
             )}
           </div>
 
           {reportLoading ? (
             <div className="card text-center py-12">
-              <div className="animate-spin w-8 h-8 border-4 border-brand border-t-transparent rounded-full mx-auto mb-3" />
-              <p className="text-sm text-slate-500">Generating report card…</p>
+              <RefreshCw className="w-8 h-8 animate-spin mx-auto text-brand mb-3" />
+              <p className="text-sm text-navy-500">Generating report card…</p>
             </div>
           ) : report && !reportLoading ? (
             <div ref={reportRef} className="card max-w-3xl mx-auto">
               {/* Report Header */}
               <div className="text-center border-b border-brand/20 pb-6 mb-6">
                 <h2 className="text-2xl font-bold text-brand">Dwaraka Academy</h2>
-                <p className="text-sm text-slate-500">Report Card</p>
+                <p className="text-sm text-navy-500">Report Card</p>
               </div>
 
               {/* Student Info */}
               <div className="flex justify-between mb-6 text-sm">
                 <div>
-                  <div className="text-xs text-slate-500 uppercase">Student Name</div>
-                  <div className="font-bold text-base">{report.student.name}</div>
+                  <div className="text-xs text-navy-500 uppercase font-semibold">Student Name</div>
+                  <div className="font-bold text-lg text-navy-900">{report.student.name}</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-xs text-slate-500 uppercase">Admission No</div>
-                  <div className="font-bold">{report.student.admission_no || '—'}</div>
+                  <div className="text-xs text-navy-500 uppercase font-semibold">Admission No</div>
+                  <div className="font-bold text-navy-900">{report.student.admission_no || '—'}</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-xs text-slate-500 uppercase">Class</div>
-                  <div className="font-bold">{report.student.current_class || '—'}{report.student.section ? '-' + report.student.section : ''}</div>
+                  <div className="text-xs text-navy-500 uppercase font-semibold">Class</div>
+                  <div className="font-bold text-navy-900">{report.student.current_class || '—'}{report.student.section ? '-' + report.student.section : ''}</div>
                 </div>
               </div>
 
               {/* Summary Cards */}
               <div className="grid grid-cols-4 gap-3 mb-6">
-                <div className="bg-slate-50 rounded-lg p-3 text-center">
-                  <div className="text-2xl font-bold text-slate-800">{report.summary.total_exams}</div>
-                  <div className="text-xs text-slate-500">Exams</div>
+                <div className="bg-navy-50 rounded-xl p-4 text-center border border-navy-100/50">
+                  <div className="text-2xl font-bold text-navy-900">{report.summary.total_exams}</div>
+                  <div className="text-xs text-navy-500 mt-0.5">Exams</div>
                 </div>
-                <div className="bg-slate-50 rounded-lg p-3 text-center">
+                <div className="bg-navy-50 rounded-xl p-4 text-center border border-navy-100/50">
                   <div className="text-2xl font-bold text-brand">{report.summary.overall_percentage}%</div>
-                  <div className="text-xs text-slate-500">Percentage</div>
+                  <div className="text-xs text-navy-500 mt-0.5">Percentage</div>
                 </div>
-                <div className="bg-slate-50 rounded-lg p-3 text-center">
-                  <div className="text-2xl font-bold text-slate-800">{report.summary.overall_grade}</div>
-                  <div className="text-xs text-slate-500">Grade</div>
+                <div className="bg-navy-50 rounded-xl p-4 text-center border border-navy-100/50">
+                  <div className="text-2xl font-bold text-navy-900">{report.summary.overall_grade}</div>
+                  <div className="text-xs text-navy-500 mt-0.5">Grade</div>
                 </div>
-                <div className="bg-slate-50 rounded-lg p-3 text-center">
-                  <div className="text-2xl font-bold text-slate-800">{report.summary.overall_gpa.toFixed(1)}</div>
-                  <div className="text-xs text-slate-500">GPA</div>
+                <div className="bg-navy-50 rounded-xl p-4 text-center border border-navy-100/50">
+                  <div className="text-2xl font-bold text-navy-900">{report.summary.overall_gpa.toFixed(1)}</div>
+                  <div className="text-xs text-navy-500 mt-0.5">GPA</div>
                 </div>
               </div>
 
               {/* Per-Batch Breakdown */}
               {report.by_batch?.length > 0 && (
                 <div>
-                  <h3 className="font-semibold text-sm mb-3">Subject-wise Performance</h3>
+                  <h3 className="font-semibold text-sm text-navy-900 mb-3">Subject-wise Performance</h3>
                   <table className="table w-full">
                     <thead><tr><th>Subject</th><th>Exams</th><th>Score</th><th>%</th><th>Grade</th></tr></thead>
                     <tbody>
                       {report.by_batch.map((b: any, i: number) => (
                         <tr key={i}>
-                          <td className="font-medium">{b.batch_name} {b.subject ? `(${b.subject})` : ''}</td>
-                          <td>{b.total_exams}</td>
-                          <td>{b.total_score} / {b.total_max}</td>
-                          <td>{b.percentage}%</td>
+                          <td className="font-medium text-navy-900">{b.batch_name} {b.subject ? `(${b.subject})` : ''}</td>
+                          <td className="text-navy-700">{b.total_exams}</td>
+                          <td className="text-navy-700">{b.total_score} / {b.total_max}</td>
+                          <td className="font-semibold">{b.percentage}%</td>
                           <td>
-                            <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                              b.grade === 'A+' || b.grade === 'A' ? 'bg-green-100 text-green-700' :
-                              b.grade === 'B+' || b.grade === 'B' ? 'bg-blue-100 text-blue-700' :
-                              b.grade === 'C' ? 'bg-amber-100 text-amber-700' :
-                              b.grade === 'D' ? 'bg-orange-100 text-orange-700' : 'bg-red-100 text-red-700'
+                            <span className={`badge ${
+                              b.grade === 'A+' || b.grade === 'A' ? 'badge-green' :
+                              b.grade === 'B+' || b.grade === 'B' ? 'badge-blue' :
+                              b.grade === 'C' ? 'badge-amber' : 'badge-red'
                             }`}>{b.grade}</span>
                           </td>
                         </tr>
@@ -669,7 +665,8 @@ export default function MarksPage() {
             </div>
           ) : (
             <div className="card text-center py-12">
-              <p className="text-slate-500">Select a student and click "Generate Report"</p>
+              <Award className="w-10 h-10 text-navy-300 mx-auto mb-2" />
+              <p className="text-navy-500 font-medium">Select a student and click &quot;Generate Report&quot;</p>
             </div>
           )}
         </div>
@@ -677,19 +674,16 @@ export default function MarksPage() {
 
       {/* Delete Confirmation */}
       {deleteId && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
-          onClick={() => setDeleteId(null)}>
-          <div className="bg-white rounded-xl shadow-2xl p-6 max-w-sm w-full mx-4" onClick={e => e.stopPropagation()}>
-            <div className="w-14 h-14 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-4">
-              <svg className="w-7 h-7 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
-              </svg>
+        <div className="modal-overlay" onClick={() => setDeleteId(null)}>
+          <div className="modal-content p-6" onClick={e => e.stopPropagation()}>
+            <div className="w-14 h-14 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-4 border border-red-100">
+              <AlertCircle className="w-7 h-7 text-red-500" />
             </div>
-            <h3 className="font-bold text-lg mb-1 text-center">Delete Mark</h3>
-            <p className="text-sm text-slate-500 text-center mb-5">Are you sure? This cannot be undone.</p>
+            <h3 className="font-bold text-lg mb-1 text-center text-navy-900">Delete Mark</h3>
+            <p className="text-sm text-navy-500 text-center mb-5">Are you sure? This cannot be undone.</p>
             <div className="flex gap-3">
               <button onClick={confirmDelete}
-                className="bg-red-600 hover:bg-red-700 text-white rounded-lg px-4 py-2 text-sm font-medium flex-1 transition">Delete</button>
+                className="btn-danger flex-1">Delete</button>
               <button onClick={() => setDeleteId(null)} className="btn-outline flex-1">Cancel</button>
             </div>
           </div>

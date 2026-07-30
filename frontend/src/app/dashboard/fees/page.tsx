@@ -2,7 +2,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { api } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
-import { IndianRupee, Search, Download, Plus, Filter, ChevronDown, Trash2, Edit3, Eye, Printer } from 'lucide-react';
+import { IndianRupee, Search, Download, Plus, Filter, ChevronDown, Trash2, Edit3, Eye, Printer, RefreshCw, ChevronLeft, ChevronRight } from 'lucide-react';
 import FeeReceipt from '@/components/fees/FeeReceipt';
 
 export default function FeesPage() {
@@ -233,23 +233,19 @@ export default function FeesPage() {
 
   return (
     <div className="space-y-6">
-      {toast && (
-        <div className={`fixed top-4 right-4 z-50 px-4 py-3 rounded-xl shadow-lg text-sm font-medium transition-all ${
-          toast.type === 'success' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
-        }`}>{toast.msg}</div>
-      )}
+      {toast && <div className={toast.type === 'success' ? 'toast-success' : 'toast-error'}>{toast.msg}</div>}
 
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Fee Management</h1>
-          <p className="text-sm text-slate-500 mt-1">Manage student fees, payments, and invoices</p>
+          <h1 className="text-2xl font-bold text-navy-900">Fee Management</h1>
+          <p className="text-sm text-navy-500 mt-1">Manage student fees, payments, and invoices</p>
         </div>
         <div className="flex gap-2">
-          <button onClick={exportCSV} className="px-3 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition text-sm font-medium flex items-center gap-2">
+          <button onClick={exportCSV} className="btn-outline">
             <Download className="w-4 h-4" /> Export
           </button>
-          <button onClick={() => setActiveTab('bulk')} className="px-3 py-2 bg-brand text-white rounded-lg hover:bg-brand-dark transition text-sm font-medium flex items-center gap-2">
+          <button onClick={() => setActiveTab('bulk')} className="btn">
             <Plus className="w-4 h-4" /> Bulk Create
           </button>
         </div>
@@ -278,18 +274,24 @@ export default function FeesPage() {
       )}
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-slate-100 rounded-xl p-1">
+      <div className="flex gap-1 bg-navy-50 rounded-2xl p-1 w-fit">
         {[
-          { key: 'list', label: 'All Fees' },
-          { key: 'create', label: 'Add Fee' },
-          { key: 'bulk', label: 'Bulk Create' },
-          { key: 'stats', label: 'Statistics' },
-        ].map(tab => (
-          <button key={tab.key} onClick={() => setActiveTab(tab.key as any)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-              activeTab === tab.key ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'
-            }`}>{tab.label}</button>
-        ))}
+          { key: 'list', label: 'All Fees', icon: IndianRupee },
+          { key: 'create', label: 'Add Fee', icon: Plus },
+          { key: 'bulk', label: 'Bulk Create', icon: Filter },
+          { key: 'stats', label: 'Statistics', icon: Download },
+        ].map(tab => {
+          const Icon = tab.icon;
+          return (
+            <button key={tab.key} onClick={() => setActiveTab(tab.key as any)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                activeTab === tab.key ? 'bg-white text-navy-800 shadow-sm' : 'text-navy-500 hover:text-navy-700'
+              }`}>
+              <Icon className="w-4 h-4" />
+              {tab.label}
+            </button>
+          );
+        })}
       </div>
 
       {/* Bulk Create Form */}
@@ -429,7 +431,7 @@ export default function FeesPage() {
         <div className="space-y-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="stat-card">
-              <div className="stat-card-value text-slate-800">{stats.summary.total_records}</div>
+              <div className="stat-card-value text-navy-900">{stats.summary.total_records}</div>
               <div className="stat-card-label">Total Records</div>
             </div>
             <div className="stat-card">
@@ -449,21 +451,21 @@ export default function FeesPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Status breakdown */}
             <div className="card">
-              <h3 className="font-semibold mb-4">Status Breakdown</h3>
+              <h3 className="font-semibold text-navy-900 mb-4">Status Breakdown</h3>
               <div className="space-y-3">
                 {[
-                  { label: 'Paid', count: stats.status_breakdown.paid, color: 'bg-green-500' },
+                  { label: 'Paid', count: stats.status_breakdown.paid, color: 'bg-emerald-500' },
                   { label: 'Partial', count: stats.status_breakdown.partial, color: 'bg-amber-500' },
                   { label: 'Pending', count: stats.status_breakdown.pending, color: 'bg-red-500' },
-                  { label: 'Waived', count: stats.status_breakdown.waived, color: 'bg-slate-500' },
+                  { label: 'Waived', count: stats.status_breakdown.waived, color: 'bg-navy-400' },
                 ].map(s => (
                   <div key={s.label} className="flex items-center gap-3">
                     <div className="flex-1">
                       <div className="flex justify-between text-sm mb-1">
-                        <span className="font-medium">{s.label}</span>
-                        <span className="text-slate-500">{s.count}</span>
+                        <span className="font-medium text-navy-900">{s.label}</span>
+                        <span className="text-navy-500">{s.count}</span>
                       </div>
-                      <div className="w-full bg-slate-100 rounded-full h-2">
+                      <div className="w-full bg-navy-100 rounded-full h-2">
                         <div className={`${s.color} h-2 rounded-full`}
                           style={{ width: `${stats.summary.total_records > 0 ? (s.count / stats.summary.total_records) * 100 : 0}%` }} />
                       </div>
@@ -475,21 +477,21 @@ export default function FeesPage() {
 
             {/* Monthly collection */}
             <div className="card">
-              <h3 className="font-semibold mb-4">Monthly Collection</h3>
+              <h3 className="font-semibold text-navy-900 mb-4">Monthly Collection</h3>
               {stats.monthly_collection?.length > 0 ? (
                 <div className="space-y-2">
                   {stats.monthly_collection.map((m: any) => (
-                    <div key={m.month} className="flex items-center justify-between bg-slate-50 rounded-lg p-3">
-                      <span className="font-medium text-sm">{m.month}</span>
+                    <div key={m.month} className="flex items-center justify-between bg-navy-50/80 rounded-xl p-3 border border-navy-100/50">
+                      <span className="font-medium text-sm text-navy-900">{m.month}</span>
                       <div className="text-right">
                         <div className="font-bold text-emerald-600">₹{m.total?.toLocaleString()}</div>
-                        <div className="text-xs text-slate-400">{m.count} payment(s)</div>
+                        <div className="text-xs text-navy-400">{m.count} payment(s)</div>
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-slate-400 text-center py-6">No monthly data yet</p>
+                <p className="text-sm text-navy-400 text-center py-6">No monthly data yet</p>
               )}
             </div>
           </div>
@@ -499,7 +501,7 @@ export default function FeesPage() {
       {/* Filters */}
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative flex-1 min-w-[200px]">
-          <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-3 top-2.5 w-4 h-4 text-navy-400" />
           <input className="input pl-9 w-full" placeholder="Search by student, invoice, fee head..."
             value={searchInput} onChange={e => setSearchInput(e.target.value)} />
         </div>
@@ -518,29 +520,29 @@ export default function FeesPage() {
             <option key={b.id} value={b.id}>{b.name}</option>
           ))}
         </select>
-        <span className="text-sm text-slate-500">{total} record{total !== 1 && 's'}</span>
+        <span className="text-sm text-navy-500">{total} record{total !== 1 && 's'}</span>
       </div>
 
       {/* Fee Table */}
       {loading ? (
         <div className="card text-center py-12">
-          <div className="animate-spin w-8 h-8 border-4 border-brand border-t-transparent rounded-full mx-auto mb-3" />
-          <p className="text-sm text-slate-500">Loading fees...</p>
+          <RefreshCw className="w-8 h-8 animate-spin mx-auto text-brand mb-3" />
+          <p className="text-sm text-navy-500">Loading fees...</p>
         </div>
       ) : fees.length === 0 ? (
         <div className="card text-center py-16">
-          <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto mb-4">
-            <IndianRupee className="w-8 h-8 text-slate-400" />
+          <div className="w-16 h-16 rounded-2xl bg-navy-50 flex items-center justify-center mx-auto mb-4">
+            <IndianRupee className="w-8 h-8 text-navy-300" />
           </div>
-          <p className="text-slate-500 font-medium">No fee records found</p>
-          <p className="text-sm text-slate-400 mt-1">Create fee records to get started</p>
+          <p className="text-navy-500 font-medium">No fee records found</p>
+          <p className="text-sm text-navy-400 mt-1">Create fee records to get started</p>
         </div>
       ) : (
         <div className="card p-0 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="table w-full">
               <thead>
-                <tr className="bg-slate-50">
+                <tr>
                   <th>Invoice</th>
                   <th>Student</th>
                   <th>Fee Head</th>
@@ -554,11 +556,11 @@ export default function FeesPage() {
               </thead>
               <tbody>
                 {fees.map(f => (
-                  <tr key={f.id} className="hover:bg-slate-50 transition">
-                    <td className="text-xs font-mono text-slate-500">{f.invoice_no}</td>
-                    <td className="font-medium">
+                  <tr key={f.id} className="hover:bg-navy-50/50 transition">
+                    <td className="text-xs font-mono text-navy-500">{f.invoice_no}</td>
+                    <td className="font-medium text-navy-900">
                       <div>{f.student?.name}</div>
-                      <div className="text-xs text-slate-400">{f.student?.admission_no || ''}</div>
+                      <div className="text-xs text-navy-400">{f.student?.admission_no || ''}</div>
                     </td>
                     <td>{f.fee_head}</td>
                     <td className="font-medium">₹{f.amount?.toLocaleString()}</td>
@@ -597,20 +599,20 @@ export default function FeesPage() {
           </div>
 
           {/* Pagination */}
-          <div className="flex items-center justify-between px-4 py-3 border-t bg-slate-50">
-            <span className="text-xs text-slate-500">
+          <div className="flex items-center justify-between px-4 py-3 border-t border-navy-100 bg-navy-50/80">
+            <span className="text-xs text-navy-500">
               Showing {total === 0 ? 0 : (page - 1) * 20 + 1}–{Math.min(page * 20, total)} of {total}
             </span>
             <div className="flex items-center gap-1">
               <button disabled={page <= 1} onClick={() => setPage(1)}
-                className="px-2 py-1 text-xs rounded hover:bg-slate-200 disabled:opacity-30">««</button>
+                className="px-3 py-1.5 text-xs rounded-xl hover:bg-navy-100 disabled:opacity-30 transition">««</button>
               <button disabled={page <= 1} onClick={() => setPage(p => p - 1)}
-                className="px-2 py-1 text-xs rounded hover:bg-slate-200 disabled:opacity-30">« Prev</button>
-              <span className="px-3 py-1 text-xs">Page {page} of {totalPages}</span>
+                className="px-3 py-1.5 text-xs rounded-xl hover:bg-navy-100 disabled:opacity-30 transition flex items-center gap-1"><ChevronLeft className="w-3 h-3" /> Prev</button>
+              <span className="px-3 py-1 text-xs text-navy-600 font-medium">Page {page} of {totalPages}</span>
               <button disabled={page >= totalPages} onClick={() => setPage(p => p + 1)}
-                className="px-2 py-1 text-xs rounded hover:bg-slate-200 disabled:opacity-30">Next »</button>
+                className="px-3 py-1.5 text-xs rounded-xl hover:bg-navy-100 disabled:opacity-30 transition flex items-center gap-1">Next <ChevronRight className="w-3 h-3" /></button>
               <button disabled={page >= totalPages} onClick={() => setPage(totalPages)}
-                className="px-2 py-1 text-xs rounded hover:bg-slate-200 disabled:opacity-30">»»</button>
+                className="px-3 py-1.5 text-xs rounded-xl hover:bg-navy-100 disabled:opacity-30 transition">»»</button>
             </div>
           </div>
         </div>
