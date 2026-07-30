@@ -40,31 +40,31 @@ const NAV_ITEMS = [
 const COURSES = [
   {
     title: 'CBSE Coaching',
-    grades: 'Classes 6–12',
+    grades: 'Classes 6\u201312',
     icon: <BookOpen className="w-8 h-8" />,
-    color: 'from-purple-600 to-purple-800',
+    color: 'from-brand-600 to-brand-800',
     description: 'Comprehensive coaching for CBSE students from Class 6 to 12 with focus on conceptual clarity and exam-oriented preparation.',
     subjects: ['Mathematics', 'Science', 'English', 'Social Studies', 'Hindi/Sanskrit'],
     eligibility: 'Students from Class 6 to 12',
-    batchTimings: ['Morning: 6:00 AM - 8:00 AM', 'Evening: 4:00 PM - 6:00 PM'],
+    batchTimings: ['Morning: 6:00 AM \u2013 8:00 AM', 'Evening: 4:00 PM \u2013 6:00 PM'],
     features: ['Board Exam Preparation', 'Weekly Tests', 'Concept Based Learning', 'Personal Attention'],
-    gradient: 'from-purple-500/20 to-purple-600/5',
-    border: 'border-purple-500/20',
-    shadow: 'shadow-purple-500/10',
+    gradient: 'from-brand-500/20 to-brand-600/5',
+    border: 'border-brand-500/20',
+    shadow: 'shadow-brand-500/10',
   },
   {
     title: 'JEE Coaching',
     grades: 'JEE Main & Advanced',
     icon: <Brain className="w-8 h-8" />,
-    color: 'from-amber-500 to-orange-600',
+    color: 'from-accent-600 to-accent-800',
     description: 'Intensive JEE preparation program covering all aspects of JEE Main and Advanced with dedicated problem-solving sessions.',
     subjects: ['Physics', 'Chemistry', 'Mathematics'],
     eligibility: 'Class 11 & 12 students / 12th Pass',
-    batchTimings: ['Morning: 5:30 AM - 8:30 AM', 'Evening: 3:30 PM - 6:30 PM'],
+    batchTimings: ['Morning: 5:30 AM \u2013 8:30 AM', 'Evening: 3:30 PM \u2013 6:30 PM'],
     features: ['JEE Main Preparation', 'JEE Advanced Foundation', 'Problem Solving Sessions', 'Mock Tests'],
-    gradient: 'from-amber-500/20 to-orange-600/5',
-    border: 'border-amber-500/20',
-    shadow: 'shadow-amber-500/10',
+    gradient: 'from-accent-500/20 to-accent-600/5',
+    border: 'border-accent-500/20',
+    shadow: 'shadow-accent-500/10',
   },
   {
     title: 'NEET Coaching',
@@ -74,7 +74,7 @@ const COURSES = [
     description: 'Comprehensive NEET coaching with focused preparation in Physics, Chemistry, and Biology through daily practice and mock exams.',
     subjects: ['Physics', 'Chemistry', 'Biology (Botany + Zoology)'],
     eligibility: 'Class 11 & 12 students / 12th Pass',
-    batchTimings: ['Morning: 5:30 AM - 8:30 AM', 'Evening: 3:30 PM - 6:30 PM'],
+    batchTimings: ['Morning: 5:30 AM \u2013 8:30 AM', 'Evening: 3:30 PM \u2013 6:30 PM'],
     features: ['Physics, Chemistry, Biology', 'Mock Exams', 'Daily Practice Sessions', 'Doubt Clearing'],
     gradient: 'from-emerald-500/20 to-emerald-700/5',
     border: 'border-emerald-500/20',
@@ -84,7 +84,7 @@ const COURSES = [
 
 const WHY_CHOOSE_US = [
   { icon: <Award className="w-6 h-6" />, title: 'Experienced Faculty', desc: 'Learn from highly qualified teachers with years of experience' },
-  { icon: <Users className="w-6 h-6" />, title: 'Personal Attention', desc: 'Individual focus on every student\'s learning journey' },
+  { icon: <Users className="w-6 h-6" />, title: 'Personal Attention', desc: 'Individual focus on every student\u2019s learning journey' },
   { icon: <ScrollText className="w-6 h-6" />, title: 'Weekly Tests', desc: 'Regular assessments to track and improve performance' },
   { icon: <BarChart3 className="w-6 h-6" />, title: 'Performance Analysis', desc: 'Detailed analytics to identify strengths and areas for growth' },
   { icon: <Monitor className="w-6 h-6" />, title: 'Digital Learning', desc: 'Modern smart classrooms with digital teaching tools' },
@@ -106,10 +106,10 @@ const FACULTY = [
 ];
 
 const TESTIMONIALS_DATA = [
-  { name: 'Mr. Suresh Patel', role: 'Parent of Class 10 Student', childClass: 'Class 10', photo: '/images/testimonials/parent-1.svg', text: 'Dwaraka Academy has been instrumental in my child\'s academic growth. The teachers are dedicated and the personalised attention is remarkable.', rating: 5 },
+  { name: 'Mr. Suresh Patel', role: 'Parent of Class 10 Student', childClass: 'Class 10', photo: '/images/testimonials/parent-1.svg', text: 'Dwaraka Academy has been instrumental in my child\u2019s academic growth. The teachers are dedicated and the personalised attention is remarkable.', rating: 5 },
   { name: 'Rahul Sharma', role: 'JEE Advanced 2024 Topper', childClass: 'JEE Batch', photo: '/images/testimonials/student-1.svg', text: 'The rigorous training and concept-based teaching at Dwaraka Academy helped me clear JEE Advanced with flying colours. Grateful for the amazing faculty!', rating: 5 },
   { name: 'Mrs. Anjali Mehta', role: 'Parent of Class 12 Student', childClass: 'Class 12', photo: '/images/testimonials/parent-2.svg', text: 'My daughter improved significantly after joining Dwaraka Academy. The weekly tests and performance analysis kept us updated on her progress.', rating: 5 },
-  { name: 'Kavya Reddy', role: 'NEET 2024 Qualifier', childClass: 'NEET Batch', photo: '/images/testimonials/student-2.svg', text: 'The structured curriculum and mock tests at Dwaraka Academy prepared me thoroughly for NEET. The faculty\'s guidance was invaluable.', rating: 5 },
+  { name: 'Kavya Reddy', role: 'NEET 2024 Qualifier', childClass: 'NEET Batch', photo: '/images/testimonials/student-2.svg', text: 'The structured curriculum and mock tests at Dwaraka Academy prepared me thoroughly for NEET. The faculty\u2019s guidance was invaluable.', rating: 5 },
   { name: 'Mr. Amit Joshi', role: 'Parent of Class 8 Student', childClass: 'Class 8', photo: '/images/testimonials/parent-3.svg', text: 'Excellent academy with modern teaching methods. My son enjoys learning here and his grades have improved tremendously.', rating: 5 },
   { name: 'Arjun Singh', role: 'CBSE Class 12 Topper', childClass: 'CBSE Batch', photo: '/images/testimonials/student-3.svg', text: 'Dwaraka Academy provided me with the perfect environment to excel. The teachers are supportive and the study material is top-notch.', rating: 5 },
 ];
@@ -134,23 +134,23 @@ const STUDENT_RESULTS = [
   { name: 'Arjun Sharma', school: 'KV School', percentage: 98.4, year: 2024, achievement: 'CBSE Class 12 Topper', category: 'CBSE', photo: '' },
   { name: 'Priya Verma', school: 'DAV Public School', percentage: 97.6, year: 2024, achievement: 'CBSE Class 10 Topper', category: 'CBSE', photo: '' },
   { name: 'Rahul Patel', school: 'Delhi Public School', percentage: 96.8, year: 2024, achievement: 'JEE Advanced AIR 247', category: 'JEE', photo: '' },
-  { name: 'Kavya Reddy', school: 'Sri Chaitanya', percentage: 95.2, year: 2024, achievement: 'NEET Qualifier - 680 Marks', category: 'NEET', photo: '' },
+  { name: 'Kavya Reddy', school: 'Sri Chaitanya', percentage: 95.2, year: 2024, achievement: 'NEET Qualifier \u2013 680 Marks', category: 'NEET', photo: '' },
   { name: 'Amit Singh', school: 'KV School', percentage: 98.2, year: 2023, achievement: 'CBSE Class 12 Topper', category: 'CBSE', photo: '' },
   { name: 'Sneha Gupta', school: 'DAV Public School', percentage: 97.4, year: 2023, achievement: 'CBSE Class 10 Topper', category: 'CBSE', photo: '' },
   { name: 'Vikram Joshi', school: 'JNV School', percentage: 93.6, year: 2023, achievement: 'JEE Advanced AIR 512', category: 'JEE', photo: '' },
-  { name: 'Neha Sharma', school: 'St. Mary\'s School', percentage: 94.8, year: 2023, achievement: 'NEET Qualifier - 650 Marks', category: 'NEET', photo: '' },
+  { name: 'Neha Sharma', school: "St. Mary's School", percentage: 94.8, year: 2023, achievement: 'NEET Qualifier \u2013 650 Marks', category: 'NEET', photo: '' },
   { name: 'Rohit Kumar', school: 'KV School', percentage: 98.6, year: 2022, achievement: 'CBSE Class 12 Topper', category: 'CBSE', photo: '' },
   { name: 'Anjali Patel', school: 'DAV Public School', percentage: 97.2, year: 2022, achievement: 'CBSE Class 10 Topper', category: 'CBSE', photo: '' },
   { name: 'Deepak Verma', school: 'Delhi Public School', percentage: 92.4, year: 2022, achievement: 'JEE Advanced AIR 823', category: 'JEE', photo: '' },
-  { name: 'Pooja Reddy', school: 'Sri Chaitanya', percentage: 93.6, year: 2022, achievement: 'NEET Qualifier - 620 Marks', category: 'NEET', photo: '' },
+  { name: 'Pooja Reddy', school: 'Sri Chaitanya', percentage: 93.6, year: 2022, achievement: 'NEET Qualifier \u2013 620 Marks', category: 'NEET', photo: '' },
 ];
 
 const DOWNLOADS_DATA = [
-  { title: 'Academy Prospectus', description: 'Complete guide about courses, fee structure, and facilities.', icon: <BookOpen className="w-6 h-6" />, color: 'from-purple-500 to-purple-700' },
-  { title: 'Fee Structure', description: 'Detailed fee structure for all courses and batches.', icon: <ScrollText className="w-6 h-6" />, color: 'from-amber-500 to-orange-600' },
-  { title: 'Class Timetable', description: 'Current academic year class schedules and batch timings.', icon: <Clock className="w-6 h-6" />, color: 'from-blue-500 to-blue-700' },
+  { title: 'Academy Prospectus', description: 'Complete guide about courses, fee structure, and facilities.', icon: <BookOpen className="w-6 h-6" />, color: 'from-brand-600 to-brand-800' },
+  { title: 'Fee Structure', description: 'Detailed fee structure for all courses and batches.', icon: <ScrollText className="w-6 h-6" />, color: 'from-accent-600 to-accent-800' },
+  { title: 'Class Timetable', description: 'Current academic year class schedules and batch timings.', icon: <Clock className="w-6 h-6" />, color: 'from-brand-500 to-brand-700' },
   { title: 'Study Notes', description: 'Chapter-wise study notes and revision materials.', icon: <BookOpen className="w-6 h-6" />, color: 'from-emerald-500 to-emerald-700' },
-  { title: 'Question Papers', description: 'Previous year question papers for practice.', icon: <Brain className="w-6 h-6" />, color: 'from-red-500 to-red-700' },
+  { title: 'Question Papers', description: 'Previous year question papers for practice.', icon: <Brain className="w-6 h-6" />, color: 'from-accent-700 to-accent-900' },
 ];
 
 // ─── Animated Counter ───
@@ -179,13 +179,13 @@ function AnimatedCounter({ end, suffix = '', label, icon, duration = 2 }: Counte
 
   return (
     <div ref={ref} className="text-center p-6">
-      <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 border border-purple-400/20 flex items-center justify-center text-purple-400">
+      <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-brand-500/20 to-brand-600/10 border border-brand-400/20 flex items-center justify-center text-brand-400">
         {icon}
       </div>
       <div className="text-4xl md:text-5xl font-extrabold text-white mb-1">
         {count}{suffix}
       </div>
-      <div className="text-sm text-purple-200/70 font-medium">{label}</div>
+      <div className="text-sm text-brand-200/70 font-medium">{label}</div>
     </div>
   );
 }
@@ -200,10 +200,10 @@ function SectionTitle({ title, subtitle, light = false }: { title: string; subti
       transition={{ duration: 0.6 }}
       className="text-center mb-16"
     >
-      <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 ${light ? 'bg-white/10 text-purple-200 border border-white/10' : 'bg-purple-100 text-purple-700 border border-purple-200'}`}>
+      <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 ${light ? 'bg-white/10 text-brand-200 border border-white/10' : 'bg-brand-100 text-brand-700 border border-brand-200'}`}>
         {subtitle || 'Discover'}
       </span>
-      <h2 className={`text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight ${light ? 'text-white' : 'text-slate-900'}`}>
+      <h2 className={`text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight ${light ? 'text-white' : 'text-navy-900'}`}>
         {title}
       </h2>
     </motion.div>
@@ -237,7 +237,7 @@ function Navbar() {
       transition={{ duration: 0.6, ease: 'easeOut' }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-white/90 backdrop-blur-xl shadow-lg border-b border-purple-100/50'
+          ? 'bg-white/90 backdrop-blur-xl shadow-lg border-b border-brand-100/50'
           : 'bg-transparent'
       }`}
     >
@@ -246,14 +246,14 @@ function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
-              scrolled ? 'bg-gradient-to-br from-purple-600 to-purple-800' : 'bg-white/20 backdrop-blur-sm'
+              scrolled ? 'bg-gradient-to-br from-brand-600 to-brand-800' : 'bg-white/20 backdrop-blur-sm'
             }`}>
               <GraduationCap className={`w-5 h-5 ${scrolled ? 'text-white' : 'text-white'}`} />
             </div>
             <span className={`text-xl font-extrabold tracking-tight transition-colors duration-300 ${
-              scrolled ? 'text-slate-900' : 'text-white'
+              scrolled ? 'text-navy-900' : 'text-white'
             }`}>
-              Dwaraka <span className={scrolled ? 'text-purple-600' : 'text-amber-400'}>Academy</span>
+              Dwaraka <span className={scrolled ? 'text-brand-600' : 'text-accent-400'}>Academy</span>
             </span>
           </Link>
 
@@ -266,7 +266,7 @@ function Navbar() {
                 onClick={(e) => handleNavClick(e, item.href)}
                 className={`px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200 ${
                   scrolled
-                    ? 'text-slate-600 hover:text-purple-700 hover:bg-purple-50'
+                    ? 'text-navy-600 hover:text-brand-700 hover:bg-brand-50'
                     : 'text-white/80 hover:text-white hover:bg-white/10'
                 }`}
               >
@@ -275,7 +275,7 @@ function Navbar() {
             ))}
             <Link
               href="/login"
-              className="ml-3 px-5 py-2.5 text-sm font-bold rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-lg shadow-amber-500/25 hover:shadow-xl hover:shadow-amber-500/30 hover:-translate-y-0.5 transition-all duration-200"
+              className="ml-3 px-5 py-2.5 text-sm font-bold rounded-xl bg-gradient-to-r from-accent-600 to-accent-800 text-white shadow-lg shadow-accent-500/25 hover:shadow-xl hover:shadow-accent-500/30 hover:-translate-y-0.5 transition-all duration-200"
             >
               Student Login
             </Link>
@@ -285,7 +285,7 @@ function Navbar() {
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className={`lg:hidden p-2.5 rounded-xl transition-all duration-200 ${
-              scrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-white hover:bg-white/10'
+              scrolled ? 'text-navy-700 hover:bg-navy-100' : 'text-white hover:bg-white/10'
             }`}
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -301,7 +301,7 @@ function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white/95 backdrop-blur-xl border-t border-purple-100 overflow-hidden"
+            className="lg:hidden bg-white/95 backdrop-blur-xl border-t border-brand-100 overflow-hidden"
           >
             <div className="px-4 py-4 space-y-1">
               {NAV_ITEMS.map((item) => (
@@ -309,7 +309,7 @@ function Navbar() {
                   key={item.href}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className="block px-4 py-3 text-sm font-medium text-slate-700 hover:text-purple-700 hover:bg-purple-50 rounded-xl transition-all"
+                  className="block px-4 py-3 text-sm font-medium text-navy-700 hover:text-brand-700 hover:bg-brand-50 rounded-xl transition-all"
                 >
                   {item.label}
                 </a>
@@ -317,7 +317,7 @@ function Navbar() {
               <Link
                 href="/login"
                 onClick={() => setMobileOpen(false)}
-                className="block px-4 py-3 text-sm font-bold text-white bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl text-center mt-3"
+                className="block px-4 py-3 text-sm font-bold text-white bg-gradient-to-r from-accent-600 to-accent-800 rounded-xl text-center mt-3"
               >
                 Student Login
               </Link>
@@ -346,29 +346,29 @@ function HeroSection() {
   ]).map((s: any) => ({ ...s, end: s.end ?? s.value, icon: s.icon || <Users className="w-5 h-5" /> }));
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-indigo-900 to-slate-900" />
+      {/* Aurora Background */}
+      <div className="absolute inset-0 aurora-bg" />
       <div
         className="absolute inset-0 bg-cover bg-center opacity-20"
         style={{ backgroundImage: 'url(/images/academy/hero-academy.svg)' }}
       />
-      
+
       {/* Animated orbs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{ x: [0, 30, 0], y: [0, -30, 0] }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-purple-500/20 blur-3xl"
+          className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-brand-500/20 blur-3xl"
         />
         <motion.div
           animate={{ x: [0, -20, 0], y: [0, 20, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -bottom-40 -left-40 w-[30rem] h-[30rem] rounded-full bg-indigo-500/15 blur-3xl"
+          className="absolute -bottom-40 -left-40 w-[30rem] h-[30rem] rounded-full bg-accent-500/15 blur-3xl"
         />
         <motion.div
           animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
           transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] rounded-full bg-amber-500/5 blur-3xl"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] rounded-full bg-brand-400/5 blur-3xl"
         />
       </div>
 
@@ -380,7 +380,7 @@ function HeroSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-white/70 text-xs font-medium mb-8"
         >
-          <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+          <Sparkles className="w-3.5 h-3.5 text-accent-400" />
           {heroSubtitle}
         </motion.div>
 
@@ -392,7 +392,7 @@ function HeroSection() {
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-white tracking-tight leading-tight"
         >
           Dwaraka{' '}
-          <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-accent-400 to-accent-600 bg-clip-text text-transparent">
             Academy
           </span>
         </motion.h1>
@@ -402,7 +402,7 @@ function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-2xl sm:text-3xl md:text-4xl font-bold text-amber-400/90 mt-4"
+          className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent-400/90 mt-4"
         >
           {heroHeadline}
         </motion.p>
@@ -426,10 +426,9 @@ function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="text-base sm:text-lg text-purple-200/60 max-w-2xl mx-auto mt-6 leading-relaxed"
+          className="text-base sm:text-lg text-brand-200/60 max-w-2xl mx-auto mt-6 leading-relaxed"
         >
-          Empowering students with quality education through expert faculty, 
-          personalized attention, and proven results. Your journey to academic excellence begins here.
+          {heroDescription}
         </motion.p>
 
         {/* Highlight tags */}
@@ -440,7 +439,7 @@ function HeroSection() {
           className="flex flex-wrap justify-center gap-3 mt-6"
         >
           {heroHighlights.map((h: string) => (
-            <span key={h} className="inline-flex items-center gap-1.5 text-xs text-purple-300/70 font-medium">
+            <span key={h} className="inline-flex items-center gap-1.5 text-xs text-brand-300/70 font-medium">
               <CheckCircle className="w-3 h-3 text-emerald-400" />
               {h}
             </span>
@@ -453,10 +452,11 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
           className="flex flex-wrap justify-center gap-4 mt-10"
-        >            <a
+        >
+          <a
             href="#enquiry"
             onClick={(e) => { e.preventDefault(); document.querySelector('#enquiry')?.scrollIntoView({ behavior: 'smooth' }); }}
-            className="group px-8 py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold text-base shadow-2xl shadow-amber-500/25 hover:shadow-amber-500/40 hover:-translate-y-1 transition-all duration-200 inline-flex items-center gap-2"
+            className="group px-8 py-4 rounded-2xl bg-gradient-to-r from-accent-600 to-accent-800 text-white font-bold text-base shadow-2xl shadow-accent-500/25 hover:shadow-accent-500/40 hover:-translate-y-1 transition-all duration-200 inline-flex items-center gap-2"
           >
             Enroll Now
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -486,7 +486,7 @@ function HeroSection() {
           className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto"
         >
           {heroStats.map((stat: { label: string; end: number; suffix: string; icon: React.ReactNode }, i: number) => (
-            <div key={i} className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-5 hover:bg-white/10 transition-all duration-300">
+            <div key={i} className="stat-card-glass">
               <AnimatedCounter {...stat} />
             </div>
           ))}
@@ -504,7 +504,7 @@ function HeroSection() {
             transition={{ duration: 2, repeat: Infinity }}
             className="w-6 h-10 rounded-full border-2 border-white/20 mx-auto flex items-start justify-center pt-2"
           >
-            <motion.div className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+            <motion.div className="w-1.5 h-1.5 rounded-full bg-accent-400" />
           </motion.div>
         </motion.div>
       </div>
@@ -526,9 +526,9 @@ function AboutSection() {
   ];
   return (
     <section id="about" className="py-24 relative overflow-hidden bg-white">
-      <div className="absolute top-0 right-0 -mt-40 -mr-40 w-80 h-80 rounded-full bg-purple-100/50 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 -mb-40 -ml-40 w-80 h-80 rounded-full bg-amber-100/30 blur-3xl pointer-events-none" />
-      
+      <div className="absolute top-0 right-0 -mt-40 -mr-40 w-80 h-80 rounded-full bg-brand-100/50 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 -mb-40 -ml-40 w-80 h-80 rounded-full bg-accent-100/30 blur-3xl pointer-events-none" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle title={about.title || 'About Dwaraka Academy'} subtitle={about.subtitle || 'Our Story'} />
 
@@ -550,7 +550,7 @@ function AboutSection() {
                 className="w-full h-auto object-cover"
                 unoptimized
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-purple-900/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-900/30 to-transparent" />
             </div>
             {/* Floating card */}
             <motion.div
@@ -558,15 +558,15 @@ function AboutSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-xl border border-slate-100 p-5 max-w-[200px]"
+              className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-xl border border-navy-100 p-5 max-w-[200px]"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-500 to-accent-700 flex items-center justify-center text-white">
                   <Award className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-2xl font-extrabold text-slate-900">{about.yearsOfExcellence || 14}+</div>
-                  <div className="text-xs text-slate-500">Years of Excellence</div>
+                  <div className="text-2xl font-extrabold text-navy-900">{about.yearsOfExcellence || 14}+</div>
+                  <div className="text-xs text-navy-500">Years of Excellence</div>
                 </div>
               </div>
             </motion.div>
@@ -580,63 +580,63 @@ function AboutSection() {
             transition={{ duration: 0.6 }}
             className="space-y-6"
           >
-            <p className="text-lg text-slate-600 leading-relaxed">
-              {about.description || <><span className="font-bold text-purple-700">Dwaraka Academy</span> is a premier educational institution dedicated to shaping the future of students through comprehensive coaching for CBSE, JEE, and NEET examinations.</>}
+            <p className="text-lg text-navy-600 leading-relaxed">
+              {about.description || <><span className="font-bold text-brand-700">Dwaraka Academy</span> is a premier educational institution dedicated to shaping the future of students through comprehensive coaching for CBSE, JEE, and NEET examinations.</>}
             </p>
-            <p className="text-slate-600 leading-relaxed">
+            <p className="text-navy-600 leading-relaxed">
               {about.extendedDescription || 'Since our establishment in 2020, we have been committed to providing quality education that goes beyond textbooks. Our experienced faculty, innovative teaching methods, and student-centric approach ensure every learner achieves their full potential.'}
             </p>
 
             {/* Director's Message */}
-            <div className="bg-gradient-to-br from-purple-50 to-white rounded-2xl p-6 border border-purple-100/50">
+            <div className="bg-gradient-to-br from-brand-50 to-white rounded-2xl p-6 border border-brand-100/50">
               <div className="flex items-center gap-4 mb-3">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white font-bold text-lg flex-shrink-0 shadow-lg">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent-500 to-accent-700 flex items-center justify-center text-white font-bold text-lg flex-shrink-0 shadow-lg">
                   DK
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900">Director&apos;s Message</h3>
-                  <p className="text-xs text-slate-500">{about.directorName || 'Dr. Dwaraka Kumar'}, {about.directorTitle || 'Founder & Director'}</p>
+                  <h3 className="font-bold text-navy-900">Director&apos;s Message</h3>
+                  <p className="text-xs text-navy-500">{about.directorName || 'Dr. Dwaraka Kumar'}, {about.directorTitle || 'Founder & Director'}</p>
                 </div>
               </div>
-              <p className="text-sm text-slate-600 leading-relaxed italic">
-                {about.directorMessage || '“At Dwaraka Academy, we believe every student has the potential to excel. Our mission is to nurture that potential through quality education, dedicated mentorship, and a supportive learning environment that encourages growth, curiosity, and academic excellence.”'}
+              <p className="text-sm text-navy-600 leading-relaxed italic">
+                {about.directorMessage || '\u201cAt Dwaraka Academy, we believe every student has the potential to excel. Our mission is to nurture that potential through quality education, dedicated mentorship, and a supportive learning environment that encourages growth, curiosity, and academic excellence.\u201d'}
               </p>
             </div>
 
             {/* Timeline */}
-            <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-soft">
-              <h3 className="font-bold text-slate-900 text-sm mb-4 flex items-center gap-2">
-                <Award className="w-4 h-4 text-amber-500" />
-                Our Journey — 6 Years of Excellence
+            <div className="card">
+              <h3 className="font-bold text-navy-900 text-sm mb-4 flex items-center gap-2">
+                <Award className="w-4 h-4 text-accent-500" />
+                Our Journey \u2014 6 Years of Excellence
               </h3>
               <div className="space-y-3">
                 {aboutTimeline.map((milestone, i) => (
                   <div key={i} className="flex gap-3">
                     <div className="flex flex-col items-center">
-                      <div className="w-3 h-3 rounded-full bg-amber-400 ring-2 ring-amber-100" />
-                      {i < aboutTimeline.length - 1 && <div className="w-0.5 flex-1 bg-amber-200" />}
+                      <div className="w-3 h-3 rounded-full bg-accent-400 ring-2 ring-accent-100" />
+                      {i < aboutTimeline.length - 1 && <div className="w-0.5 flex-1 bg-accent-200" />}
                     </div>
                     <div className="pb-3">
-                      <span className="text-xs font-bold text-amber-600">{milestone.year || milestone.year}</span>
-                      <p className="text-xs text-slate-500">{milestone.description || milestone.desc}</p>
+                      <span className="text-xs font-bold text-accent-600">{milestone.year || milestone.year}</span>
+                      <p className="text-xs text-navy-500">{milestone.description || milestone.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
               {[
                 { icon: <Target className="w-5 h-5" />, title: 'Our Mission', desc: 'To nurture academic excellence and build confident, successful individuals.' },
                 { icon: <Eye className="w-5 h-5" />, title: 'Our Vision', desc: 'To be the most trusted and transformative educational academy in the region.' },
                 { icon: <Heart className="w-5 h-5" />, title: 'Our Values', desc: 'Integrity, innovation, inclusivity, and unwavering commitment to student success.' },
               ].map((item, i) => (
-                <div key={i} className="bg-gradient-to-br from-purple-50 to-white rounded-2xl p-5 border border-purple-100/50 hover:shadow-lg transition-all duration-300">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 border border-purple-400/20 flex items-center justify-center text-purple-600 mb-3">
+                <div key={i} className="bg-gradient-to-br from-brand-50 to-white rounded-2xl p-5 border border-brand-100/50 hover:shadow-lg transition-all duration-300">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-600/10 border border-brand-400/20 flex items-center justify-center text-brand-600 mb-3">
                     {item.icon}
                   </div>
-                  <h3 className="font-bold text-slate-900 text-sm mb-1">{item.title}</h3>
-                  <p className="text-xs text-slate-500 leading-relaxed">{item.desc}</p>
+                  <h3 className="font-bold text-navy-900 text-sm mb-1">{item.title}</h3>
+                  <p className="text-xs text-navy-500 leading-relaxed">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -662,7 +662,7 @@ function WhyChooseUsSection() {
     Target: <Target className="w-6 h-6" />,
   };
   return (
-    <section id="why-us" className="py-24 relative overflow-hidden bg-gradient-to-br from-purple-50 via-white to-purple-50/50">
+    <section id="why-us" className="py-24 relative overflow-hidden bg-gradient-to-br from-brand-50 via-white to-brand-50/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle title="Why Choose Us" subtitle="Our Strengths" />
 
@@ -675,12 +675,13 @@ function WhyChooseUsSection() {
               viewport={{ once: true, margin: '-30px' }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
               whileHover={{ y: -6, scale: 1.02 }}
-              className="group bg-white rounded-2xl p-6 border border-slate-100 shadow-soft hover:shadow-xl hover:border-purple-100/50 transition-all duration-300"
-            >                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 border border-purple-400/20 flex items-center justify-center text-purple-600 mb-4 group-hover:scale-110 transition-transform duration-300">
+              className="card group"
+            >
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-500/20 to-brand-600/10 border border-brand-400/20 flex items-center justify-center text-brand-600 mb-4 group-hover:scale-110 transition-transform duration-300">
                 {typeof item.icon === 'string' ? (iconMap[item.icon] || <Award className="w-6 h-6" />) : item.icon}
               </div>
-              <h3 className="font-bold text-slate-900 text-lg mb-2">{item.title}</h3>
-              <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
+              <h3 className="font-bold text-navy-900 text-lg mb-2">{item.title}</h3>
+              <p className="text-sm text-navy-500 leading-relaxed">{item.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -695,13 +696,13 @@ function CoursesSection() {
   const courses = data.courses && data.courses.length > 0 ? data.courses : COURSES;
   return (
     <section id="courses" className="py-24 relative overflow-hidden bg-white">
-      <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-purple-50/50 to-transparent pointer-events-none" />
-      
+      <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-brand-50/50 to-transparent pointer-events-none" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle title="Our Courses" subtitle="Programs" />
 
         <div className="grid md:grid-cols-3 gap-8">
-          {courses.map((course, i) => (
+          {courses.map((course: any, i: number) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 30 }}
@@ -709,26 +710,26 @@ function CoursesSection() {
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: i * 0.15 }}
               whileHover={{ y: -8 }}
-              className={`group relative bg-gradient-to-br ${course.gradient} rounded-3xl border ${course.border} p-8 overflow-hidden shadow-soft hover:shadow-2xl ${course.shadow} transition-all duration-500`}
+              className={`card-bento group bg-gradient-to-br ${course.gradient} border ${course.border}`}
             >
               {/* Decorative gradient */}
               <div className={`absolute top-0 right-0 w-40 h-40 rounded-full bg-gradient-to-br ${course.color} opacity-5 blur-3xl -mr-20 -mt-20`} />
-              
+
               {/* Icon */}
               <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${course.color} flex items-center justify-center text-white shadow-lg mb-6 group-hover:scale-110 transition-transform duration-300`}>
                 {course.icon}
               </div>
 
-              <h3 className="text-2xl font-extrabold text-slate-900 mb-1">{course.title}</h3>
-              <p className="text-sm font-medium text-purple-600 mb-4">{course.grades}</p>
+              <h3 className="text-2xl font-extrabold text-navy-900 mb-1">{course.title}</h3>
+              <p className="text-sm font-medium text-brand-600 mb-4">{course.grades}</p>
 
-              <p className="text-sm text-slate-600 leading-relaxed mb-4">{course.description}</p>
+              <p className="text-sm text-navy-600 leading-relaxed mb-4">{course.description}</p>
 
-              <div className="border-t border-slate-100 pt-4 mb-4">
-                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Subjects</p>
+              <div className="border-t border-navy-100 pt-4 mb-4">
+                <p className="text-xs font-semibold text-navy-400 uppercase tracking-wider mb-2">Subjects</p>
                 <div className="flex flex-wrap gap-1.5">
                   {course.subjects.map((sub: string, j: number) => (
-                    <span key={j} className={`px-2 py-0.5 rounded-md text-xs font-medium ${i === 0 ? 'bg-purple-50 text-purple-700' : i === 1 ? 'bg-amber-50 text-amber-700' : 'bg-emerald-50 text-emerald-700'}`}>
+                    <span key={j} className={`px-2 py-0.5 rounded-md text-xs font-medium ${i === 0 ? 'bg-brand-50 text-brand-700' : i === 1 ? 'bg-accent-50 text-accent-700' : 'bg-emerald-50 text-emerald-700'}`}>
                       {sub}
                     </span>
                   ))}
@@ -736,20 +737,20 @@ function CoursesSection() {
               </div>
 
               <div className="grid grid-cols-2 gap-3 mb-4 text-xs">
-                <div className="bg-slate-50 rounded-lg p-2.5">
-                  <span className="font-semibold text-slate-700 block">Eligibility</span>
-                  <span className="text-slate-500">{course.eligibility}</span>
+                <div className="bg-navy-50 rounded-lg p-2.5">
+                  <span className="font-semibold text-navy-700 block">Eligibility</span>
+                  <span className="text-navy-500">{course.eligibility}</span>
                 </div>
-                <div className="bg-slate-50 rounded-lg p-2.5">
-                  <span className="font-semibold text-slate-700 block">Batch Timings</span>
-                  <span className="text-slate-500">{course.batchTimings[0]}<br />{course.batchTimings[1]}</span>
+                <div className="bg-navy-50 rounded-lg p-2.5">
+                  <span className="font-semibold text-navy-700 block">Batch Timings</span>
+                  <span className="text-navy-500">{course.batchTimings[0]}<br />{course.batchTimings[1]}</span>
                 </div>
               </div>
 
               <ul className="space-y-2 mb-6">
                 {course.features.map((f: string, j: number) => (
-                  <li key={j} className="flex items-center gap-3 text-sm text-slate-600">
-                    <CheckCircle className={`w-4 h-4 flex-shrink-0 ${i === 0 ? 'text-purple-500' : i === 1 ? 'text-amber-500' : 'text-emerald-500'}`} />
+                  <li key={j} className="flex items-center gap-3 text-sm text-navy-600">
+                    <CheckCircle className={`w-4 h-4 flex-shrink-0 ${i === 0 ? 'text-brand-500' : i === 1 ? 'text-accent-500' : 'text-emerald-500'}`} />
                     {f}
                   </li>
                 ))}
@@ -774,7 +775,7 @@ function CoursesSection() {
 // ─── Faculty Section ───
 function FacultyCard({ faculty, index }: { faculty: typeof FACULTY[0]; index: number }) {
   const initials = faculty.name.split(' ').map(n => n[0]).join('');
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -782,21 +783,21 @@ function FacultyCard({ faculty, index }: { faculty: typeof FACULTY[0]; index: nu
       viewport={{ once: true, margin: '-30px' }}
       transition={{ duration: 0.4, delay: index * 0.08 }}
       whileHover={{ y: -6 }}
-      className="bg-white rounded-2xl p-6 border border-slate-100 shadow-soft hover:shadow-xl transition-all duration-300 text-center group"
+      className="card text-center group"
     >
       {/* Avatar */}
-      <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center text-white text-xl font-bold mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-purple-500/20">
+      <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center text-white text-xl font-bold mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-brand-500/20">
         {initials}
       </div>
 
-      <h3 className="font-bold text-slate-900 text-lg">{faculty.name}</h3>
-      <span className="inline-block px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-semibold mt-2 mb-1">
+      <h3 className="font-bold text-navy-900 text-lg">{faculty.name}</h3>
+      <span className="inline-block px-3 py-1 rounded-full bg-brand-100 text-brand-700 text-xs font-semibold mt-2 mb-1">
         {faculty.subject}
       </span>
-      <p className="text-xs text-purple-500/70 font-medium mb-2">{faculty.specialization}</p>
-      <div className="space-y-1 text-sm text-slate-500">
+      <p className="text-xs text-brand-500/70 font-medium mb-2">{faculty.specialization}</p>
+      <div className="space-y-1 text-sm text-navy-500">
         <p>{faculty.qualification}</p>
-        <p className="flex items-center justify-center gap-1 text-amber-600 font-medium">
+        <p className="flex items-center justify-center gap-1 text-accent-600 font-medium">
           <Clock className="w-3.5 h-3.5" />
           {faculty.experience}
         </p>
@@ -809,14 +810,14 @@ function FacultySection() {
   const { data } = useSiteData();
   const faculty = data.faculty && data.faculty.length > 0 ? data.faculty : FACULTY;
   return (
-    <section id="faculty" className="py-24 relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900">
+    <section id="faculty" className="py-24 relative overflow-hidden aurora-bg">
       <div className="absolute inset-0 bg-[url('/images/academy/hero-academy.svg')] bg-cover bg-center opacity-5" />
-      
+
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle title="Our Expert Faculty" subtitle="Mentors" light />
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {faculty.map((f, i) => (
+          {faculty.map((f: any, i: number) => (
             <FacultyCard key={i} faculty={f} index={i} />
           ))}
         </div>
@@ -832,13 +833,13 @@ function ResultsSection() {
   const [visible, setVisible] = useState(6);
   const studentResults = data['student-results'] && data['student-results'].length > 0 ? data['student-results'] : STUDENT_RESULTS;
 
-  const filtered = filter === 'All' ? studentResults : studentResults.filter(r => r.category === filter);
+  const filtered = filter === 'All' ? studentResults : studentResults.filter((r: any) => r.category === filter);
   const shown = filtered.slice(0, visible);
 
   const resultFilters = ['All', 'CBSE', 'NEET', 'JEE'];
 
   return (
-    <section id="results" className="py-24 relative overflow-hidden bg-gradient-to-br from-amber-500 via-orange-600 to-amber-700">
+    <section id="results" className="py-24 relative overflow-hidden aurora-bg-gold">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 25px 25px, white 1px, transparent 0)', backgroundSize: '50px 50px' }} />
@@ -855,7 +856,7 @@ function ResultsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-30px' }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 p-6 text-center hover:bg-white/15 transition-all duration-300"
+              className="stat-card-glass"
             >
               <AnimatedCounter {...r} />
             </motion.div>
@@ -870,13 +871,13 @@ function ResultsSection() {
           transition={{ duration: 0.4 }}
           className="flex flex-wrap justify-center gap-2 mb-10"
         >
-          {resultFilters.map(f => (
+          {resultFilters.map((f: string) => (
             <button
               key={f}
               onClick={() => { setFilter(f); setVisible(6); }}
               className={`px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-200 ${
                 filter === f
-                  ? 'bg-white text-amber-700 shadow-lg'
+                  ? 'bg-white text-accent-700 shadow-lg'
                   : 'bg-white/10 text-white/80 hover:bg-white/20 border border-white/10'
               }`}
             >
@@ -887,10 +888,10 @@ function ResultsSection() {
 
         {/* Student Result Cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {shown.map((student, i) => {
+          {shown.map((student: any, i: number) => {
             const initials = student.name.split(' ').map((n: string) => n[0]).join('');
-            const colorMap: Record<string, string> = { CBSE: 'from-purple-500 to-purple-700', JEE: 'from-amber-500 to-orange-600', NEET: 'from-emerald-500 to-emerald-700' };
-            const badgeMap: Record<string, string> = { CBSE: 'bg-purple-500/20 text-purple-200 border-purple-400/30', JEE: 'bg-amber-500/20 text-amber-200 border-amber-400/30', NEET: 'bg-emerald-500/20 text-emerald-200 border-emerald-400/30' };
+            const colorMap: Record<string, string> = { CBSE: 'from-brand-600 to-brand-800', JEE: 'from-accent-600 to-accent-800', NEET: 'from-emerald-500 to-emerald-700' };
+            const badgeMap: Record<string, string> = { CBSE: 'bg-brand-500/20 text-brand-200 border-brand-400/30', JEE: 'bg-accent-500/20 text-accent-200 border-accent-400/30', NEET: 'bg-emerald-500/20 text-emerald-200 border-emerald-400/30' };
             return (
               <motion.div
                 key={i}
@@ -902,12 +903,12 @@ function ResultsSection() {
                 className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 p-6 hover:bg-white/15 transition-all duration-300"
               >
                 <div className="flex items-center gap-4 mb-4">
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${colorMap[student.category] || 'from-purple-500 to-purple-700'} flex items-center justify-center text-white font-bold text-lg flex-shrink-0`}>
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${colorMap[student.category] || 'from-brand-600 to-brand-800'} flex items-center justify-center text-white font-bold text-lg flex-shrink-0`}>
                     {initials}
                   </div>
                   <div className="min-w-0">
                     <h4 className="font-bold text-white text-base truncate">{student.name}</h4>
-                    <p className="text-xs text-amber-200/70 truncate">{student.school}</p>
+                    <p className="text-xs text-accent-200/70 truncate">{student.school}</p>
                   </div>
                 </div>
 
@@ -915,14 +916,14 @@ function ResultsSection() {
                   <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold border ${badgeMap[student.category]}`}>
                     {student.category}
                   </span>
-                  <span className="text-xs text-amber-200/60">{student.year}</span>
+                  <span className="text-xs text-accent-200/60">{student.year}</span>
                 </div>
 
                 <div className="text-center py-3">
                   <div className="text-3xl font-extrabold text-white">{student.percentage}%</div>
                 </div>
 
-                <p className="text-xs text-center text-amber-200/80 font-medium">{student.achievement}</p>
+                <p className="text-xs text-center text-accent-200/80 font-medium">{student.achievement}</p>
               </motion.div>
             );
           })}
@@ -949,15 +950,15 @@ function ResultsSection() {
         >
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 p-6 text-center">
             <div className="text-3xl font-extrabold text-white">100+</div>
-            <div className="text-sm text-amber-200/80 font-medium mt-1">Students Above 90%</div>
+            <div className="text-sm text-accent-200/80 font-medium mt-1">Students Above 90%</div>
           </div>
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 p-6 text-center">
             <div className="text-3xl font-extrabold text-white">5</div>
-            <div className="text-sm text-amber-200/80 font-medium mt-1">State Rank Holders</div>
+            <div className="text-sm text-accent-200/80 font-medium mt-1">State Rank Holders</div>
           </div>
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 p-6 text-center">
             <div className="text-3xl font-extrabold text-white">500+</div>
-            <div className="text-sm text-amber-200/80 font-medium mt-1">Scholarships Awarded</div>
+            <div className="text-sm text-accent-200/80 font-medium mt-1">Scholarships Awarded</div>
           </div>
         </motion.div>
       </div>
@@ -1023,29 +1024,29 @@ function TestimonialsSection() {
                 animate="center"
                 exit="exit"
                 transition={{ duration: 0.4, ease: 'easeInOut' }}
-                className="bg-gradient-to-br from-purple-50 to-white rounded-3xl p-8 md:p-12 border border-purple-100/50 shadow-xl"
+                className="card-glass p-8 md:p-12"
               >
                 {/* Quote icon */}
-                <Quote className="w-12 h-12 text-purple-200 mb-4" />
-                
-                <p className="text-base md:text-lg text-slate-700 leading-relaxed mb-6 italic">
+                <Quote className="w-12 h-12 text-brand-200 mb-4" />
+
+                <p className="text-base md:text-lg text-navy-700 leading-relaxed mb-6 italic">
                   &ldquo;{testimonialsData[current].text}&rdquo;
                 </p>
 
                 <div className="flex items-center gap-1 mb-4">
                   {Array.from({ length: testimonialsData[current].rating }).map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    <Star key={i} className="w-4 h-4 fill-accent-400 text-accent-400" />
                   ))}
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center text-white font-bold text-lg flex-shrink-0 shadow-lg">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center text-white font-bold text-lg flex-shrink-0 shadow-lg">
                     {testimonialsData[current].name.split(' ').map((n: string) => n[0]).join('')}
                   </div>
                   <div>
-                    <div className="font-bold text-slate-900">{testimonialsData[current].name}</div>
-                    <div className="text-sm text-slate-500">{testimonialsData[current].role}</div>
-                    <span className="inline-block mt-1 px-2 py-0.5 rounded-md bg-amber-100 text-amber-700 text-xs font-medium">
+                    <div className="font-bold text-navy-900">{testimonialsData[current].name}</div>
+                    <div className="text-sm text-navy-500">{testimonialsData[current].role}</div>
+                    <span className="inline-block mt-1 px-2 py-0.5 rounded-md bg-accent-100 text-accent-700 text-xs font-medium">
                       {testimonialsData[current].childClass}
                     </span>
                   </div>
@@ -1056,10 +1057,10 @@ function TestimonialsSection() {
 
           {/* Navigation */}
           <div className="flex items-center justify-center gap-4 mt-8">
-            <button onClick={prev} className="p-3 rounded-full bg-white border border-slate-200 text-slate-600 hover:bg-purple-50 hover:text-purple-700 hover:border-purple-200 transition-all shadow-soft" aria-label="Previous testimonial">
+            <button onClick={prev} className="p-3 rounded-full bg-white border border-navy-200 text-navy-600 hover:bg-brand-50 hover:text-brand-700 hover:border-brand-200 transition-all shadow-soft" aria-label="Previous testimonial">
               <ChevronLeft className="w-5 h-5" />
             </button>
-            
+
             <div className="flex gap-2" role="tablist" aria-label="Testimonial navigation">
               {testimonialsData.map((_, i) => (
                 <button
@@ -1069,13 +1070,13 @@ function TestimonialsSection() {
                   aria-selected={i === current}
                   aria-label={`Testimonial ${i + 1}`}
                   className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                    i === current ? 'bg-purple-600 w-8' : 'bg-purple-200 hover:bg-purple-300'
+                    i === current ? 'bg-brand-600 scale-125' : 'bg-navy-300 hover:bg-navy-400'
                   }`}
                 />
               ))}
             </div>
 
-            <button onClick={next} className="p-3 rounded-full bg-white border border-slate-200 text-slate-600 hover:bg-purple-50 hover:text-purple-700 hover:border-purple-200 transition-all shadow-soft" aria-label="Next testimonial">
+            <button onClick={next} className="p-3 rounded-full bg-white border border-navy-200 text-navy-600 hover:bg-brand-50 hover:text-brand-700 hover:border-brand-200 transition-all shadow-soft" aria-label="Next testimonial">
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
@@ -1088,23 +1089,18 @@ function TestimonialsSection() {
 // ─── Gallery Section ───
 function GallerySection() {
   const { data } = useSiteData();
-  const [lightbox, setLightbox] = useState<number | null>(null);
-  const [category, setCategory] = useState('All');
+  const [filter, setFilter] = useState('All');
+  const [lightboxIndex, setLightbox] = useState<number | null>(null);
   const galleryImages = data.gallery && data.gallery.length > 0 ? data.gallery : GALLERY_IMAGES;
-  const galleryCategories = ['All', ...new Set(galleryImages.map((img: any) => img.category || 'All').filter(Boolean))];
-  if (galleryCategories.length <= 1 && !data.gallery?.length) galleryCategories.push('Classroom', 'Events', 'Results', 'Activities', 'Annual Day');
 
-  const filtered = category === 'All' ? galleryImages : galleryImages.filter((img: any) => img.category === category);
-
-  // When filtered changes, reset lightbox if current index is out of bounds
-  const lightboxIndex = lightbox !== null && filtered.length > 0 ? Math.min(lightbox, filtered.length - 1) : null;
+  const filtered = filter === 'All' ? galleryImages : galleryImages.filter((img: any) => img.category === filter);
 
   return (
-    <section id="gallery" className="py-24 relative overflow-hidden bg-gradient-to-br from-purple-50/50 via-white to-purple-50/30">
+    <section id="gallery" className="py-24 relative overflow-hidden bg-gradient-to-br from-brand-50 via-white to-brand-50/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle title="Photo Gallery" subtitle="Campus" />
+        <SectionTitle title="Our Gallery" subtitle="Moments" />
 
-        {/* Category Filters */}
+        {/* Filter Tabs */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -1112,14 +1108,14 @@ function GallerySection() {
           transition={{ duration: 0.4 }}
           className="flex flex-wrap justify-center gap-2 mb-10"
         >
-          {galleryCategories.map(cat => (
+          {GALLERY_CATEGORIES.map((cat) => (
             <button
               key={cat}
-              onClick={() => { setCategory(cat); setLightbox(null); }}
-              className={`px-4 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 ${
-                category === cat
-                  ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/20'
-                  : 'bg-white text-slate-600 hover:bg-purple-50 border border-slate-200'
+              onClick={() => setFilter(cat)}
+              className={`px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                filter === cat
+                  ? 'bg-brand-600 text-white shadow-lg shadow-brand-500/20'
+                  : 'bg-white text-navy-600 hover:bg-brand-50 hover:text-brand-700 border border-navy-200'
               }`}
             >
               {cat}
@@ -1127,96 +1123,91 @@ function GallerySection() {
           ))}
         </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-          {filtered.map((img, i) => (
-            <motion.div
-              key={`${img.category}-${i}`}
+        {/* Gallery Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {filtered.map((img: any, i: number) => (
+            <motion.button
+              key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-30px' }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              onClick={() => { setLightbox(i); }}
-              className="group relative rounded-2xl overflow-hidden cursor-pointer bg-slate-100 shadow-soft hover:shadow-xl transition-all duration-300"
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setLightbox(i); }}
+              whileHover={{ y: -4, scale: 1.01 }}
+              onClick={() => setLightbox(i)}
+              className="group relative rounded-2xl overflow-hidden shadow-soft hover:shadow-xl transition-all duration-300 text-left"
             >
               <Image
                 src={img.src}
                 alt={img.alt}
                 width={400}
                 height={300}
-                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500"
                 unoptimized
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
-                <div className="text-white">
-                  <p className="font-semibold text-sm">{img.label}</p>
-                  <span className="inline-block mt-1 px-2 py-0.5 rounded-md bg-white/20 text-white/90 text-[10px] font-medium">
-                    {img.category}
-                  </span>
-                </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <p className="text-white font-semibold text-sm">{img.label}</p>
+                <span className="text-white/70 text-xs">{img.category}</span>
               </div>
-            </motion.div>
+            </motion.button>
           ))}
         </div>
       </div>
 
       {/* Lightbox */}
       <AnimatePresence>
-        {lightboxIndex !== null && filtered.length > 0 && (
+        {lightboxIndex !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setLightbox(null)}
-            className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
-            onKeyDown={(e) => { if (e.key === 'Escape') setLightbox(null); }}
-            tabIndex={-1}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-4xl w-full"
+              className="relative max-w-4xl w-full mx-4"
             >
               <button
                 onClick={() => setLightbox(null)}
-                className="absolute -top-12 right-0 text-white/70 hover:text-white transition-colors"
+                className="absolute -top-12 right-0 text-white/70 hover:text-white transition-colors text-sm font-medium"
               >
-                <X className="w-8 h-8" />
+                Close (Esc)
               </button>
               <Image
                 src={filtered[lightboxIndex].src}
                 alt={filtered[lightboxIndex].alt}
-                width={800}
-                height={500}
+                width={1200}
+                height={800}
                 className="w-full h-auto rounded-2xl shadow-2xl"
                 unoptimized
               />
-              <div className="text-center mt-2">
-                <span className="text-white/70 text-sm font-medium">{filtered[lightboxIndex].label}</span>
-                <span className="mx-2 text-white/30">·</span>
-                <span className="text-amber-400 text-xs font-medium">{filtered[lightboxIndex].category}</span>
-              </div>
+              <div className="flex items-center justify-between mt-4">
+                <div>
+                  <p className="text-white font-semibold">{filtered[lightboxIndex].label}</p>
+                  <span className="text-accent-400 text-xs font-medium">{filtered[lightboxIndex].category}</span>
+                </div>
 
-              {/* Nav */}
-              <div className="flex justify-center gap-4 mt-4">
-                <button
-                  onClick={() => setLightbox((lightboxIndex - 1 + filtered.length) % filtered.length)}
-                  className="p-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all"
-                  aria-label="Previous image"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => setLightbox((lightboxIndex + 1) % filtered.length)}
-                  className="p-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all"
-                  aria-label="Next image"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
+                {/* Nav */}
+                <div className="flex justify-center gap-4 mt-4">
+                  <button
+                    onClick={() => setLightbox((lightboxIndex - 1 + filtered.length) % filtered.length)}
+                    className="p-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={() => setLightbox((lightboxIndex + 1) % filtered.length)}
+                    className="p-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
             </motion.div>
           </motion.div>
@@ -1236,19 +1227,19 @@ function EnquirySection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    
+
     if (!form.studentName || !form.parentName || !form.phone || !form.email || !form.studentClass) {
       setError('Please fill in all required fields');
       return;
     }
-    
+
     // Validate email format
     const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRe.test(form.email)) {
       setError('Please enter a valid email address');
       return;
     }
-    
+
     // Validate phone (10+ digits)
     const phoneDigits = form.phone.replace(/\D/g, '');
     if (phoneDigits.length < 10) {
@@ -1261,7 +1252,8 @@ function EnquirySection() {
       const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
       await fetch(`${API_URL}/api/enquiries`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },                  body: JSON.stringify(form),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
       });
       setSubmitted(true);
     } catch {
@@ -1271,18 +1263,18 @@ function EnquirySection() {
   };
 
   return (
-    <section id="enquiry" className="py-24 relative overflow-hidden bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900">
+    <section id="enquiry" className="py-24 relative overflow-hidden aurora-bg">
       {/* Animated background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{ x: [0, 20, 0], y: [0, -20, 0] }}
           transition={{ duration: 10, repeat: Infinity }}
-          className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-purple-500/10 blur-3xl"
+          className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-brand-500/10 blur-3xl"
         />
         <motion.div
           animate={{ x: [0, -15, 0], y: [0, 15, 0] }}
           transition={{ duration: 8, repeat: Infinity }}
-          className="absolute -bottom-40 -right-40 w-[30rem] h-[30rem] rounded-full bg-indigo-500/10 blur-3xl"
+          className="absolute -bottom-40 -right-40 w-[30rem] h-[30rem] rounded-full bg-accent-500/10 blur-3xl"
         />
       </div>
 
@@ -1306,7 +1298,7 @@ function EnquirySection() {
                 <CheckCircle className="w-10 h-10 text-emerald-400" />
               </div>
               <h3 className="text-2xl font-extrabold text-white mb-2">Enquiry Submitted!</h3>
-              <p className="text-purple-200/70 max-w-md mx-auto">
+              <p className="text-brand-200/70 max-w-md mx-auto">
                 Thank you for your interest. Our admissions team will contact you shortly.
               </p>
               <button
@@ -1326,98 +1318,98 @@ function EnquirySection() {
 
               <div className="grid sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-purple-200">Student Name *</label>
+                  <label className="text-sm font-medium text-brand-200">Student Name *</label>
                   <input
                     type="text"
                     value={form.studentName}
                     onChange={(e) => setForm({ ...form, studentName: e.target.value })}
                     placeholder="Enter student name"
-                    className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-sm text-white placeholder-purple-300/50 focus:border-purple-400/40 focus:ring-2 focus:ring-purple-400/15 focus:bg-white/15 focus:outline-none transition-all"
+                    className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-sm text-white placeholder-brand-300/50 focus:border-brand-400/40 focus:ring-2 focus:ring-brand-400/15 focus:bg-white/15 focus:outline-none transition-all"
                     required
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-purple-200">Parent Name *</label>
+                  <label className="text-sm font-medium text-brand-200">Parent Name *</label>
                   <input
                     type="text"
                     value={form.parentName}
                     onChange={(e) => setForm({ ...form, parentName: e.target.value })}
                     placeholder="Enter parent name"
-                    className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-sm text-white placeholder-purple-300/50 focus:border-purple-400/40 focus:ring-2 focus:ring-purple-400/15 focus:bg-white/15 focus:outline-none transition-all"
+                    className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-sm text-white placeholder-brand-300/50 focus:border-brand-400/40 focus:ring-2 focus:ring-brand-400/15 focus:bg-white/15 focus:outline-none transition-all"
                     required
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-purple-200">Class *</label>
+                  <label className="text-sm font-medium text-brand-200">Class *</label>
                   <select
                     value={form.studentClass}
                     onChange={(e) => setForm({ ...form, studentClass: e.target.value })}
-                    className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-sm text-white/80 focus:border-purple-400/40 focus:ring-2 focus:ring-purple-400/15 focus:bg-white/15 focus:outline-none transition-all appearance-none"
+                    className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-sm text-white/80 focus:border-brand-400/40 focus:ring-2 focus:ring-brand-400/15 focus:bg-white/15 focus:outline-none transition-all appearance-none"
                     required
                   >
-                    <option value="" className="bg-purple-800 text-white">Select class</option>
-                    <option value="6" className="bg-purple-800 text-white">Class 6</option>
-                    <option value="7" className="bg-purple-800 text-white">Class 7</option>
-                    <option value="8" className="bg-purple-800 text-white">Class 8</option>
-                    <option value="9" className="bg-purple-800 text-white">Class 9</option>
-                    <option value="10" className="bg-purple-800 text-white">Class 10</option>
-                    <option value="11" className="bg-purple-800 text-white">Class 11</option>
-                    <option value="12" className="bg-purple-800 text-white">Class 12</option>
+                    <option value="" className="bg-brand-800 text-white">Select class</option>
+                    <option value="6" className="bg-brand-800 text-white">Class 6</option>
+                    <option value="7" className="bg-brand-800 text-white">Class 7</option>
+                    <option value="8" className="bg-brand-800 text-white">Class 8</option>
+                    <option value="9" className="bg-brand-800 text-white">Class 9</option>
+                    <option value="10" className="bg-brand-800 text-white">Class 10</option>
+                    <option value="11" className="bg-brand-800 text-white">Class 11</option>
+                    <option value="12" className="bg-brand-800 text-white">Class 12</option>
                   </select>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-purple-200">Phone Number *</label>
+                  <label className="text-sm font-medium text-brand-200">Phone Number *</label>
                   <input
                     type="tel"
                     value={form.phone}
                     onChange={(e) => setForm({ ...form, phone: e.target.value })}
                     placeholder="Enter phone number"
-                    className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-sm text-white placeholder-purple-300/50 focus:border-purple-400/40 focus:ring-2 focus:ring-purple-400/15 focus:bg-white/15 focus:outline-none transition-all"
+                    className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-sm text-white placeholder-brand-300/50 focus:border-brand-400/40 focus:ring-2 focus:ring-brand-400/15 focus:bg-white/15 focus:outline-none transition-all"
                     required
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-purple-200">Email *</label>
+                  <label className="text-sm font-medium text-brand-200">Email *</label>
                   <input
                     type="email"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     placeholder="Enter email address"
-                    className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-sm text-white placeholder-purple-300/50 focus:border-purple-400/40 focus:ring-2 focus:ring-purple-400/15 focus:bg-white/15 focus:outline-none transition-all"
+                    className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-sm text-white placeholder-brand-300/50 focus:border-brand-400/40 focus:ring-2 focus:ring-brand-400/15 focus:bg-white/15 focus:outline-none transition-all"
                     required
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-purple-200">Course Interested In</label>
+                <label className="text-sm font-medium text-brand-200">Course Interested In</label>
                 <select
                   value={form.course}
                   onChange={(e) => setForm({ ...form, course: e.target.value })}
-                  className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-sm text-white/80 focus:border-purple-400/40 focus:ring-2 focus:ring-purple-400/15 focus:bg-white/15 focus:outline-none transition-all appearance-none"
+                  className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-sm text-white/80 focus:border-brand-400/40 focus:ring-2 focus:ring-brand-400/15 focus:bg-white/15 focus:outline-none transition-all appearance-none"
                 >
-                  <option value="" className="bg-purple-800 text-white">Select a course</option>
-                  <option value="CBSE" className="bg-purple-800 text-white">CBSE Coaching</option>
-                  <option value="JEE" className="bg-purple-800 text-white">JEE Coaching</option>
-                  <option value="NEET" className="bg-purple-800 text-white">NEET Coaching</option>
+                  <option value="" className="bg-brand-800 text-white">Select a course</option>
+                  <option value="CBSE" className="bg-brand-800 text-white">CBSE Coaching</option>
+                  <option value="JEE" className="bg-brand-800 text-white">JEE Coaching</option>
+                  <option value="NEET" className="bg-brand-800 text-white">NEET Coaching</option>
                 </select>
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-purple-200">Message (Optional)</label>
+                <label className="text-sm font-medium text-brand-200">Message (Optional)</label>
                 <textarea
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
                   placeholder="Any specific requirements..."
                   rows={4}
-                  className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-sm text-white placeholder-purple-300/50 focus:border-purple-400/40 focus:ring-2 focus:ring-purple-400/15 focus:bg-white/15 focus:outline-none transition-all resize-none"
+                  className="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 text-sm text-white placeholder-brand-300/50 focus:border-brand-400/40 focus:ring-2 focus:ring-brand-400/15 focus:bg-white/15 focus:outline-none transition-all resize-none"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold text-base shadow-xl shadow-amber-500/20 hover:shadow-amber-500/30 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 transition-all duration-200 inline-flex items-center justify-center gap-2"
+                className="w-full py-4 rounded-2xl bg-gradient-to-r from-accent-600 to-accent-800 text-white font-bold text-base shadow-xl shadow-accent-500/20 hover:shadow-accent-500/30 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 transition-all duration-200 inline-flex items-center justify-center gap-2"
               >
                 {loading ? (
                   <>
@@ -1465,15 +1457,15 @@ function ContactSection() {
                 { icon: <MapPin className="w-5 h-5" />, title: 'Address', content: contact.address || '123, Academic Block, Education City,\nMain Road, District - 123456' },
                 { icon: <Phone className="w-5 h-5" />, title: 'Phone', content: contact.phone || '+91 98765 43210\n+91 98765 43211' },
                 { icon: <Mail className="w-5 h-5" />, title: 'Email', content: contact.email || 'info@dwarakaacademy.com\nadmissions@dwarakaacademy.com' },
-                { icon: <Clock className="w-5 h-5" />, title: 'Working Hours', content: contact.workingHours || 'Mon – Sat: 7:00 AM – 7:00 PM\nSunday: 9:00 AM – 1:00 PM' },
+                { icon: <Clock className="w-5 h-5" />, title: 'Working Hours', content: contact.workingHours || 'Mon \u2013 Sat: 7:00 AM \u2013 7:00 PM\nSunday: 9:00 AM \u2013 1:00 PM' },
               ].map((item, i) => (
                 <div key={i} className="flex gap-4 group">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200/50 flex items-center justify-center text-purple-600 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-50 to-brand-100 border border-brand-200/50 flex items-center justify-center text-brand-600 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
                     {item.icon}
                   </div>
                   <div>
-                    <h3 className="font-bold text-slate-900 text-sm">{item.title}</h3>
-                    <p className="text-sm text-slate-500 mt-0.5 whitespace-pre-line">{item.content}</p>
+                    <h3 className="font-bold text-navy-900 text-sm">{item.title}</h3>
+                    <p className="text-sm text-navy-500 mt-0.5 whitespace-pre-line">{item.content}</p>
                   </div>
                 </div>
               ))}
@@ -1488,7 +1480,7 @@ function ContactSection() {
             transition={{ duration: 0.6 }}
             className="w-full"
           >
-            <div className="rounded-2xl overflow-hidden shadow-xl border border-slate-100 h-[300px] w-full">
+            <div className="rounded-2xl overflow-hidden shadow-xl border border-navy-100 h-[300px] w-full">
               <iframe
                 src={contact.googleMapsEmbed || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.5!2d77.5!3d13.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDAwJzAwLjAiTiA3N8KwMzAnMDAuMCJF!5e0!3m2!1sen!2sin!4v1'}
                 width="100%"
@@ -1504,8 +1496,8 @@ function ContactSection() {
         </div>
 
         {/* Social */}
-        <div className="pt-6 border-t border-slate-100 mt-12">
-          <p className="text-sm font-semibold text-slate-700 mb-4">Follow Us</p>
+        <div className="pt-6 border-t border-navy-100 mt-12">
+          <p className="text-sm font-semibold text-navy-700 mb-4">Follow Us</p>
           <div className="flex gap-3">
             {[
               { icon: <Globe className="w-5 h-5" />, label: 'Facebook', href: 'https://facebook.com/dwarakaacademy' },
@@ -1518,7 +1510,7 @@ function ContactSection() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-11 h-11 rounded-xl bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200/50 flex items-center justify-center text-purple-600 hover:from-purple-600 hover:to-purple-800 hover:text-white hover:border-purple-600 transition-all duration-200"
+                className="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-50 to-brand-100 border border-brand-200/50 flex items-center justify-center text-brand-600 hover:from-brand-600 hover:to-brand-800 hover:text-white hover:border-brand-600 transition-all duration-200"
                 aria-label={social.label}
               >
                 {social.icon}
@@ -1537,13 +1529,13 @@ function DownloadCenterSection() {
   const downloads = data.downloads && data.downloads.length > 0 ? data.downloads : DOWNLOADS_DATA;
   return (
     <section id="downloads" className="py-24 relative overflow-hidden bg-white">
-      <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-purple-50/50 to-transparent pointer-events-none" />
-      
+      <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-brand-50/50 to-transparent pointer-events-none" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle title="Download Center" subtitle="Resources" />
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          {downloads.map((item, i) => (
+          {downloads.map((item: any, i: number) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
@@ -1551,19 +1543,19 @@ function DownloadCenterSection() {
               viewport={{ once: true, margin: '-30px' }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
               whileHover={{ y: -6 }}
-              className="group bg-gradient-to-br from-purple-50 to-white rounded-2xl p-6 border border-purple-100/50 shadow-soft hover:shadow-xl transition-all duration-300"
+              className="card"
             >
               <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center text-white shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300`}>
                 {item.icon}
               </div>
-              <h3 className="font-bold text-slate-900 text-lg mb-2">{item.title}</h3>
-              <p className="text-sm text-slate-500 leading-relaxed mb-5">{item.description}</p>
+              <h3 className="font-bold text-navy-900 text-lg mb-2">{item.title}</h3>
+              <p className="text-sm text-navy-500 leading-relaxed mb-5">{item.description}</p>
               <button
                 onClick={() => {
                   const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
                   window.open(`${API_URL}/downloads/${item.title.toLowerCase().replace(/\s+/g, '-')}.pdf`, '_blank');
                 }}
-                className="inline-flex items-center gap-2 text-sm font-semibold text-purple-700 hover:text-purple-600 transition-colors"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-brand-700 hover:text-brand-600 transition-colors"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -1587,20 +1579,20 @@ function FooterSection() {
   const tagline = settings.tagline || 'Excellence in Education';
   const foundedYear = settings.foundedYear || 2020;
   return (
-    <footer className="bg-slate-900 text-white">
+    <footer className="bg-navy-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center">
                 <GraduationCap className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-extrabold">
-                {academyName} <span className="text-amber-400">Academy</span>
+                {academyName} <span className="text-accent-400">Academy</span>
               </span>
             </Link>
-            <p className="text-sm text-slate-400 leading-relaxed max-w-xs">
+            <p className="text-sm text-navy-400 leading-relaxed max-w-xs">
               Empowering students with quality education since {foundedYear}. Your journey to academic excellence starts here.
             </p>
           </div>
@@ -1613,7 +1605,7 @@ function FooterSection() {
                 <li key={link}>
                   <a
                     href={`#${link.toLowerCase()}`}
-                    className="text-sm text-slate-400 hover:text-amber-400 transition-colors duration-200"
+                    className="text-sm text-navy-400 hover:text-accent-400 transition-colors duration-200"
                   >
                     {link}
                   </a>
@@ -1628,13 +1620,13 @@ function FooterSection() {
             <ul className="space-y-3">
               {['CBSE Coaching', 'JEE Coaching', 'NEET Coaching'].map((course) => (
                 <li key={course}>
-                  <a href="#courses" className="text-sm text-slate-400 hover:text-amber-400 transition-colors duration-200">
+                  <a href="#courses" className="text-sm text-navy-400 hover:text-accent-400 transition-colors duration-200">
                     {course}
                   </a>
                 </li>
               ))}
               <li>
-                <Link href="/login" className="text-sm text-amber-400 hover:text-amber-300 font-semibold transition-colors duration-200">
+                <Link href="/login" className="text-sm text-accent-400 hover:text-accent-300 font-semibold transition-colors duration-200">
                   Student Login →
                 </Link>
               </li>
@@ -1645,16 +1637,16 @@ function FooterSection() {
           <div>
             <h3 className="text-sm font-bold text-white mb-4 uppercase tracking-wider">Contact</h3>
             <ul className="space-y-3">
-              <li className="flex items-start gap-3 text-sm text-slate-400">
-                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-amber-400" />
+              <li className="flex items-start gap-3 text-sm text-navy-400">
+                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-accent-400" />
                 <span>{contact.address ? contact.address.split(',')[0] : '123, Academic Block'}</span>
               </li>
-              <li className="flex items-center gap-3 text-sm text-slate-400">
-                <Phone className="w-4 h-4 flex-shrink-0 text-amber-400" />
+              <li className="flex items-center gap-3 text-sm text-navy-400">
+                <Phone className="w-4 h-4 flex-shrink-0 text-accent-400" />
                 <span>{contact.phone ? contact.phone.split('\n')[0] : '+91 98765 43210'}</span>
               </li>
-              <li className="flex items-center gap-3 text-sm text-slate-400">
-                <Mail className="w-4 h-4 flex-shrink-0 text-amber-400" />
+              <li className="flex items-center gap-3 text-sm text-navy-400">
+                <Mail className="w-4 h-4 flex-shrink-0 text-accent-400" />
                 <span>{contact.email ? contact.email.split('\n')[0] : 'info@dwarakaacademy.com'}</span>
               </li>
             </ul>
@@ -1662,13 +1654,13 @@ function FooterSection() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-slate-500">
-            © {new Date().getFullYear()} Dwaraka Academy. All rights reserved.
+        <div className="mt-12 pt-8 border-t border-navy-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-navy-500">
+            &copy; {new Date().getFullYear()} Dwaraka Academy. All rights reserved.
           </p>
           <div className="flex gap-4">
             {['Privacy Policy', 'Terms of Service', 'Sitemap'].map((item) => (
-              <a key={item} href="#" className="text-xs text-slate-500 hover:text-amber-400 transition-colors">
+              <a key={item} href="#" className="text-xs text-navy-500 hover:text-accent-400 transition-colors">
                 {item}
               </a>
             ))}
@@ -1713,7 +1705,7 @@ function FloatingButtons() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1.7 }}
         href="tel:+919876543210"
-        className="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-xl shadow-blue-500/30 hover:shadow-blue-500/40 hover:-translate-y-1 transition-all duration-200"
+        className="w-12 h-12 rounded-full bg-brand-600 text-white flex items-center justify-center shadow-xl shadow-brand-500/30 hover:shadow-brand-500/40 hover:-translate-y-1 transition-all duration-200"
         title="Call Us"
       >
         <Phone className="w-5 h-5" />
@@ -1727,7 +1719,7 @@ function FloatingButtons() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0 }}
             onClick={scrollToTop}
-            className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-600 to-purple-800 text-white flex items-center justify-center shadow-xl shadow-purple-500/30 hover:shadow-purple-500/40 hover:-translate-y-1 transition-all duration-200"
+            className="w-12 h-12 rounded-full bg-gradient-to-r from-brand-600 to-brand-800 text-white flex items-center justify-center shadow-xl shadow-brand-500/30 hover:shadow-brand-500/40 hover:-translate-y-1 transition-all duration-200"
             title="Back to Top"
           >
             <ChevronUp className="w-5 h-5" />
