@@ -15,13 +15,13 @@ const variantClasses: Record<string, string> = {
   primary:
     'bg-gradient-to-br from-brand to-brand-dark text-white shadow-lg shadow-brand/20 hover:from-brand-light hover:to-brand hover:shadow-xl hover:shadow-brand/25 hover:-translate-y-0.5 active:translate-y-0',
   outline:
-    'border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-300 hover:shadow-sm',
+    'border-2 border-navy-200 bg-white text-navy-700 hover:bg-navy-50 hover:border-brand-400 hover:text-brand-700 hover:shadow-soft',
   danger:
     'bg-gradient-to-br from-red-500 to-red-600 text-white shadow-lg shadow-red-500/20 hover:from-red-600 hover:to-red-700 hover:shadow-xl hover:shadow-red-500/25 hover:-translate-y-0.5 active:translate-y-0',
   success:
     'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-500/20 hover:from-emerald-600 hover:to-emerald-700 hover:shadow-xl hover:shadow-emerald-500/25 hover:-translate-y-0.5 active:translate-y-0',
   ghost:
-    'text-slate-600 hover:bg-slate-100 hover:text-slate-900',
+    'text-navy-600 hover:bg-navy-100 hover:text-navy-900',
 };
 
 const LoadingButton = forwardRef<HTMLButtonElement, LoadingButtonProps>(

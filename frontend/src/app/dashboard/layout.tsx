@@ -13,11 +13,11 @@ import {
   Menu, X, Home, Sun, Moon, Globe, IndianRupee, Megaphone, Upload,
   Search, Settings, Clock, Activity,
 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // ─── Navigation Configuration ───
 const navItems = [
-  { href: '/dashboard', label: 'Home', icon: LayoutDashboard, roles: ['admin', 'teacher', 'student'] },
+  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, roles: ['admin', 'teacher', 'student'] },
   { href: '/dashboard/users', label: 'Users', icon: Users, roles: ['admin'] },
   { href: '/dashboard/teachers', label: 'Teachers', icon: GraduationCap, roles: ['admin'] },
   { href: '/dashboard/students', label: 'Students', icon: User, roles: ['admin'] },
@@ -119,10 +119,10 @@ function Sidebar({
             return (
               <Link key={n.href} href={n.href}
                 onClick={() => setMobileOpen(false)}
-                className={`group relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
+                className={`group relative flex items-center gap-3 px-3 py-2.5 rounded-2xl text-sm font-medium
                   transition-all duration-200 ease-out
                   ${isActive
-                    ? 'bg-brand-600/15 text-brand-100 shadow-sm border border-brand-500/10'
+                    ? 'bg-brand-600/15 text-brand-100 shadow-sm border border-brand-500/10 glow-ring'
                     : 'text-navy-400 hover:bg-navy-800/60 hover:text-white'
                   }
                   ${collapsed ? 'justify-center' : ''}`}>
@@ -599,18 +599,27 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const avatar = user.name?.charAt(0).toUpperCase() || '?';
 
   return (
-    <div className="min-h-screen bg-surface dark:bg-navy-900 flex">
+    <div className="min-h-screen bg-surface dark:bg-navy-900 flex relative">
+      {/* Aurora background animation for the entire app shell */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        <div className="aurora-blob-1" />
+        <div className="aurora-blob-2" />
+        <div className="aurora-blob-3" />
+      </div>
+
       {/* Sidebar */}
-      <Sidebar
-        collapsed={collapsed} setCollapsed={setCollapsed}
-        mobileOpen={mobileOpen} setMobileOpen={setMobileOpen}
-        pathname={pathname} nav={nav} user={user}
-        notifCount={notifCount} avatar={avatar}
-        darkMode={darkMode} toggleDarkMode={toggleDarkMode}
-      />
+      <div className="relative z-10">
+        <Sidebar
+          collapsed={collapsed} setCollapsed={setCollapsed}
+          mobileOpen={mobileOpen} setMobileOpen={setMobileOpen}
+          pathname={pathname} nav={nav} user={user}
+          notifCount={notifCount} avatar={avatar}
+          darkMode={darkMode} toggleDarkMode={toggleDarkMode}
+        />
+      </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 relative z-10">
         {/* Top Navbar */}
         <TopNavbar
           mobileOpen={mobileOpen} setMobileOpen={setMobileOpen}
@@ -618,9 +627,19 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           pathname={pathname}
         />
 
-        {/* Page Content */}
-        <main className="flex-1 p-4 lg:p-6 pb-24 lg:pb-6 animate-page-enter">
-          {children}
+        {/* Page Content with Framer Motion transitions */}
+        <main className="flex-1 p-4 lg:p-6 pb-24 lg:pb-6">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={pathname}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+            >
+              {children}
+            </motion.div>
+          </AnimatePresence>
         </main>
 
         {/* Footer */}
