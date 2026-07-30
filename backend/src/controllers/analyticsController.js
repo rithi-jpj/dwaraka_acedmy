@@ -244,6 +244,39 @@ exports.dashboard = async (req, res) => {
     else eveningBatches.push(stats);
   }
 
+  // Fee statistics for admin
+  let feeStats = { total_collected: 0, total_pending: 0, pending_count: 0, collection_rate: 0, today_collection: 0 };
+  try {
+    const { Fee } = require('../models');
+    const { fn, col, literal, Op } = require('sequelize');
+    const today = new Date().toISOString().split('T')[0];
+    const feeTotals = await Fee.findAll({
+      attributes: [
+        [fn('SUM', col('paid_amount')), 'total_collected'],
+        [fn('SUM', literal('amount - paid_amount')), 'total_pending'],
+        [fn('SUM', col('amount')), 'total_amount'],
+        [fn('COUNT', col('id')), 'total_records'],
+      ],
+      raw: true,
+    });
+    const pendingCount = await Fee.count({ where: { status: ['pending', 'partial'] } });
+    const todayCol = await Fee.sum('paid_amount', {
+      where: { payment_date: today },
+    });
+    const ft = feeTotals[0] || {};
+    feeStats = {
+      total_collected: parseFloat(ft.total_collected || 0),
+      total_pending: parseFloat(ft.total_pending || 0),
+      pending_count: pendingCount,
+      collection_rate: parseFloat(ft.total_amount || 0) > 0
+        ? parseFloat((((ft.total_collected || 0) / (ft.total_amount || 0)) * 100).toFixed(1))
+        : 0,
+      today_collection: parseFloat(todayCol || 0),
+    };
+  } catch (_e) {
+    // Fee table may not exist yet
+  }
+
   // Default fallback for unhandled roles
   if (role !== 'admin') {
     return res.status(403).json({ error: 'No analytics available for this role' });
@@ -301,6 +334,7 @@ exports.dashboard = async (req, res) => {
         student_count: batchStudentCounts[i] || 0,
       })),
       shift_stats: { morning: morningBatches, evening: eveningBatches },
+      fees: feeStats,
     },
   });
 };

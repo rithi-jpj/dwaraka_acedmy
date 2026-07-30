@@ -4,11 +4,13 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import FullScreenLoader from '@/components/ui/FullScreenLoader';
+import { api } from '@/lib/api';
+import { onSocketEvent } from '@/lib/socket';
 import {
   LayoutDashboard, Users, GraduationCap, BookOpen, BookMarked,
   ClipboardCheck, CalendarCheck, Layers, UserPlus, UserCheck,
   FileText, Bell, User, LogOut, ChevronLeft, ChevronRight,
-  Menu, X, Home, Sun, Moon, Globe,
+  Menu, X, Home, Sun, Moon, Globe, IndianRupee, Megaphone, Upload,
 } from 'lucide-react';
 
 const navItems = [
@@ -24,7 +26,10 @@ const navItems = [
   { href: '/dashboard/parent-requests', label: 'Parent Requests', icon: UserPlus, roles: ['admin'] },
   { href: '/dashboard/parents', label: 'Parents', icon: UserCheck, roles: ['admin'] },
   { href: '/dashboard/request-parent', label: 'Request Parent', icon: UserPlus, roles: ['student'] },
+  { href: '/dashboard/fees', label: 'Fees', icon: IndianRupee, roles: ['admin'] },
+  { href: '/dashboard/notifications', label: 'Notifications', icon: Megaphone, roles: ['admin', 'teacher', 'student', 'parent'], badge: 'notif' },
   { href: '/dashboard/assignments', label: 'Assignments', icon: FileText, roles: ['admin', 'teacher', 'student'] },
+  { href: '/dashboard/uploads', label: 'Uploads', icon: Upload, roles: ['admin'] },
   { href: '/dashboard/website', label: 'Website', icon: Globe, roles: ['admin'] },
   { href: '/dashboard/announcements', label: 'Announcements', icon: Bell, roles: ['admin', 'teacher', 'student', 'parent'] },
   { href: '/dashboard/my', label: 'My Records', icon: User, roles: ['student', 'parent'] },
@@ -45,6 +50,23 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const [darkMode, setDarkMode] = useState(false);
+  const [notifCount, setNotifCount] = useState(0);
+
+  // Fetch unread notification count
+  useEffect(() => {
+    const fetchCount = () => {
+      api.get('/notifications/unread').then(r => {
+        setNotifCount(r.data.count || 0);
+      }).catch(() => {});
+    };
+    fetchCount();
+    const interval = setInterval(fetchCount, 30000); // Poll every 30s
+    const cleanup = onSocketEvent('notifications:new', fetchCount);
+    return () => {
+      clearInterval(interval);
+      cleanup();
+    };
+  }, []);
 
   // Sync dark mode with localStorage and system preference
   useEffect(() => {
@@ -142,7 +164,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <Link key={n.href} href={n.href}
                 onClick={() => setMobileOpen(false)}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
-                  transition-all duration-200 ease-out group
+                  transition-all duration-200 ease-out group relative
                   ${isActive
                     ? 'bg-gradient-to-r from-brand-50 to-white dark:from-brand-900/40 dark:to-slate-800 text-brand-700 dark:text-brand-300 shadow-sm border border-brand-100 dark:border-brand-700/30'
                     : 'text-slate-600 dark:text-slate-400 hover:bg-brand-50/50 dark:hover:bg-brand-500/10 hover:text-brand-700 dark:hover:text-brand-300'
@@ -151,6 +173,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 <Icon className={`w-5 h-5 flex-shrink-0 transition-all duration-200
                   ${isActive ? 'text-brand-600' : 'text-slate-400 group-hover:text-brand-500'}`} />
                 {!collapsed && <span>{n.label}</span>}
+                {'badge' in n && n.badge === 'notif' && notifCount > 0 && (
+                  <span className={`absolute ${collapsed ? 'top-0 right-0' : 'right-2'} min-w-[18px] h-[18px] flex items-center justify-center px-1 rounded-full bg-red-500 text-white text-[10px] font-bold leading-none shadow-sm`}>
+                    {notifCount > 99 ? '99+' : notifCount}
+                  </span>
+                )}
               </Link>
             );
           })}
@@ -234,12 +261,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </div>
 
       {/* ── Mobile Bottom Navigation ── */}
-      <BottomNav role={user.role} pathname={pathname} />
+      <BottomNav role={user.role} pathname={pathname} notifCount={notifCount} />
     </div>
   );
 }
 
-function BottomNav({ role, pathname }: { role: string; pathname: string }) {
+function BottomNav({ role, pathname, notifCount }: { role: string; pathname: string; notifCount?: number }) {
   const bottomItems = [
     { href: '/dashboard', label: 'Home', icon: Home, roles: ['admin', 'teacher', 'student', 'parent'] },
     { href: '/dashboard/students', label: 'Students', icon: Users, roles: ['admin'] },
@@ -288,7 +315,7 @@ function BottomNav({ role, pathname }: { role: string; pathname: string }) {
           const Icon = item.icon;
           return (
             <Link key={item.href} href={item.href}
-              className={`flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl transition-all duration-200 min-w-0 ${
+              className={`flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl transition-all duration-200 min-w-0 relative ${
                 isActive
                   ? 'text-brand-600'
                   : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'
@@ -301,8 +328,12 @@ function BottomNav({ role, pathname }: { role: string; pathname: string }) {
                 <Icon className={`w-5 h-5 transition-all duration-200 ${
                   isActive ? 'text-brand-600 dark:text-brand-400' : ''
                 }`} />
+                {item.href === '/dashboard/notifications' && notifCount && notifCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-[16px] flex items-center justify-center px-1 rounded-full bg-red-500 text-white text-[9px] font-bold leading-none shadow-sm border-2 border-white">
+                    {notifCount > 99 ? '99+' : notifCount}
+                  </span>
+                )}
               </div>
-
               <span className={`text-[10px] font-medium leading-tight ${
                 isActive ? 'text-brand-600 dark:text-brand-400 font-semibold' : 'text-slate-400 dark:text-slate-500'
               }`}>{item.label}</span>

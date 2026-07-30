@@ -5,6 +5,7 @@ const env = require('../config/env');
 const { User } = require('../models');
 const { hash, compare, validateStrongPassword } = require('../utils/password');
 const { sendMail, resetPasswordEmail, passwordChangedEmail } = require('../utils/mailer');
+const { logAction } = require('./auditController');
 
 const MAX_LOGIN_ATTEMPTS = 5;
 const LOCKOUT_MINUTES = 15;
@@ -82,6 +83,11 @@ exports.login = async (req, res) => {
   }
 
   secLog('login_success', { email: user.email, role: user.role });
+  logAction({
+    userId: user.id, userName: user.name, userRole: user.role,
+    action: 'login', resource: 'auth', description: 'User logged in',
+    ipAddress: req.ip, userAgent: req.headers['user-agent'],
+  });
   res.json({
     token: sign(user),
     user: publicUser(user),
@@ -121,6 +127,11 @@ exports.changePassword = async (req, res) => {
   await req.user.save();
 
   secLog('password_changed', { userId: req.user.id, email: req.user.email });
+  logAction({
+    userId: req.user.id, userName: req.user.name, userRole: req.user.role,
+    action: 'password_change', resource: 'auth', description: 'Password changed',
+    ipAddress: req.ip, userAgent: req.headers['user-agent'],
+  });
 
   // Send confirmation email (non-blocking)
   sendMail({

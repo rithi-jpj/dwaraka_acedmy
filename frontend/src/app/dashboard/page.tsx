@@ -6,6 +6,7 @@ import { useAuth } from '@/context/AuthContext';
 import {
   Users, GraduationCap, BookOpen, Layers, CalendarCheck, ClipboardCheck,
   UserCheck, TrendingUp, Sparkles, Bell, Sun, Moon, User, FileText,
+  IndianRupee,
 } from 'lucide-react';
 
 type AnalyticsData = {
@@ -21,6 +22,11 @@ type AnalyticsData = {
   }[];
   recent_activity?: {
     announcements: any[]; marks: any[]; attendance: any[];
+  };
+  fees?: {
+    total_collected: number; total_pending: number;
+    pending_count: number; collection_rate: number;
+    today_collection: number;
   };
   active_batches?: {
     id: string; name: string; subject: string;
@@ -375,6 +381,7 @@ export default function DashboardHome() {
   const CHART_W = 500;
   const BAR_W = 48;
   const GAP = 20;
+  const fees = a?.fees;
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -493,6 +500,57 @@ export default function DashboardHome() {
           )}
         </div>
       </div>
+
+      {/* Fee Stats */}
+      {fees && (
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="stat-card">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
+                <IndianRupee className="w-5 h-5 text-emerald-600" />
+              </div>
+            </div>
+            <div className="stat-card-value text-emerald-600">₹{(fees.total_collected || 0).toLocaleString()}</div>
+            <div className="stat-card-label">Total Collected</div>
+          </div>
+          <div className="stat-card">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center">
+                <IndianRupee className="w-5 h-5 text-red-600" />
+              </div>
+            </div>
+            <div className="stat-card-value text-red-600">₹{(fees.total_pending || 0).toLocaleString()}</div>
+            <div className="stat-card-label">Pending Fees</div>
+          </div>
+          <div className="stat-card">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center">
+                <TrendingUp className="w-5 h-5 text-brand-600" />
+              </div>
+            </div>
+            <div className="stat-card-value text-brand">{fees.collection_rate || 0}%</div>
+            <div className="stat-card-label">Collection Rate</div>
+          </div>
+          <div className="stat-card">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
+                <CalendarCheck className="w-5 h-5 text-amber-600" />
+              </div>
+            </div>
+            <div className="stat-card-value text-amber-600">{fees.pending_count || 0}</div>
+            <div className="stat-card-label">Pending Invoices</div>
+          </div>
+          <div className="stat-card">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
+                <IndianRupee className="w-5 h-5 text-blue-600" />
+              </div>
+            </div>
+            <div className="stat-card-value text-blue-600">₹{(fees.today_collection || 0).toLocaleString()}</div>
+            <div className="stat-card-label">Today's Collection</div>
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Left column */}

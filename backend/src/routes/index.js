@@ -28,6 +28,10 @@ const analytics = require('../controllers/analyticsController');
 const assignments = require('../controllers/assignmentController');
 const enquiries = require('../controllers/enquiryController');
 const content = require('../controllers/contentController');
+const fees = require('../controllers/feeController');
+const notifications = require('../controllers/notificationController');
+const uploadCtrl = require('../controllers/uploadController');
+const audit = require('../controllers/auditController');
 
 // Auth
 router.post('/auth/login', auth.login);
@@ -186,5 +190,41 @@ router.post('/content/bulk', authRequired, requireRole('admin'), content.bulkSav
 router.patch('/content/:id', authRequired, requireRole('admin'), content.update);
 router.patch('/content/:id/toggle', authRequired, requireRole('admin'), content.toggleActive);
 router.delete('/content/:id', authRequired, requireRole('admin'), content.remove);
+
+// Fee Management (admin)
+router.get('/fees', authRequired, requireRole('admin', 'teacher'), fees.list);
+router.get('/fees/stats', authRequired, requireRole('admin', 'teacher'), fees.stats);
+router.get('/fees/export', authRequired, requireRole('admin'), fees.exportCSV);
+router.get('/fees/:id', authRequired, requireRole('admin', 'teacher'), fees.getById);
+router.post('/fees', authRequired, requireRole('admin'), fees.create);
+router.post('/fees/bulk', authRequired, requireRole('admin'), fees.bulkCreate);
+router.patch('/fees/:id', authRequired, requireRole('admin'), fees.update);
+router.post('/fees/:id/pay', authRequired, requireRole('admin'), fees.recordPayment);
+router.delete('/fees/:id', authRequired, requireRole('admin'), fees.remove);
+
+// Fee self-service (student)
+router.get('/my/fees', authRequired, requireRole('student'), fees.myFees);
+
+// Notification Management (admin)
+router.post('/notifications/send', authRequired, requireRole('admin'), notifications.send);
+router.get('/notifications', authRequired, requireRole('admin'), notifications.list);
+router.delete('/notifications/:id', authRequired, requireRole('admin'), notifications.remove);
+
+// Notification User Inbox (all authenticated users)
+router.get('/notifications/inbox', authRequired, notifications.myInbox);
+router.get('/notifications/unread', authRequired, notifications.unreadCount);
+router.post('/notifications/mark-read/:notification_id', authRequired, notifications.markRead);
+router.post('/notifications/mark-all-read', authRequired, notifications.markAllRead);
+
+// File Upload Management (admin)
+router.get('/uploads', authRequired, requireRole('admin'), uploadCtrl.list);
+router.get('/uploads/:filename', authRequired, requireRole('admin'), uploadCtrl.getInfo);
+router.get('/uploads/stats/storage', authRequired, requireRole('admin'), uploadCtrl.storageStats);
+router.post('/uploads', authRequired, requireRole('admin'), uploadLimiter, upload.single('file'), uploadCtrl.upload);
+router.delete('/uploads/:filename', authRequired, requireRole('admin'), uploadCtrl.remove);
+
+// Audit Logs (admin)
+router.get('/audit-logs', authRequired, requireRole('admin'), audit.list);
+router.get('/audit-logs/stats', authRequired, requireRole('admin'), audit.stats);
 
 module.exports = router;

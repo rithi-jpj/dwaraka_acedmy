@@ -1,4 +1,5 @@
 const sequelize = require('../config/db');
+const AuditLog = require('./AuditLog')(sequelize);
 const User = require('./User')(sequelize);
 const Subject = require('./Subject')(sequelize);
 const Batch = require('./Batch')(sequelize);
@@ -14,6 +15,10 @@ const Enquiry = require('./Enquiry')(sequelize);
 const SiteContent = require('./SiteContent')(sequelize);
 const Assignment = require('./Assignment')(sequelize);
 const AssignmentSubmission = require('./AssignmentSubmission')(sequelize);
+const Fee = require('./Fee')(sequelize);
+const FileUpload = require('./FileUpload')(sequelize);
+const Notification = require('./Notification')(sequelize);
+const NotificationReceipt = require('./NotificationReceipt')(sequelize);
 
 // Associations
 Batch.belongsTo(Subject, { foreignKey: 'subject_id' });
@@ -67,6 +72,21 @@ AssignmentSubmission.belongsTo(User, { as: 'grader', foreignKey: 'graded_by' });
 Assignment.hasMany(AssignmentSubmission, { foreignKey: 'assignment_id', onDelete: 'CASCADE' });
 User.hasMany(AssignmentSubmission, { as: 'submissions', foreignKey: 'student_id' });
 
+// Fee associations
+Fee.belongsTo(User, { as: 'student', foreignKey: 'student_id' });
+Fee.belongsTo(Batch, { foreignKey: 'batch_id' });
+User.hasMany(Fee, { as: 'fees', foreignKey: 'student_id' });
+Batch.hasMany(Fee, { foreignKey: 'batch_id' });
+
+// Notification associations
+Notification.belongsTo(User, { as: 'sender', foreignKey: 'sender_id' });
+User.hasMany(Notification, { as: 'sent_notifications', foreignKey: 'sender_id' });
+
+NotificationReceipt.belongsTo(Notification, { as: 'notification', foreignKey: 'notification_id', onDelete: 'CASCADE' });
+NotificationReceipt.belongsTo(User, { as: 'user', foreignKey: 'user_id' });
+Notification.hasMany(NotificationReceipt, { foreignKey: 'notification_id', onDelete: 'CASCADE' });
+User.hasMany(NotificationReceipt, { as: 'notification_receipts', foreignKey: 'user_id' });
+
 module.exports = {
   sequelize,
   User, Subject, Batch, Enrollment, Attendance, Mark, Note, Announcement,
@@ -74,4 +94,8 @@ module.exports = {
   Enquiry,
   SiteContent,
   Assignment, AssignmentSubmission,
+  Fee,
+  FileUpload,
+  Notification, NotificationReceipt,
+  AuditLog,
 };
