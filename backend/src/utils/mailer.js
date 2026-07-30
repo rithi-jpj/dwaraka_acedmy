@@ -208,8 +208,8 @@ function parentApprovalEmail({ parentName, studentName, email, tempPassword }) {
     '</p>';
   return {
     subject: 'Parent Account Approved \u2014 Dwaraka Academy',
-    html: baseTemplate(bodyHtml),
-    text: 'Hello ' + opts.parentName + ',\n\nYour parent account for ' + opts.studentName + ' has been approved.\n\nEmail: ' + opts.email + '\nTemporary password: ' + opts.tempPassword + '\n\nPlease log in and change your password immediately.',
+    html: baseTemplate('Parent Account Approved', bodyHtml),
+    text: 'Hello ' + parentName + ',\n\nYour parent account for ' + studentName + ' has been approved.\n\nEmail: ' + email + '\nTemporary password: ' + tempPassword + '\n\nPlease log in and change your password immediately.',
   };
 }
 
@@ -223,7 +223,7 @@ function passwordChangedEmail(opts) {
     (env.CORS_ORIGIN || 'http://localhost:3000') + '/login">Go to Portal</a></p>';
   return {
     subject: 'Password Changed \u2014 Dwaraka Academy',
-    html: baseTemplate(bodyHtml),
+    html: baseTemplate('Password Changed', bodyHtml),
     text: 'Hello ' + opts.name + ',\n\nYour Dwaraka Academy password was changed successfully.\n\nIf you did not make this change, please contact the academy administration immediately.',
   };
 }
