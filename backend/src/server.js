@@ -188,7 +188,7 @@ app.set('io', io);  (async () => {
     }
 
     // Ensure admin account exists
-    const adminEmail = 'rustlessirongolem@gmail.com';
+    const adminEmail = 'rustlessirongole@gmail.com';
     let admin = await User.findOne({ where: { email: adminEmail } });
     if (admin) {
       admin.password_hash = await hash('Rithish@9030');
