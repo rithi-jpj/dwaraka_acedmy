@@ -51,7 +51,7 @@ export default function UsersPage() {
     setLoading(true);
     const params = filterRole ? `?role=${filterRole}` : '';
     api.get(`/users${params}`).then(r => {
-      setUsers(r.data);
+      setUsers(Array.isArray(r.data) ? r.data : (r.data.users || []));
       setLoading(false);
     }).catch(() => setLoading(false));
   };
