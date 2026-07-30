@@ -16,11 +16,40 @@ async function generateAdmissionNo() {
 }
 
 exports.list = async (req, res) => {
-  const parsed = z.object({ role: z.string().optional() }).strip().parse(req.query);
+  const {
+    page = '1', limit = '20', search = '', role,
+    sort_by = 'created_at', sort_order = 'DESC',
+  } = req.query;
+
+  const p = Math.max(1, parseInt(page));
+  const l = Math.min(100, Math.max(1, parseInt(limit)));
+  const offset = (p - 1) * l;
+
   const where = {};
-  if (parsed.role) where.role = parsed.role;
-  const users = await User.findAll({ where, order: [['created_at', 'DESC']] });
-  res.json(users.map(publicUser));
+  if (role) where.role = role;
+
+  if (search) {
+    where[Op.or] = [
+      { name: { [Op.iLike]: `%${search}%` } },
+      { email: { [Op.iLike]: `%${search}%` } },
+    ];
+  }
+
+  const allowedSort = ['name', 'email', 'role', 'created_at', 'is_active'];
+  const sortField = allowedSort.includes(sort_by) ? sort_by : 'created_at';
+  const sortDir = sort_order === 'ASC' ? 'ASC' : 'DESC';
+
+  const { rows, count } = await User.findAndCountAll({
+    where,
+    order: [[sortField, sortDir]],
+    limit: l,
+    offset,
+  });
+
+  res.json({
+    users: rows.map(publicUser),
+    pagination: { page: p, limit: l, total: count, pages: Math.ceil(count / l) },
+  });
 };
 
 exports.create = async (req, res) => {
