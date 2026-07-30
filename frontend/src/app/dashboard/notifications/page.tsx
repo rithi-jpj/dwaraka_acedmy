@@ -2,7 +2,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { api } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
-import { Megaphone, Send, Bell, Info, AlertTriangle, CheckCircle, GraduationCap, IndianRupee, Calendar, User, Trash2 } from 'lucide-react';
+import { Megaphone, Send, Bell, Info, AlertTriangle, CheckCircle, GraduationCap, IndianRupee, Calendar, User, Trash2, Inbox, History, RefreshCw, X } from 'lucide-react';
 
 const notifTypes = ['information', 'warning', 'success', 'exam', 'fee_reminder', 'holiday', 'assignment', 'event'] as const;
 const audiences = ['all', 'students', 'teachers', 'parents', 'specific'] as const;
@@ -189,42 +189,42 @@ export default function NotificationsPage() {
 
   return (
     <div className="space-y-6">
-      {toast && (
-        <div className={`fixed top-4 right-4 z-50 px-4 py-3 rounded-xl shadow-lg text-sm font-medium transition-all ${
-          toast.type === 'success' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
-        }`}>{toast.msg}</div>
-      )}
+      {toast && <div className={toast.type === 'success' ? 'toast-success' : 'toast-error'}>{toast.msg}</div>}
 
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Notifications</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-bold text-navy-900">Notifications</h1>
+          <p className="text-sm text-navy-500 mt-1">
             {isAdmin ? 'Send and manage notifications' : 'Your notification inbox'}
             {unreadCount > 0 && <span className="ml-2 text-brand font-semibold">({unreadCount} unread)</span>}
           </p>
         </div>
         {!isAdmin && unreadCount > 0 && (
-          <button onClick={markAllRead} className="px-3 py-2 text-sm bg-brand text-white rounded-lg hover:bg-brand-dark transition">
-            Mark All Read
+          <button onClick={markAllRead} className="btn-outline">
+            <CheckCircle className="w-4 h-4" /> Mark All Read
           </button>
         )}
       </div>
 
-      {/* Tabs for admin */}
-      {isAdmin && (
-        <div className="flex gap-1 bg-slate-100 rounded-xl p-1">
-          {[
-            { key: 'send', label: 'Send Notification' },
-            { key: 'history', label: 'History' },
-            { key: 'inbox', label: 'My Inbox' },
-          ].map(tab => (
+      {/* Tabs */}
+      <div className="flex gap-1 bg-navy-50 rounded-2xl p-1 w-fit">
+        {[
+          { key: 'send', label: 'Send', icon: Send },
+          { key: 'history', label: 'History', icon: History },
+          { key: 'inbox', label: 'My Inbox', icon: Inbox },
+        ].filter(tab => tab.key === 'inbox' || isAdmin).map(tab => {
+          const Icon = tab.icon;
+          return (
             <button key={tab.key} onClick={() => setActiveTab(tab.key as any)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                activeTab === tab.key ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'
-              }`}>{tab.label}</button>
-          ))}
-        </div>
-      )}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                activeTab === tab.key ? 'bg-white text-navy-800 shadow-sm' : 'text-navy-500 hover:text-navy-700'
+              }`}>
+              <Icon className="w-4 h-4" />
+              {tab.label}
+            </button>
+          );
+        })}
+      </div>
 
       {/* Send Notification Form */}
       {(activeTab === 'send' && isAdmin) && (
@@ -357,14 +357,14 @@ export default function NotificationsPage() {
             </div>
           )}
           {/* Pagination */}
-          <div className="flex items-center justify-between px-4 py-3 border-t bg-slate-50">
-            <span className="text-xs text-slate-500">{historyTotal} total</span>
+          <div className="flex items-center justify-between px-4 py-3 border-t border-navy-100 bg-navy-50/80">
+            <span className="text-xs text-navy-500">{historyTotal} total</span>
             <div className="flex items-center gap-1">
               <button disabled={historyPage <= 1} onClick={() => setHistoryPage(p => p - 1)}
-                className="px-2 py-1 text-xs rounded hover:bg-slate-200 disabled:opacity-30">« Prev</button>
-              <span className="px-3 py-1 text-xs">Page {historyPage} of {historyPages}</span>
+                className="px-3 py-1.5 text-xs rounded-xl hover:bg-navy-100 disabled:opacity-30 transition">« Prev</button>
+              <span className="px-3 py-1 text-xs text-navy-600 font-medium">Page {historyPage} of {historyPages}</span>
               <button disabled={historyPage >= historyPages} onClick={() => setHistoryPage(p => p + 1)}
-                className="px-2 py-1 text-xs rounded hover:bg-slate-200 disabled:opacity-30">Next »</button>
+                className="px-3 py-1.5 text-xs rounded-xl hover:bg-navy-100 disabled:opacity-30 transition">Next »</button>
             </div>
           </div>
         </div>
@@ -379,19 +379,19 @@ export default function NotificationsPage() {
             </div>
           ) : inbox.length === 0 ? (
             <div className="text-center py-16">
-              <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto mb-4">
-                <Megaphone className="w-8 h-8 text-slate-400" />
+              <div className="w-16 h-16 rounded-2xl bg-navy-50 flex items-center justify-center mx-auto mb-4">
+                <Bell className="w-8 h-8 text-navy-300" />
               </div>
-              <p className="text-slate-500 font-medium">No notifications yet</p>
-              <p className="text-sm text-slate-400 mt-1">You're all caught up!</p>
+              <p className="text-navy-500 font-medium">No notifications yet</p>
+              <p className="text-sm text-navy-400 mt-1">You're all caught up!</p>
             </div>
           ) : (
-            <div className="divide-y">
+            <div className="divide-y divide-navy-50">
               {inbox.map((r: any) => {
                 const n = r.notification;
                 if (!n) return null;
                 return (
-                  <div key={r.id} className={`p-4 hover:bg-slate-50 transition ${!r.is_read ? 'bg-brand-50/30' : ''}`}
+                  <div key={r.id} className={`p-4 hover:bg-navy-50/50 transition ${!r.is_read ? 'bg-brand-50/30' : ''}`}
                     onClick={() => { if (!r.is_read) markRead(n.id); }}>
                     <div className="flex items-start gap-3">
                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 border ${typeColors[n.type] || 'bg-slate-100'}`}>
@@ -421,14 +421,14 @@ export default function NotificationsPage() {
             </div>
           )}
           {/* Pagination */}
-          <div className="flex items-center justify-between px-4 py-3 border-t bg-slate-50">
-            <span className="text-xs text-slate-500">{inboxTotal} notification{inboxTotal !== 1 && 's'}</span>
+          <div className="flex items-center justify-between px-4 py-3 border-t border-navy-100 bg-navy-50/80">
+            <span className="text-xs text-navy-500">{inboxTotal} notification{inboxTotal !== 1 && 's'}</span>
             <div className="flex items-center gap-1">
               <button disabled={inboxPage <= 1} onClick={() => setInboxPage(p => p - 1)}
-                className="px-2 py-1 text-xs rounded hover:bg-slate-200 disabled:opacity-30">« Prev</button>
-              <span className="px-3 py-1 text-xs">Page {inboxPage} of {inboxPages}</span>
+                className="px-3 py-1.5 text-xs rounded-xl hover:bg-navy-100 disabled:opacity-30 transition">« Prev</button>
+              <span className="px-3 py-1 text-xs text-navy-600 font-medium">Page {inboxPage} of {inboxPages}</span>
               <button disabled={inboxPage >= inboxPages} onClick={() => setInboxPage(p => p + 1)}
-                className="px-2 py-1 text-xs rounded hover:bg-slate-200 disabled:opacity-30">Next »</button>
+                className="px-3 py-1.5 text-xs rounded-xl hover:bg-navy-100 disabled:opacity-30 transition">Next »</button>
             </div>
           </div>
         </div>

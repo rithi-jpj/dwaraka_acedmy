@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { api, API_URL } from '@/lib/api';
+import { Download, X, Search, ClipboardCheck, FileText, BarChart3, Award, Printer, Trash2, RefreshCw, ChevronLeft, ChevronRight, Users } from 'lucide-react';
 
 export default function MarksPage() {
   const [loading, setLoading] = useState(true);
@@ -246,31 +247,24 @@ export default function MarksPage() {
   };
 
   const tabs = [
-    { id: 'enter' as const, label: 'Enter Marks' },
-    { id: 'records' as const, label: 'Records' },
-    { id: 'stats' as const, label: 'Statistics' },
-    { id: 'report' as const, label: 'Report Card' },
+    { id: 'enter' as const, label: 'Enter Marks', icon: ClipboardCheck },
+    { id: 'records' as const, label: 'Records', icon: FileText },
+    { id: 'stats' as const, label: 'Statistics', icon: BarChart3 },
+    { id: 'report' as const, label: 'Report Card', icon: Award },
   ];
 
   return (
     <div className="space-y-6">
-      {toast && (
-        <div className={`fixed top-4 right-4 z-50 px-4 py-3 rounded-xl shadow-lg text-sm font-medium transition-all ${
-          toast.type === 'success' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
-        }`}>{toast.msg}</div>
-      )}
+      {toast && <div className={toast.type === 'success' ? 'toast-success' : 'toast-error'}>{toast.msg}</div>}
 
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Marks Management</h1>
-          <p className="text-sm text-slate-500 mt-1">Enter exam scores, view records, and generate reports</p>
+          <h1 className="text-2xl font-bold text-navy-900">Marks Management</h1>
+          <p className="text-sm text-navy-500 mt-1">Enter exam scores, view records, and generate reports</p>
         </div>
-        <button onClick={exportCSV}
-          className="btn-outline text-sm flex items-center gap-2">
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
+        <button onClick={exportCSV} className="btn-outline">
+          <Download className="w-4 h-4" />
           Export CSV
         </button>
       </div>
@@ -290,20 +284,26 @@ export default function MarksPage() {
           {exams.map(e => <option key={e} value={e}>{e}</option>)}
         </select>
         {selectedExam && (
-          <button onClick={() => setSelectedExam('')} className="text-xs text-slate-500 hover:text-slate-700">
-            ✕ Clear
+          <button onClick={() => setSelectedExam('')} className="btn-ghost text-xs">
+            <X className="w-3 h-3" /> Clear
           </button>
         )}
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-200">
-        {tabs.map(t => (
-          <button key={t.id} onClick={() => setTab(t.id)}
-            className={`px-4 py-2.5 text-sm font-medium border-b-2 transition ${
-              tab === t.id ? 'border-brand text-brand' : 'border-transparent text-slate-500 hover:text-slate-700'
-            }`}>{t.label}</button>
-        ))}
+      <div className="flex gap-1 bg-navy-50 rounded-2xl p-1 w-fit">
+        {tabs.map(t => {
+          const Icon = t.icon;
+          return (
+            <button key={t.id} onClick={() => setTab(t.id)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                tab === t.id ? 'bg-white text-navy-800 shadow-sm' : 'text-navy-500 hover:text-navy-700'
+              }`}>
+              <Icon className="w-4 h-4" />
+              {t.label}
+            </button>
+          );
+        })}
       </div>
 
       {/* Tab: Enter Marks */}
@@ -311,11 +311,13 @@ export default function MarksPage() {
         <div>
           {!selectedBatchId ? (
             <div className="card text-center py-12">
-              <p className="text-slate-500">Select a batch to enter marks</p>
+              <ClipboardCheck className="w-10 h-10 text-navy-300 mx-auto mb-2" />
+              <p className="text-navy-500 font-medium">Select a batch to enter marks</p>
             </div>
           ) : students.length === 0 ? (
             <div className="card text-center py-12">
-              <p className="text-slate-500">No students enrolled in this batch</p>
+              <Users className="w-10 h-10 text-navy-300 mx-auto mb-2" />
+              <p className="text-navy-500 font-medium">No students enrolled in this batch</p>
             </div>
           ) : (
             <div className="card">
@@ -346,7 +348,7 @@ export default function MarksPage() {
                 <div className="overflow-x-auto">
                   <table className="table w-full">
                     <thead>
-                      <tr className="bg-slate-50">
+                      <tr>
                         <th className="w-8">#</th>
                         <th>Student Name</th>
                         <th>Admission No</th>
@@ -355,10 +357,10 @@ export default function MarksPage() {
                     </thead>
                     <tbody>
                       {students.map((s, i) => (
-                        <tr key={s.id} className="hover:bg-slate-50">
-                          <td className="text-slate-400 text-xs">{i + 1}</td>
-                          <td className="font-medium text-sm">{s.name}</td>
-                          <td className="text-sm text-slate-500">{s.admission_no || s.email}</td>
+                        <tr key={s.id} className="hover:bg-navy-50/50">
+                          <td className="text-navy-400 text-xs">{i + 1}</td>
+                          <td className="font-medium text-sm text-navy-900">{s.name}</td>
+                          <td className="text-sm text-navy-500">{s.admission_no || s.email}</td>
                           <td>
                             <input className="input w-full text-center" type="number" min={0} max={entryForm.max_score}
                               placeholder="0"
@@ -389,34 +391,32 @@ export default function MarksPage() {
         <div>
           <div className="flex items-center gap-3 mb-4">
             <div className="relative flex-1 max-w-xs">
-              <input className="input pl-8 w-full" placeholder="Search exams…"
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-400" />
+            <input className="input pl-9 w-full" placeholder="Search exams…"
                 value={searchInput} onChange={e => setSearchInput(e.target.value)} />
-              <svg className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
             </div>
             <span className="text-sm text-slate-500">{marksTotal} mark{marksTotal !== 1 && 's'}</span>
           </div>
 
           {loading ? (
             <div className="card text-center py-12">
-              <div className="animate-spin w-8 h-8 border-4 border-brand border-t-transparent rounded-full mx-auto mb-3" />
-              <p className="text-sm text-slate-500">Loading marks…</p>
+              <RefreshCw className="w-8 h-8 animate-spin mx-auto text-brand mb-3" />
+              <p className="text-sm text-navy-500">Loading marks…</p>
             </div>
           ) : marks.length === 0 ? (
             <div className="card text-center py-16">
-              <svg className="w-12 h-12 mx-auto text-slate-300 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-              </svg>
-              <p className="text-slate-500 font-medium">No marks found</p>
-              <p className="text-sm text-slate-400 mt-1">Enter marks using the marks entry tab</p>
+              <div className="w-16 h-16 rounded-2xl bg-navy-50 flex items-center justify-center mx-auto mb-4">
+                <ClipboardCheck className="w-8 h-8 text-navy-300" />
+              </div>
+              <p className="text-navy-500 font-medium">No marks found</p>
+              <p className="text-sm text-navy-400 mt-1">Enter marks using the marks entry tab</p>
             </div>
           ) : (
             <div className="card p-0 overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="table w-full">
                   <thead>
-                    <tr className="bg-slate-50">
+                    <tr>
                       <th>Student</th>
                       <th>Batch</th>
                       <th>Exam</th>
@@ -429,27 +429,25 @@ export default function MarksPage() {
                   </thead>
                   <tbody>
                     {marks.map(m => (
-                      <tr key={m.id} className="hover:bg-slate-50 transition">
+                      <tr key={m.id} className="hover:bg-navy-50/50 transition">
                         <td className="font-medium text-sm">
-                          <div>{m.student?.name}</div>
-                          <div className="text-xs text-slate-400">{m.student?.admission_no || ''}</div>
+                          <div className="text-navy-900">{m.student?.name}</div>
+                          <div className="text-xs text-navy-400">{m.student?.admission_no || ''}</div>
                         </td>
-                        <td className="text-sm text-slate-600">{m.Batch?.name}</td>
-                        <td className="text-sm">{m.exam_name}</td>
+                        <td className="text-sm text-navy-600">{m.Batch?.name}</td>
+                        <td className="text-sm text-navy-900">{m.exam_name}</td>
                         <td className="text-sm">{m.score} / {m.max_score}</td>
-                        <td className="text-sm">{m.percentage}%</td>
+                        <td className="text-sm font-semibold">{m.percentage}%</td>
                         <td>
-                          <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${m.grade_color}`}>
+                          <span className={`badge ${m.grade_color?.includes('green') ? 'badge-green' : m.grade_color?.includes('amber') ? 'badge-amber' : m.grade_color?.includes('red') ? 'badge-red' : 'badge-blue'}`}>
                             {m.grade}
                           </span>
                         </td>
-                        <td className="text-sm text-slate-500">{m.exam_date || '—'}</td>
+                        <td className="text-sm text-navy-500">{m.exam_date || '—'}</td>
                         <td>
                           <button onClick={() => setDeleteId(m.id)}
-                            className="p-1.5 rounded hover:bg-slate-100 text-slate-400 hover:text-red-600 transition">
-                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                            </svg>
+                            className="p-2 rounded-xl text-navy-400 hover:text-red-600 hover:bg-red-50 transition-all">
+                            <Trash2 className="w-4 h-4" />
                           </button>
                         </td>
                       </tr>
@@ -457,20 +455,24 @@ export default function MarksPage() {
                   </tbody>
                 </table>
               </div>
-              <div className="flex items-center justify-between px-4 py-3 border-t bg-slate-50">
-                <span className="text-xs text-slate-500">
+              <div className="flex items-center justify-between px-4 py-3 border-t border-navy-100 bg-navy-50/80">
+                <span className="text-xs text-navy-500">
                   Showing {marksTotal === 0 ? 0 : (marksPage - 1) * 20 + 1}–{Math.min(marksPage * 20, marksTotal)} of {marksTotal}
                 </span>
                 <div className="flex items-center gap-1">
                   <button disabled={marksPage <= 1} onClick={() => setMarksPage(1)}
-                    className="px-2 py-1 text-xs rounded hover:bg-slate-200 disabled:opacity-30">««</button>
+                    className="px-3 py-1.5 text-xs rounded-xl hover:bg-navy-100 disabled:opacity-30 transition">««</button>
                   <button disabled={marksPage <= 1} onClick={() => setMarksPage(p => p - 1)}
-                    className="px-2 py-1 text-xs rounded hover:bg-slate-200 disabled:opacity-30">« Prev</button>
-                  <span className="px-3 py-1 text-xs">Page {marksPage} of {marksTotalPages}</span>
+                    className="px-3 py-1.5 text-xs rounded-xl hover:bg-navy-100 disabled:opacity-30 transition flex items-center gap-1">
+                    <ChevronLeft className="w-3 h-3" /> Prev
+                  </button>
+                  <span className="px-3 py-1 text-xs text-navy-600 font-medium">Page {marksPage} of {marksTotalPages}</span>
                   <button disabled={marksPage >= marksTotalPages} onClick={() => setMarksPage(p => p + 1)}
-                    className="px-2 py-1 text-xs rounded hover:bg-slate-200 disabled:opacity-30">Next »</button>
+                    className="px-3 py-1.5 text-xs rounded-xl hover:bg-navy-100 disabled:opacity-30 transition flex items-center gap-1">
+                    Next <ChevronRight className="w-3 h-3" />
+                  </button>
                   <button disabled={marksPage >= marksTotalPages} onClick={() => setMarksPage(marksTotalPages)}
-                    className="px-2 py-1 text-xs rounded hover:bg-slate-200 disabled:opacity-30">»»</button>
+                    className="px-3 py-1.5 text-xs rounded-xl hover:bg-navy-100 disabled:opacity-30 transition">»»</button>
                 </div>
               </div>
             </div>
@@ -483,72 +485,73 @@ export default function MarksPage() {
         <div>
           {!selectedBatchId ? (
             <div className="card text-center py-12">
-              <p className="text-slate-500">Select a batch to view statistics</p>
+              <BarChart3 className="w-10 h-10 text-navy-300 mx-auto mb-2" />
+              <p className="text-navy-500 font-medium">Select a batch to view statistics</p>
             </div>
           ) : statsLoading ? (
             <div className="card text-center py-12">
-              <div className="animate-spin w-8 h-8 border-4 border-brand border-t-transparent rounded-full mx-auto mb-3" />
-              <p className="text-sm text-slate-500">Loading statistics…</p>
+              <RefreshCw className="w-8 h-8 animate-spin mx-auto text-brand mb-3" />
+              <p className="text-sm text-navy-500">Loading statistics…</p>
             </div>
           ) : !stats ? (
             <div className="card text-center py-12">
-              <p className="text-slate-500">No statistics available</p>
+              <BarChart3 className="w-10 h-10 text-navy-300 mx-auto mb-2" />
+              <p className="text-navy-500 font-medium">No statistics available</p>
             </div>
           ) : (
             <div className="space-y-6">
               {/* Overall Stats Cards */}
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 <div className="card text-center py-4">
-                  <div className="text-2xl font-bold text-slate-800">{stats.overall.total_exams}</div>
-                  <div className="text-xs text-slate-500 mt-1">Total Exams</div>
+                  <div className="text-2xl font-bold text-navy-900">{stats.overall.total_exams}</div>
+                  <div className="text-xs text-navy-500 mt-1">Total Exams</div>
                 </div>
                 <div className="card text-center py-4">
                   <div className="text-2xl font-bold text-brand">{stats.overall.percentage}%</div>
-                  <div className="text-xs text-slate-500 mt-1">Avg Percentage</div>
+                  <div className="text-xs text-navy-500 mt-1">Avg Percentage</div>
                 </div>
                 <div className="card text-center py-4">
-                  <div className="text-2xl font-bold text-slate-800">{stats.overall.grade}</div>
-                  <div className="text-xs text-slate-500 mt-1">Avg Grade</div>
+                  <div className="text-2xl font-bold text-navy-900">{stats.overall.grade}</div>
+                  <div className="text-xs text-navy-500 mt-1">Avg Grade</div>
                 </div>
                 <div className="card text-center py-4">
-                  <div className="text-2xl font-bold text-green-600">{stats.overall.max_score}</div>
-                  <div className="text-xs text-slate-500 mt-1">Highest Score</div>
+                  <div className="text-2xl font-bold text-emerald-600">{stats.overall.max_score}</div>
+                  <div className="text-xs text-navy-500 mt-1">Highest Score</div>
                 </div>
                 <div className="card text-center py-4">
                   <div className="text-2xl font-bold text-red-600">{stats.overall.min_score}</div>
-                  <div className="text-xs text-slate-500 mt-1">Lowest Score</div>
+                  <div className="text-xs text-navy-500 mt-1">Lowest Score</div>
                 </div>
               </div>
 
               {/* Per-student Stats */}
               {stats.per_student?.length > 0 && (
                 <div className="card p-0 overflow-hidden">
-                  <div className="px-4 py-3 border-b bg-slate-50">
-                    <h3 className="font-semibold text-sm">Per-Student Performance</h3>
+                  <div className="px-4 py-3 border-b border-navy-100 bg-navy-50/80">
+                    <h3 className="font-semibold text-sm text-navy-900">Per-Student Performance</h3>
                   </div>
                   <div className="overflow-x-auto">
                     <table className="table w-full">
-                      <thead><tr className="bg-slate-50"><th>Student</th><th>Exams</th><th>Avg Score</th><th>Percentage</th><th>Grade</th><th>Highest</th><th>Lowest</th></tr></thead>
+                      <thead><tr><th>Student</th><th>Exams</th><th>Avg Score</th><th>Percentage</th><th>Grade</th><th>Highest</th><th>Lowest</th></tr></thead>
                       <tbody>
                         {stats.per_student.map((s: any) => (
-                          <tr key={s.student_id} className="hover:bg-slate-50">
+                          <tr key={s.student_id} className="hover:bg-navy-50/50">
                             <td className="font-medium text-sm">
-                              <div>{s.student?.name}</div>
-                              <div className="text-xs text-slate-400">{s.student?.admission_no || ''}</div>
+                              <div className="text-navy-900">{s.student?.name}</div>
+                              <div className="text-xs text-navy-400">{s.student?.admission_no || ''}</div>
                             </td>
-                            <td className="text-sm">{s.total_exams}</td>
+                            <td className="text-sm text-navy-900">{s.total_exams}</td>
                             <td className="text-sm">{s.avg_score} / {s.avg_max}</td>
-                            <td className="text-sm">{s.percentage}%</td>
+                            <td className="text-sm font-semibold">{s.percentage}%</td>
                             <td>
-                              <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                                s.grade === 'A+' || s.grade === 'A' ? 'bg-green-100 text-green-700' :
-                                s.grade === 'B+' || s.grade === 'B' ? 'bg-blue-100 text-blue-700' :
-                                s.grade === 'C' ? 'bg-amber-100 text-amber-700' :
-                                s.grade === 'D' ? 'bg-orange-100 text-orange-700' : 'bg-red-100 text-red-700'
+                              <span className={`badge ${
+                                s.grade === 'A+' || s.grade === 'A' ? 'badge-green' :
+                                s.grade === 'B+' || s.grade === 'B' ? 'badge-blue' :
+                                s.grade === 'C' ? 'badge-amber' : 'badge-red'
                               }`}>{s.grade}</span>
                             </td>
-                            <td className="text-sm text-green-600">{s.max_score}</td>
-                            <td className="text-sm text-red-600">{s.min_score}</td>
+                            <td className="text-sm text-emerald-600 font-semibold">{s.max_score}</td>
+                            <td className="text-sm text-red-600 font-semibold">{s.min_score}</td>
                           </tr>
                         ))}
                       </tbody>

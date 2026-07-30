@@ -2,7 +2,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { api } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
-import { CalendarCheck, Download, Users, Search } from 'lucide-react';
+import { CalendarCheck, Download, Users, Search, Check, X, Clock, BarChart3, RefreshCw, Filter } from 'lucide-react';
 
 type Batch = { id: string; name: string; Subject?: { name: string }; teacher?: { name: string } };
 type Student = { id: string; name: string; email: string; admission_no: string | null };
@@ -177,14 +177,15 @@ export default function AttendancePage() {
     <div className="space-y-6">
       {toast && <div className={toast.type === 'success' ? 'toast-success' : 'toast-error'}>{toast.msg}</div>}
 
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Attendance Management</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-bold text-navy-900">Attendance Management</h1>
+          <p className="text-sm text-navy-500 mt-1">
             {user?.role === 'teacher' ? 'Mark attendance for your batches' : 'Manage attendance across all batches'}
           </p>
         </div>
-        <button onClick={exportCSV} className="btn-outline text-sm">
+        <button onClick={exportCSV} className="btn-outline">
           <Download className="w-4 h-4" />
           Export CSV
         </button>
@@ -208,8 +209,11 @@ export default function AttendancePage() {
           </div>
           <div className="flex items-end gap-2">
             {selectedBatch && (
-              <div className="text-xs text-slate-500 p-2 bg-slate-50 rounded flex-1">
-                {selectedBatch.Subject?.name} · {selectedBatch.teacher?.name} · {students.length} student(s)
+              <div className="flex items-center gap-2 text-xs text-navy-500 p-3 bg-navy-50 rounded-2xl flex-1 border border-navy-100">
+                <CalendarCheck className="w-4 h-4 text-brand-400" />
+                <span>{selectedBatch.Subject?.name} · {selectedBatch.teacher?.name}</span>
+                <span className="text-navy-300">|</span>
+                <span className="font-medium">{students.length} student{students.length !== 1 && 's'}</span>
               </div>
             )}
           </div>
@@ -217,13 +221,19 @@ export default function AttendancePage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-200">
-        {(['mark', 'stats', 'chart'] as const).map(t => (
-          <button key={t} onClick={() => setTab(t)}
-            className={`px-4 py-2 text-sm font-medium border-b-2 transition ${
-              tab === t ? 'border-brand text-brand' : 'border-transparent text-slate-500 hover:text-slate-700'
+      <div className="flex gap-1 bg-navy-50 rounded-2xl p-1 w-fit">
+        {([
+          { key: 'mark' as const, label: 'Mark Attendance', icon: CalendarCheck },
+          { key: 'stats' as const, label: 'Statistics', icon: BarChart3 },
+          { key: 'chart' as const, label: 'Weekly Chart', icon: BarChart3 },
+        ]).map(t => (
+          <button key={t.key}
+            onClick={() => setTab(t.key)}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+              tab === t.key ? 'bg-white text-navy-800 shadow-sm' : 'text-navy-500 hover:text-navy-700'
             }`}>
-            {t === 'mark' ? 'Mark Attendance' : t === 'stats' ? 'Summary Statistics' : 'Weekly Chart'}
+            <t.icon className="w-4 h-4" />
+            {t.label}
           </button>
         ))}
       </div>
@@ -232,30 +242,44 @@ export default function AttendancePage() {
       {tab === 'mark' && (
         <div className="card p-0 overflow-hidden">
           {!selectedBatchId ? (
-            <div className="text-center py-12 text-sm text-slate-500">Select a batch to start marking attendance</div>
+            <div className="text-center py-12 text-sm text-navy-400">
+              <CalendarCheck className="w-12 h-12 mx-auto text-navy-200 mb-3" />
+              <p className="font-medium">Select a batch to start marking attendance</p>
+            </div>
           ) : students.length === 0 ? (
             <div className="text-center py-12">
-              <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto mb-4">
-                <Users className="w-8 h-8 text-slate-400" />
+              <div className="w-16 h-16 rounded-2xl bg-navy-50 flex items-center justify-center mx-auto mb-4">
+                <Users className="w-8 h-8 text-navy-300" />
               </div>
-              <p className="text-sm text-slate-500 font-medium">No students enrolled</p>
-              <p className="text-xs text-slate-400 mt-1">Enroll students in this batch first</p>
+              <p className="text-sm text-navy-500 font-medium">No students enrolled</p>
+              <p className="text-xs text-navy-400 mt-1">Enroll students in this batch first</p>
             </div>
           ) : (
             <div>
               {/* Bulk Actions */}
-              <div className="px-4 py-3 bg-slate-50 border-b flex flex-wrap items-center gap-2">
-                <span className="text-xs text-slate-500 mr-2">Mark all as:</span>
-                <button onClick={() => markAll('present')} className="px-3 py-1 bg-green-100 text-green-700 rounded text-xs font-medium hover:bg-green-200 transition">Present</button>
-                <button onClick={() => markAll('absent')} className="px-3 py-1 bg-red-100 text-red-700 rounded text-xs font-medium hover:bg-red-200 transition">Absent</button>
-                <button onClick={() => markAll('late')} className="px-3 py-1 bg-amber-100 text-amber-700 rounded text-xs font-medium hover:bg-amber-200 transition">Late</button>
+              <div className="px-5 py-3.5 bg-navy-50/80 border-b flex flex-wrap items-center gap-2">
+                <span className="text-xs font-medium text-navy-500 mr-1">Mark all as:</span>
+                <button onClick={() => markAll('present')} className="badge-green cursor-pointer px-3 py-1.5">
+                  <Check className="w-3 h-3" /> Present
+                </button>
+                <button onClick={() => markAll('absent')} className="badge-red cursor-pointer px-3 py-1.5">
+                  <X className="w-3 h-3" /> Absent
+                </button>
+                <button onClick={() => markAll('late')} className="badge-amber cursor-pointer px-3 py-1.5">
+                  <Clock className="w-3 h-3" /> Late
+                </button>
                 <div className="flex-1" />
-                <span className="text-xs text-slate-400">
-                  {Object.values(statuses).filter(s => s === 'present').length} present · {Object.values(statuses).filter(s => s === 'absent').length} absent · {Object.values(statuses).filter(s => s === 'late').length} late
+                <span className="text-xs text-navy-400 bg-white px-3 py-1.5 rounded-xl border">
+                  <span className="text-emerald-600 font-medium">{Object.values(statuses).filter(s => s === 'present').length}</span> present ·
+                  <span className="text-red-600 font-medium ml-1">{Object.values(statuses).filter(s => s === 'absent').length}</span> absent ·
+                  <span className="text-amber-600 font-medium ml-1">{Object.values(statuses).filter(s => s === 'late').length}</span> late
                 </span>
-                <button onClick={saveAttendance} disabled={saving}
-                  className="px-4 py-1.5 bg-brand text-white rounded text-sm font-medium hover:bg-brand-dark transition disabled:opacity-50">
-                  {saving ? 'Saving…' : 'Save Attendance'}
+                <button onClick={saveAttendance} disabled={saving} className="btn text-sm">
+                  {saving ? (
+                    <><RefreshCw className="w-4 h-4 animate-spin" /> Saving…</>
+                  ) : (
+                    'Save Attendance'
+                  )}
                 </button>
               </div>
 
@@ -263,7 +287,7 @@ export default function AttendancePage() {
               <div className="overflow-x-auto">
                 <table className="table w-full">
                   <thead>
-                    <tr className="bg-slate-50">
+                    <tr>
                       <th className="text-left">#</th>
                       <th className="text-left">Student</th>
                       <th className="text-left">Admission No</th>
@@ -272,22 +296,23 @@ export default function AttendancePage() {
                   </thead>
                   <tbody>
                     {students.map((s, idx) => (
-                      <tr key={s.id} className={`hover:bg-slate-50 transition ${existingRecords[s.id] ? 'bg-green-50/30' : ''}`}>
-                        <td className="text-sm text-slate-400 w-10">{idx + 1}</td>
-                        <td className="font-medium">{s.name}</td>
-                        <td className="text-sm text-slate-500">{s.admission_no || '—'}</td>
-                        <td className="w-48">
-                          <div className="flex gap-1 justify-center">
+                      <tr key={s.id} className={`hover:bg-navy-50/50 transition ${existingRecords[s.id] ? 'bg-emerald-50/30' : ''}`}>
+                        <td className="text-sm text-navy-400 w-10">{idx + 1}</td>
+                        <td className="font-medium text-navy-900">{s.name}</td>
+                        <td className="text-sm text-navy-500">{s.admission_no || '—'}</td>
+                        <td className="w-52">
+                          <div className="flex gap-1.5 justify-center">
                             {(['present', 'absent', 'late'] as const).map(st => (
                               <button key={st} onClick={() => setStatuses(prev => ({ ...prev, [s.id]: st }))}
-                                className={`px-3 py-1.5 rounded text-xs font-medium transition ${
+                                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 flex items-center gap-1 ${
                                   (statuses[s.id] || 'present') === st
-                                    ? st === 'present' ? 'bg-green-500 text-white shadow-sm'
-                                      : st === 'absent' ? 'bg-red-500 text-white shadow-sm'
-                                      : 'bg-amber-500 text-white shadow-sm'
-                                    : 'bg-slate-100 text-slate-400 hover:bg-slate-200'
+                                    ? st === 'present' ? 'bg-emerald-500 text-white shadow-sm shadow-emerald-200'
+                                      : st === 'absent' ? 'bg-red-500 text-white shadow-sm shadow-red-200'
+                                      : 'bg-amber-500 text-white shadow-sm shadow-amber-200'
+                                    : 'bg-navy-100 text-navy-400 hover:bg-navy-200'
                                 }`}>
-                                {st === 'present' ? 'P' : st === 'absent' ? 'A' : 'L'}
+                                {st === 'present' ? <Check className="w-3 h-3" /> : st === 'absent' ? <X className="w-3 h-3" /> : <Clock className="w-3 h-3" />}
+                                {st === 'present' ? 'Present' : st === 'absent' ? 'Absent' : 'Late'}
                               </button>
                             ))}
                           </div>
@@ -306,48 +331,57 @@ export default function AttendancePage() {
       {tab === 'stats' && (
         <div className="space-y-4">
           <div className="card">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-              <div>
+            <div className="flex flex-wrap items-center gap-4 mb-4">
+              <div className="flex-1 min-w-[150px]">
                 <label className="label">From Date</label>
                 <input className="input" type="date" value={fromDate} onChange={e => setFromDate(e.target.value)} />
               </div>
-              <div>
+              <div className="flex-1 min-w-[150px]">
                 <label className="label">To Date</label>
                 <input className="input" type="date" value={toDate} onChange={e => setToDate(e.target.value)} />
               </div>
               <div className="flex items-end gap-2">
-                <button onClick={loadSummary} className="btn text-sm">Apply Filter</button>
-                <button onClick={exportCSV} className="btn-outline text-sm">Export CSV</button>
+                <button onClick={loadSummary} className="btn">
+                  <Filter className="w-4 h-4" /> Apply Filter
+                </button>
+                <button onClick={exportCSV} className="btn-outline">
+                  <Download className="w-4 h-4" /> Export
+                </button>
               </div>
             </div>
 
             {summaryLoading ? (
-              <div className="text-center py-8"><div className="animate-spin w-6 h-6 border-2 border-brand border-t-transparent rounded-full mx-auto" /></div>
+              <div className="text-center py-8">
+                <RefreshCw className="w-6 h-6 animate-spin mx-auto text-brand" />
+              </div>
             ) : !summary ? (
-              <p className="text-sm text-slate-500 text-center py-4">Select a batch and apply filters to view statistics</p>
+              <p className="text-sm text-navy-400 text-center py-6">Select a batch and apply filters to view statistics</p>
             ) : summary.students.length === 0 ? (
-              <p className="text-sm text-slate-500 text-center py-4">No attendance records found for this period.</p>
+              <p className="text-sm text-navy-400 text-center py-6">No attendance records found for this period.</p>
             ) : (
               <div>
                 {/* Overall stats */}
-                <div className="grid grid-cols-4 gap-3 mb-4">
-                  <div className="bg-blue-50 rounded-lg p-3 text-center">
-                    <div className="text-xl font-bold text-blue-700">{summary.overall.total}</div>
-                    <div className="text-xs text-blue-600">Total Records</div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                  <div className="stat-card text-center">
+                    <div className="stat-card-value text-brand">{summary.overall.total}</div>
+                    <div className="stat-card-label">Total Records</div>
                   </div>
-                  <div className="bg-green-50 rounded-lg p-3 text-center">
-                    <div className="text-xl font-bold text-green-700">{summary.overall.present}</div>
-                    <div className="text-xs text-green-600">Present</div>
+                  <div className="stat-card text-center">
+                    <div className="stat-card-value text-emerald-600">{summary.overall.present}</div>
+                    <div className="stat-card-label">Present</div>
                   </div>
-                  <div className="bg-red-50 rounded-lg p-3 text-center">
-                    <div className="text-xl font-bold text-red-700">{summary.overall.absent}</div>
-                    <div className="text-xs text-red-600">Absent</div>
+                  <div className="stat-card text-center">
+                    <div className="stat-card-value text-red-600">{summary.overall.absent}</div>
+                    <div className="stat-card-label">Absent</div>
                   </div>
-                  <div className={`rounded-lg p-3 text-center ${summary.overall.percentage >= 75 ? 'bg-green-50' : summary.overall.percentage >= 50 ? 'bg-amber-50' : 'bg-red-50'}`}>
-                    <div className={`text-xl font-bold ${summary.overall.percentage >= 75 ? 'text-green-700' : summary.overall.percentage >= 50 ? 'text-amber-700' : 'text-red-700'}`}>
+                  <div className="stat-card text-center">
+                    <div className={`stat-card-value ${
+                      summary.overall.percentage >= 75 ? 'text-emerald-600' :
+                      summary.overall.percentage >= 50 ? 'text-amber-600' : 'text-red-600'
+                    }`}>
                       {summary.overall.percentage}%
                     </div>
-                    <div className="text-xs text-slate-600">Attendance Rate</div>
+                    <div className="stat-card-label">Attendance Rate</div>
                   </div>
                 </div>
 
@@ -355,7 +389,7 @@ export default function AttendancePage() {
                 <div className="overflow-x-auto">
                   <table className="table text-sm w-full">
                     <thead>
-                      <tr className="bg-slate-50">
+                      <tr>
                         <th>Student</th>
                         <th>Admission</th>
                         <th className="text-center">Total</th>
@@ -367,17 +401,17 @@ export default function AttendancePage() {
                     </thead>
                     <tbody>
                       {summary.students.map(s => (
-                        <tr key={s.student_id} className="hover:bg-slate-50 transition">
-                          <td className="font-medium">{s.student_name}</td>
-                          <td className="text-slate-500">{s.admission_no || '—'}</td>
+                        <tr key={s.student_id} className="hover:bg-navy-50/50 transition">
+                          <td className="font-medium text-navy-900">{s.student_name}</td>
+                          <td className="text-navy-500">{s.admission_no || '—'}</td>
                           <td className="text-center">{s.total}</td>
-                          <td className="text-center text-green-600 font-medium">{s.present}</td>
+                          <td className="text-center text-emerald-600 font-medium">{s.present}</td>
                           <td className="text-center text-red-600 font-medium">{s.absent}</td>
                           <td className="text-center text-amber-600 font-medium">{s.late}</td>
                           <td className="text-center">
-                            <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                              s.percentage >= 75 ? 'bg-green-100 text-green-700' :
-                              s.percentage >= 50 ? 'bg-amber-100 text-amber-700' : 'bg-red-100 text-red-700'
+                            <span className={`badge ${
+                              s.percentage >= 75 ? 'badge-green' :
+                              s.percentage >= 50 ? 'badge-amber' : 'badge-red'
                             }`}>{s.percentage}%</span>
                           </td>
                         </tr>
@@ -395,21 +429,23 @@ export default function AttendancePage() {
       {tab === 'chart' && (
         <div className="card">
           {!selectedBatchId ? (
-            <p className="text-sm text-slate-500 text-center py-8">Select a batch to view the attendance chart</p>
+            <p className="text-sm text-navy-400 text-center py-8">Select a batch to view the attendance chart</p>
           ) : chartLoading ? (
-            <div className="text-center py-8"><div className="animate-spin w-6 h-6 border-2 border-brand border-t-transparent rounded-full mx-auto" /></div>
+            <div className="text-center py-8">
+              <RefreshCw className="w-6 h-6 animate-spin mx-auto text-brand" />
+            </div>
           ) : (
             <div>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="font-semibold">Weekly Attendance Rate</h2>
-                <button onClick={loadChart} className="btn-outline text-xs">Refresh</button>
+                <h2 className="font-semibold text-navy-900">Weekly Attendance Rate</h2>
+                <button onClick={loadChart} className="btn-outline text-xs"><RefreshCw className="w-3.5 h-3.5" /> Refresh</button>
               </div>
               <BarChart data={chartData} />
               {chartData.length > 0 && (
-                <div className="mt-4 flex items-center gap-4 text-xs text-slate-500 justify-center">
-                  <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-green-500 inline-block" /> ≥75%</span>
-                  <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-yellow-500 inline-block" /> 50-74%</span>
-                  <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-red-500 inline-block" /> {'<'}50%</span>
+                <div className="mt-4 flex items-center gap-4 text-xs text-navy-400 justify-center">
+                  <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" /> ≥75%</span>
+                  <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-amber-500 inline-block" /> 50-74%</span>
+                  <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-red-500 inline-block" /> {'<'}50%</span>
                 </div>
               )}
             </div>
