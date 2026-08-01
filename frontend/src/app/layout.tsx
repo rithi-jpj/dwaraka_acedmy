@@ -163,7 +163,7 @@ const jsonLd = {
       telephone: '+91-9876543210',
       email: 'info@dwarakaacademy.com',
       foundingDate: '2020',
-      founder: { '@type': 'Person', name: 'Dr. Dwaraka Kumar' },
+      founder: { '@type': 'Person', name: 'Ram Kumar' },
       address: {
         '@type': 'PostalAddress',
         streetAddress: '123, Academic Block, Education City',

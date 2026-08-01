@@ -302,7 +302,7 @@ function AboutSection() {
                 </div>
                 <div>
                   <h3 className="font-bold text-navy-900">Director&apos;s Message</h3>
-                  <p className="text-xs text-navy-500">{about.directorName || 'Dr. Dwaraka Kumar'}, {about.directorTitle || 'Founder & Director'}</p>
+                  <p className="text-xs text-navy-500">{about.directorName || 'Ram Kumar'}, {about.directorTitle || 'Founder & Director'}</p>
                 </div>
               </div>
               <p className="text-sm text-navy-600 leading-relaxed italic">

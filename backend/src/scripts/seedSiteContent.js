@@ -45,7 +45,7 @@ const SEED_DATA = [
       extendedDescription: 'Since our establishment in 2020, we have been committed to providing quality education that goes beyond textbooks. Our experienced faculty, innovative teaching methods, and student-centric approach ensure every learner achieves their full potential.',
       yearsOfExcellence: 14,
       directorMessage: '"At Dwaraka Academy, we believe every student has the potential to excel. Our mission is to nurture that potential through quality education, dedicated mentorship, and a supportive learning environment that encourages growth, curiosity, and academic excellence."',
-      directorName: 'Dr. Dwaraka Kumar',
+      directorName: 'Ram Kumar',
       directorTitle: 'Founder & Director',
       mission: 'To nurture academic excellence and build confident, successful individuals.',
       vision: 'To be the most trusted and transformative educational academy in the region.',
