@@ -28,7 +28,9 @@ const spaceGrotesk = Space_Grotesk({
   fallback: ['monospace'],
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://dwaraka-academy-frontend.onrender.com';
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  'https://dwarakaacademy.in';
 const SITE_NAME = 'Dwaraka Academy';
 const SITE_DESCRIPTION = 'Dwaraka Academy is a premier educational institution offering quality coaching for CBSE, JEE Main & Advanced, and NEET. Expert faculty, personalized attention, and excellent results since 2020.';
 
