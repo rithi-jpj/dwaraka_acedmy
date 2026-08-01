@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>https://dwaraka-academy-frontend.onrender.com/</loc>
+        <loc>https://dwarakaacademy.in/</loc>
         <lastmod>2025-07-30</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
 
     <url>
-        <loc>https://dwaraka-academy-frontend.onrender.com/login</loc>
+        <loc>https://dwarakaacademy.in/login</loc>
         <lastmod>2025-07-30</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
